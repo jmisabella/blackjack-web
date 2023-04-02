@@ -3,7 +3,7 @@ var messageInput;
 
 function init() {
     var host = location.origin.replace(/^https/, 'wss').replace(/^http/, 'ws'); 
-    websocket = new websocket(`${host}/ws`);
+    webSocket = new WebSocket(`${host}/ws`);
     webSocket.onopen = onOpen;
     webSocket.onclose = onClose;
     webSocket.onmessage = onMessage;
