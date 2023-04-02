@@ -16,3 +16,6 @@ server.pid
 .cache
 .bloop
 .metals
+.vscode
+/project/metals.sbt
+/project/build.properties
