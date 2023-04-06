@@ -1,3 +1,140 @@
+
+function cardMarkup(rank, suit) {
+  var suitSymbol = "";
+  switch (suit.toLowerCase()) {
+    case "clubs": 
+      suitSymbol = "&clubs;";
+      break;
+    case "spades": 
+      suitSymbol = "&spades;";
+      break;
+    case "hearts": 
+      suitSymbol = "&hearts;";
+      break;
+    case "diamonds": 
+      suitSymbol = "&diams;";
+      break;
+  }
+  var index = "";
+  switch (rank.toLowerCase()) {
+    case "two":
+      index = "2";
+      break;
+    case "three":
+      index = "3";
+      break;
+    case "four":
+      index = "4";
+      break;
+    case "five":
+      index = "5";
+      break;
+    case "six":
+      index = "6";
+      break;
+    case "seven":
+      index = "7";
+      break;
+    case "eight":
+      index = "8";
+      break;
+    case "nine":
+      index = "9";
+      break;
+    case "ten":
+      index = "10";
+      break;
+    case "jack":
+      index = "J";
+      break;
+    case "queen":
+      index = "Q";
+      break;
+    case "king":
+      index = "K";
+      break;
+    case "ace":
+      index = "A";
+      break;
+  }
+  var colorClass = ""; // only applicable for Hearts and Diamonds (default is already black)
+  if (suit.toLowerCase() == "hearts" || suit.toLowerCase() == "diamonds") {
+    colorClass = "red";
+  }
+  switch (rank.toLowerCase()) {
+    case "two":
+      cardMarkup += "<div class=\"card\">";
+      cardMarkup +=   "<div class=\"front " + colorClass + "\">";
+      cardMarkup +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotB1\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotB5\">" + suitSymbol + "</div>";
+      cardMarkup +=   "</div>";
+      cardMarkup += "</div>";
+      break;
+    case "three":
+      cardMarkup += "<div class=\"card\">";
+      cardMarkup +=   "<div class=\"front " + colorClass + "\">";
+      cardMarkup +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotB1\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotB3\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotB5\">" + suitSymbol + "</div>";
+      cardMarkup +=   "</div>";
+      cardMarkup += "</div>";
+      break;
+    case "four":
+      cardMarkup += "<div class=\"card\">";
+      cardMarkup +=   "<div class=\"front " + colorClass + "\">";
+      cardMarkup +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      cardMarkup +=   "</div>";
+      cardMarkup += "</div>";
+      break;
+    case "five":
+      cardMarkup += "<div class=\"card\">";
+      cardMarkup +=   "<div class=\"front " + colorClass + "\">";
+      cardMarkup +=     "<div class=\"index\">" + index _ "<br />" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotB3\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      cardMarkup +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      cardMarkup +=   "</div>";
+      cardMarkup += "</div>";
+      break;
+    case "six":
+      index = "6";
+      break;
+    case "seven":
+      index = "7";
+      break;
+    case "eight":
+      index = "8";
+      break;
+    case "nine":
+      index = "9";
+      break;
+    case "ten":
+      index = "10";
+      break;
+    case "jack":
+      index = "J";
+      break;
+    case "queen":
+      index = "Q";
+      break;
+    case "king":
+      index = "K";
+      break;
+    case "ace":
+      index = "A";
+      break;
+
+  }
+}
+
 var webSocket;
 var messageInput;
 

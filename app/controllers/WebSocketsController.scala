@@ -7,6 +7,9 @@ import akka.actor.ActorSystem
 import akka.stream.Materializer
 import models.SimpleWebSocketActor
 import play.api.libs.json._
+import cards.modules.BlackjackText
+import cards.classes.bettingstrategy.BlackjackBettingStrategy
+
 
 // the ‘implicit’ here is needed for the `ActorFlow.actorRef` below.
 // i thought a Materializer was needed, but it is not.
@@ -15,6 +18,9 @@ class WebSocketsController @Inject() (cc: ControllerComponents)(implicit system:
 extends AbstractController(cc)
 {
     val logger = play.api.Logger(getClass)
+
+    val controller = BlackjackText
+    var state = controller.init(2, 2000)
 
     // this method displays the index.scala.html page/template
     def index = Action { implicit request: Request[AnyContent] =>
