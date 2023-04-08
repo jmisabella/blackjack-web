@@ -61,79 +61,176 @@ function cardMarkup(rank, suit) {
   if (suit.toLowerCase() == "hearts" || suit.toLowerCase() == "diamonds") {
     colorClass = "red";
   }
+  var card = ""; 
   switch (rank.toLowerCase()) {
     case "two":
-      cardMarkup += "<div class=\"card\">";
-      cardMarkup +=   "<div class=\"front " + colorClass + "\">";
-      cardMarkup +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotB1\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotB5\">" + suitSymbol + "</div>";
-      cardMarkup +=   "</div>";
-      cardMarkup += "</div>";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "three":
-      cardMarkup += "<div class=\"card\">";
-      cardMarkup +=   "<div class=\"front " + colorClass + "\">";
-      cardMarkup +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotB1\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotB3\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotB5\">" + suitSymbol + "</div>";
-      cardMarkup +=   "</div>";
-      cardMarkup += "</div>";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "four":
-      cardMarkup += "<div class=\"card\">";
-      cardMarkup +=   "<div class=\"front " + colorClass + "\">";
-      cardMarkup +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
-      cardMarkup +=   "</div>";
-      cardMarkup += "</div>";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "five":
-      cardMarkup += "<div class=\"card\">";
-      cardMarkup +=   "<div class=\"front " + colorClass + "\">";
-      cardMarkup +=     "<div class=\"index\">" + index _ "<br />" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotB3\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
-      cardMarkup +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
-      cardMarkup +=   "</div>";
-      cardMarkup += "</div>";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "six":
-      index = "6";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "seven":
-      index = "7";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB2\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "eight":
-      index = "8";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB2\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB4\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "nine":
-      index = "9";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA2\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA4\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB3\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC2\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC4\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "ten":
-      index = "10";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA2\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA4\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotA5\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB2\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotB4\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC2\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC4\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "jack":
-      index = "J";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<img class=\"face\" src=\"@routes.Assets.versioned(\"images/cards/jack.gif\")\" alt=\"jack\" />";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "queen":
-      index = "Q";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<img class=\"face\" src=\"@routes.Assets.versioned(\"images/cards/queen.gif\")\" alt=\"queen\" />";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "king":
-      index = "K";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<img class=\"face\" src=\"@routes.Assets.versioned(\"images/cards/king.gif\")\" alt=\"king\" />";
+      card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
+      card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
     case "ace":
-      index = "A";
+      card += "<div class=\"card\">";
+      card +=   "<div class=\"front " + colorClass + "\">";
+      card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
+      card +=     "<div class=\"ace\">" + suitSymbol + "</div>";
+      card +=   "</div>";
+      card += "</div>";
       break;
-
+    default:
+      card = "<div>UNEXPECTED RANK/SUIT [" + rank + "/" + suit + "]</div>";
   }
+  return card;
 }
+
+
+$("#btnTest").click(function (e) {
+  var result = cardMarkup("ace", "spades");
+  console.log(result)
+  $("#testResult").html(result);
+});
+
 
 var webSocket;
 var messageInput;
