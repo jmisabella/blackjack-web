@@ -1,4 +1,31 @@
 
+// this function is more of a temporary function for testing/debugging
+function cardMarkupFromString(strValue) {
+  if (strValue.indexOf(" of ") != -1) {
+    let splitted = strValue.split(" of ");
+    let rank = splitted[0].trim();
+    let suit = splitted[1].trim();
+    return cardMarkup(rank, suit);
+  } else { // else parse string as json
+    let obj = JSON.parse(strValue);
+    let rank = obj.rank; 
+    let suit = obj.suit;
+    return cardMarkup(rank, suit);
+  }
+}
+
+function cardsMarkup(json) {
+  let obj = JSON.parse(json);
+  var cards = ""; 
+  for (const element of obj) {
+    if (cards != "") {
+      cards += ", " // first card's already been added, so seperate with a comma
+    }
+    cards += cardMarkup(element.rank, element.suit);  
+  }
+  return "<div class=\"hand\">" + cards + "</div>";
+}
+
 function cardMarkup(rank, suit) {
   var suitSymbol = "";
   switch (suit.toLowerCase()) {
@@ -55,6 +82,9 @@ function cardMarkup(rank, suit) {
       break;
     case "ace":
       index = "A";
+      break;
+    default: // TOOD: case of Jokers
+      index = ""; // default will stay face-down
       break;
   }
   var colorClass = ""; // only applicable for Hearts and Diamonds (default is already black)
@@ -184,7 +214,7 @@ function cardMarkup(rank, suit) {
       card += "<div class=\"card\">";
       card +=   "<div class=\"front " + colorClass + "\">";
       card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
-      card +=     "<img class=\"face\" src=\"@routes.Assets.versioned(\"images/cards/jack.gif\")\" alt=\"jack\" />";
+      card +=     "<img class=\"face\" src=\"/assets/images/cards/jack.gif\")\" alt=\"jack\" />";
       card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
       card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
       card +=   "</div>";
@@ -194,7 +224,7 @@ function cardMarkup(rank, suit) {
       card += "<div class=\"card\">";
       card +=   "<div class=\"front " + colorClass + "\">";
       card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
-      card +=     "<img class=\"face\" src=\"@routes.Assets.versioned(\"images/cards/queen.gif\")\" alt=\"queen\" />";
+      card +=     "<img class=\"face\" src=\"/assets/images/cards/queen.gif\")\" alt=\"queen\" />";
       card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
       card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
       card +=   "</div>";
@@ -204,7 +234,7 @@ function cardMarkup(rank, suit) {
       card += "<div class=\"card\">";
       card +=   "<div class=\"front " + colorClass + "\">";
       card +=     "<div class=\"index\">" + index + "<br />" + suitSymbol + "</div>";
-      card +=     "<img class=\"face\" src=\"@routes.Assets.versioned(\"images/cards/king.gif\")\" alt=\"king\" />";
+      card +=     "<img class=\"face\" src=\"/assets/images/cards/king.gif\")\" alt=\"king\" />";
       card +=     "<div class=\"spotA1\">" + suitSymbol + "</div>";
       card +=     "<div class=\"spotC5\">" + suitSymbol + "</div>";
       card +=   "</div>";
@@ -218,15 +248,17 @@ function cardMarkup(rank, suit) {
       card +=   "</div>";
       card += "</div>";
       break;
-    default:
-      card = "<div>UNEXPECTED RANK/SUIT [" + rank + "/" + suit + "]</div>";
+    default: // TODO: Jokers
+      card = "<div class=\"card\" />"; // default case is face-down
   }
   return card;
 }
 
 
 $("#btnTest").click(function (e) {
-  var result = cardMarkup("ace", "spades");
+  let input = $("#txtTest").val();
+  // var result = cardMarkupFromString(input);
+  let result = cardsMarkup(input);
   console.log(result)
   $("#testResult").html(result);
 });

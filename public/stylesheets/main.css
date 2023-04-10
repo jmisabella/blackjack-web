@@ -1,9 +1,29 @@
+
+.hand {
+  /* width: 50%; */
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,  minmax(10px, max-content)) ;
+}
+
+.hand .card {
+  float: left;
+  margin-left: -2.5em; /* this is what overlaps the cards */
+  transform: rotate(3deg); 
+}
+
+/* .hand.card:last-child, .hand.card:hover {
+    overflow: visible;
+} */
+
 .card {
   background-image: url("../images/cards/cardback.gif");
-  border: 1px solid #000000 !important;
-  /* border-color: #808080 #000000 #000000 #808080;
-  border-width: 1px;
-  border-style: solid; */
+  /* border: 1px solid #000000 !important; */
+  border-color: #808080 #000000 #000000 #808080 !important;
+  border-width: 1px !important;
+  border-style: solid !important;
   color: #000000;
   font-size: 20pt;
   position: absolute;
