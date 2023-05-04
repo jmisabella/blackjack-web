@@ -5,10 +5,10 @@ import play.api.libs.streams.ActorFlow
 import javax.inject.Inject
 import akka.actor.ActorSystem
 import akka.stream.Materializer
-import models.SimpleWebSocketActor
+import models.web.BlackjackWebSocketActor
 import play.api.libs.json._
-import cards.modules.BlackjackText
-import cards.classes.bettingstrategy.BlackjackBettingStrategy
+// import cards.modules.Blackjack
+// import cards.classes.bettingstrategy.BlackjackBettingStrategy
 
 
 // the ‘implicit’ here is needed for the `ActorFlow.actorRef` below.
@@ -19,8 +19,9 @@ extends AbstractController(cc)
 {
     val logger = play.api.Logger(getClass)
 
-    val controller = BlackjackText
-    var state = controller.init(2, 2000)
+    // val controller = Blackjack
+    // var state = controller.init(2, 2000)
+    // state = controller.next(state, 1000, true) // for initial walking skeleton simply make 1000 moves initially for 2 players with 2000 each...
 
     // this method displays the index.scala.html page/template
     def index = Action { implicit request: Request[AnyContent] =>
@@ -33,29 +34,9 @@ extends AbstractController(cc)
     // Accepts a WebSocket using the given flow.
     def ws = WebSocket.accept[JsValue, JsValue] { requestHeader =>
         logger.info("'ws' function is called")
-        // DOCS: “Play’s WebSocket handling mechanism is built around Akka streams. 
-        // A WebSocket is modeled as a Flow, incoming WebSocket messages are 
-        // fed into the flow, and messages produced by the flow are sent out 
-        // to the client.”
-        //
-        // “To handle a WebSocket with an actor, we can use a Play utility, ActorFlow, 
-        // to convert an ActorRef to a Flow. This utility takes a function that 
-        // converts the ActorRef to send messages to a akka.actor.Props object 
-        // that describes the actor that Play should create when it receives 
-        // the WebSocket connection.”
-        //
-        // “Any messages received from the client will be sent to the actor, 
-        // and any messages sent to the actor supplied by Play will be sent 
-        // to the client.”
-        // 
-        // `ActorFlow.actorRef` DOCS: Create a flow that is handled by an actor.
-        // Messages can be sent downstream by sending them to the actor passed 
-        // into the props function.
-        // def actorRef[In, Out](props: ActorRef => Props ...)
-        //     (implicit factory: ActorRefFactory, mat: Materializer): Flow[In, Out, _]
         ActorFlow.actorRef { actorRef =>
             logger.info("ws: calling My Actor")
-            SimpleWebSocketActor.props(actorRef)
+            BlackjackWebSocketActor.props(actorRef)
         }
     }
 

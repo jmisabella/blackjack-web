@@ -1,4 +1,25 @@
 
+
+function head(lst) {
+  return lst[0];
+}
+
+function tail(lst) {
+  return lst.slice(1);
+}
+
+function concatenate(lst, delimiter) {
+  var result = ''
+  for (i = 0; i < lst.length; i++) {
+    if (result.length > 0) {
+      result += delimiter
+    }
+    result += lst[i];
+  }
+  return result;
+}
+
+
 // this function is more of a temporary function for testing/debugging
 function cardMarkupFromString(strValue) {
   if (strValue.indexOf(" of ") != -1) {
@@ -11,6 +32,14 @@ function cardMarkupFromString(strValue) {
     let rank = obj.rank; 
     let suit = obj.suit;
     return cardMarkup(rank, suit);
+  }
+}
+
+function wait(ms){
+  var start = new Date().getTime();
+  var end = start;
+  while(end < start + ms) {
+    end = new Date().getTime();
   }
 }
 
@@ -254,14 +283,13 @@ function cardMarkup(rank, suit) {
   return card;
 }
 
-
-$("#btnTest").click(function (e) {
-  let input = $("#txtTest").val();
-  // var result = cardMarkupFromString(input);
-  let result = cardsMarkup(input);
-  console.log(result)
-  $("#testResult").html(result);
-});
+// $("#btnTest").click(function (e) {
+//   let input = $("#txtTest").val();
+//   // var result = cardMarkupFromString(input);
+//   let result = cardsMarkup(input);
+//   console.log(result)
+//   $("#testResult").html(result);
+// });
 
 
 var webSocket;
@@ -278,12 +306,13 @@ function init() {
 }
 
 function onOpen(event) {
-    consoleLog("CONNECTED");
+  consoleLog("CONNECTED");
 }
 
 function onClose(event) {
-    consoleLog("DISCONNECTED");
-    appendClientMessageToView(":", "DISCONNECTED");
+  consoleLog("DISCONNECTED");
+  appendClientMessageToView(":", "DISCONNECTED");
+  init();
 }
 
 function onError(event) {
