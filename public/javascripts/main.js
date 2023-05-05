@@ -292,124 +292,110 @@ function contains(lst, element) {
   return false;
 }
 
+function change_card_size(player_or_dealer, increase_or_decrease) {
+  var classList = "";
+  switch (player_or_dealer) {
+    case "dealer": 
+      classList = $('#dealer-cards').attr('class').split(/\s+/);
+      break;
+    case "player":
+    default:
+      classList = $('#player-cards-1').attr('class').split(/\s+/);
+      break;
+  }
+  var nextSizeClass = "medium"; // default to medium 
+  switch (increase_or_decrease) {
+    case "decrease": 
+      if (contains(classList, "smallest") || contains(classList, "small")) {
+        nextSizeClass = "smallest";
+      } else if (contains(classList, "medium-small")) {
+        nextSizeClass = "small";
+      } else if (contains(classList, "medium")) {
+        nextSizeClass = "medium-small";
+      } else if (contains(classList, "medium-large")) {
+        nextSizeClass = "medium";
+      } else if (contains(classList, "large")) {
+        nextSizeClass = "medium-large";
+      } else if (contains(classList, "largest")) {
+        nextSizeClass = "large";
+      } else {
+        nextSizeClass = "medium"
+      }
+      break;
+    case "increase":
+    default: 
+      if (contains(classList, "largest") || contains(classList, "large")) {
+        nextSizeClass = "largest";
+      } else if (contains(classList, "medium-large")) {
+        nextSizeClass = "large";
+      } else if (contains(classList, "medium")) {
+        nextSizeClass = "medium-large";
+      } else if (contains(classList, "medium-small")) {
+        nextSizeClass = "medium";
+      } else if (contains(classList, "small")) {
+        nextSizeClass = "medium-small";
+      } else if (contains(classList, "smallest")) {
+        nextSizeClass = "small";
+      } else {
+        nextSizeClass = "medium"
+      }
+      break;
+  }
+  switch (player_or_dealer) {
+    case "dealer": 
+      $("#dealer-cards").removeClass("largest");
+      $("#dealer-cards").removeClass("large");
+      $("#dealer-cards").removeClass("medium-large");
+      $("#dealer-cards").removeClass("medium");
+      $("#dealer-cards").removeClass("medium-small");
+      $("#dealer-cards").removeClass("small");
+      $("#dealer-cards").removeClass("smallest");
+      $("#dealer-cards").addClass(nextSizeClass);
+      break;
+    case "player":
+    default:
+      $("#player-cards-1").removeClass("largest");
+      $("#player-cards-1").removeClass("large");
+      $("#player-cards-1").removeClass("medium-large");
+      $("#player-cards-1").removeClass("medium");
+      $("#player-cards-1").removeClass("medium-small");
+      $("#player-cards-1").removeClass("small");
+      $("#player-cards-1").removeClass("smallest");
+      $("#player-cards-1").addClass(nextSizeClass);
+      $("#player-cards-2").removeClass("largest");
+      $("#player-cards-2").removeClass("large");
+      $("#player-cards-2").removeClass("medium-large");
+      $("#player-cards-2").removeClass("medium");
+      $("#player-cards-2").removeClass("medium-small");
+      $("#player-cards-2").removeClass("small");
+      $("#player-cards-2").removeClass("smallest");
+      $("#player-cards-2").addClass(nextSizeClass);
+      $("#player-cards-3").removeClass("largest");
+      $("#player-cards-3").removeClass("large");
+      $("#player-cards-3").removeClass("medium-large");
+      $("#player-cards-3").removeClass("medium");
+      $("#player-cards-3").removeClass("medium-small");
+      $("#player-cards-3").removeClass("small");
+      $("#player-cards-3").removeClass("smallest");
+      $("#player-cards-3").addClass(nextSizeClass);
+      $("#player-cards-4").removeClass("largest");
+      $("#player-cards-4").removeClass("large");
+      $("#player-cards-4").removeClass("medium-large");
+      $("#player-cards-4").removeClass("medium");
+      $("#player-cards-4").removeClass("medium-small");
+      $("#player-cards-4").removeClass("small");
+      $("#player-cards-4").removeClass("smallest");
+      $("#player-cards-4").addClass(nextSizeClass);
+      break;
+  }
+}
+
 $(document).ready(function() {
   $("#make-smaller").click(function (e) {
-    var classList = $('#dealer-cards').attr('class').split(/\s+/);
-    var nextSizeClass = "medium"; // default to medium 
-    if (contains(classList, "smallest") || contains(classList, "small")) {
-      nextSizeClass = "smallest";
-    } else if (contains(classList, "medium-small")) {
-      nextSizeClass = "small";
-    } else if (contains(classList, "medium")) {
-      nextSizeClass = "medium-small";
-    } else if (contains(classList, "medium-large")) {
-      nextSizeClass = "medium";
-    } else if (contains(classList, "large")) {
-      nextSizeClass = "medium-large";
-    } else if (contains(classList, "largest")) {
-      nextSizeClass = "large";
-    } else {
-      nextSizeClass = "medium"
-    }
-    $("#dealer-cards").removeClass("largest");
-    $("#dealer-cards").removeClass("large");
-    $("#dealer-cards").removeClass("medium-large");
-    $("#dealer-cards").removeClass("medium");
-    $("#dealer-cards").removeClass("medium-small");
-    $("#dealer-cards").removeClass("small");
-    $("#dealer-cards").removeClass("smallest");
-    $("#dealer-cards").addClass(nextSizeClass);
-    $("#player-cards-1").removeClass("largest");
-    $("#player-cards-1").removeClass("large");
-    $("#player-cards-1").removeClass("medium-large");
-    $("#player-cards-1").removeClass("medium");
-    $("#player-cards-1").removeClass("medium-small");
-    $("#player-cards-1").removeClass("small");
-    $("#player-cards-1").removeClass("smallest");
-    $("#player-cards-1").addClass(nextSizeClass);
-    $("#player-cards-2").removeClass("largest");
-    $("#player-cards-2").removeClass("large");
-    $("#player-cards-2").removeClass("medium-large");
-    $("#player-cards-2").removeClass("medium");
-    $("#player-cards-2").removeClass("medium-small");
-    $("#player-cards-2").removeClass("small");
-    $("#player-cards-2").removeClass("smallest");
-    $("#player-cards-2").addClass(nextSizeClass);
-    $("#player-cards-3").removeClass("largest");
-    $("#player-cards-3").removeClass("large");
-    $("#player-cards-3").removeClass("medium-large");
-    $("#player-cards-3").removeClass("medium");
-    $("#player-cards-3").removeClass("medium-small");
-    $("#player-cards-3").removeClass("small");
-    $("#player-cards-3").removeClass("smallest");
-    $("#player-cards-3").addClass(nextSizeClass);
-    $("#player-cards-4").removeClass("largest");
-    $("#player-cards-4").removeClass("large");
-    $("#player-cards-4").removeClass("medium-large");
-    $("#player-cards-4").removeClass("medium");
-    $("#player-cards-4").removeClass("medium-small");
-    $("#player-cards-4").removeClass("small");
-    $("#player-cards-4").removeClass("smallest");
-    $("#player-cards-4").addClass(nextSizeClass);
+    change_card_size("player", "decrease");
   });
   $("#make-larger").click(function (e) {
-    var classList = $('#dealer-cards').attr('class').split(/\s+/);
-    var nextSizeClass = "medium"; // default to medium 
-    if (contains(classList, "largest") || contains(classList, "large")) {
-      nextSizeClass = "largest";
-    } else if (contains(classList, "medium-large")) {
-      nextSizeClass = "large";
-    } else if (contains(classList, "medium")) {
-      nextSizeClass = "medium-large";
-    } else if (contains(classList, "medium-small")) {
-      nextSizeClass = "medium";
-    } else if (contains(classList, "small")) {
-      nextSizeClass = "medium-small";
-    } else if (contains(classList, "smallest")) {
-      nextSizeClass = "small";
-    } else {
-      nextSizeClass = "medium"
-    }
-    $("#dealer-cards").removeClass("largest");
-    $("#dealer-cards").removeClass("large");
-    $("#dealer-cards").removeClass("medium-large");
-    $("#dealer-cards").removeClass("medium");
-    $("#dealer-cards").removeClass("medium-small");
-    $("#dealer-cards").removeClass("small");
-    $("#dealer-cards").removeClass("smallest");
-    $("#dealer-cards").addClass(nextSizeClass);
-    $("#player-cards-1").removeClass("largest");
-    $("#player-cards-1").removeClass("large");
-    $("#player-cards-1").removeClass("medium-large");
-    $("#player-cards-1").removeClass("medium");
-    $("#player-cards-1").removeClass("medium-small");
-    $("#player-cards-1").removeClass("small");
-    $("#player-cards-1").removeClass("smallest");
-    $("#player-cards-1").addClass(nextSizeClass);
-    $("#player-cards-2").removeClass("largest");
-    $("#player-cards-2").removeClass("large");
-    $("#player-cards-2").removeClass("medium-large");
-    $("#player-cards-2").removeClass("medium");
-    $("#player-cards-2").removeClass("medium-small");
-    $("#player-cards-2").removeClass("small");
-    $("#player-cards-2").removeClass("smallest");
-    $("#player-cards-2").addClass(nextSizeClass);
-    $("#player-cards-3").removeClass("largest");
-    $("#player-cards-3").removeClass("large");
-    $("#player-cards-3").removeClass("medium-large");
-    $("#player-cards-3").removeClass("medium");
-    $("#player-cards-3").removeClass("medium-small");
-    $("#player-cards-3").removeClass("small");
-    $("#player-cards-3").removeClass("smallest");
-    $("#player-cards-3").addClass(nextSizeClass);
-    $("#player-cards-4").removeClass("largest");
-    $("#player-cards-4").removeClass("large");
-    $("#player-cards-4").removeClass("medium-large");
-    $("#player-cards-4").removeClass("medium");
-    $("#player-cards-4").removeClass("medium-small");
-    $("#player-cards-4").removeClass("small");
-    $("#player-cards-4").removeClass("smallest");
-    $("#player-cards-4").addClass(nextSizeClass);
+    change_card_size("player", "increase");
   });
 
 });
@@ -483,13 +469,35 @@ $("#send-button").click(function (e) {
     $("#message-input").focus();
 });
 
+    // change_card_size("player", "increase");
+
+
 // send the message when the user presses the <enter> key while in the textarea
 $(window).on("keydown", function (e) {
     if (e.which == 13) {
         getMessageAndSendToServer();
         return false;
     }
+    if (e.key == "=" || e.key == "+") {
+      change_card_size("player", "increase");
+      return false;
+    }
+    // if (e.shiftKey & e.key == "=") {
+    //   change_card_size("player", "increase");
+    //   return false;
+    // }
+    if (e.key == "-") {
+      change_card_size("player", "decrease");
+      return false;
+    }
 });
+
+// $(window).on("keydown", function (e) {
+//     if (e.which == 13) {
+//         getMessageAndSendToServer();
+//         return false;
+//     }
+// });
 
 // there’s a lot going on here:
 // 1. get our message from the textarea.
