@@ -5,8 +5,13 @@
 <div id="outer-container">
 
   <div id="inner-container">
-
-    <div id="dealer-cards" class="hand" >
+    <div id="display-controls" >
+      <p>
+        <span><a href="#" id="make-smaller">-</a></span>
+        <span><a href="#" id="make-larger" class="align-right">+</a></span>
+      </p>
+    </div> 
+    <div id="dealer-cards" class="medium hand" >
       <div class="card" >
         <div class="front red">
           <div class="index">Q<br />&diams;</div>
@@ -40,13 +45,13 @@
     </div> -->
     <!-- <button id="send-button" type="button" >Send</button> -->
 
-    <div id="player-cards-1" class="small hand " >
+    <div id="player-cards-1" class="medium hand " >
       <div class="card" >
         <div class="front red">
           <div class="index">Q<br />&diams;</div>
           <img class="face" src="@routes.Assets.versioned("images/cards/queen.gif")" alt="queen" width="80" height="130" />
-          <div class="spotA1">&diams;</div>
-          <div class="spotC5">&diams;</div>
+          <div class="face-suit spotA1">&diams;</div>
+          <div class="face-suit spotC5">&diams;</div>
         </div>
       </div>
       <div class="card" >
@@ -64,13 +69,13 @@
         </div>
       </div>
     </div>
-    <div id="player-cards-2" class="small hand " >
+    <div id="player-cards-2" class="medium hand " >
       <div class="card" >
         <div class="front red">
           <div class="index">Q<br />&diams;</div>
           <img class="face" src="@routes.Assets.versioned("images/cards/queen.gif")" alt="queen" width="80" height="130" />
-          <div class="spotA1">&diams;</div>
-          <div class="spotC5">&diams;</div>
+          <div class="face-suit spotA1">&diams;</div>
+          <div class="face-suit spotC5">&diams;</div>
         </div>
       </div>
       <div class="card" >
@@ -88,7 +93,7 @@
         </div>
       </div>
     </div>
-    <div id="player-cards-3" class="small hand " >
+    <div id="player-cards-3" class="medium hand " >
       <div class="card" >
         <div class="front red">
           <div class="index">9<br />&hearts;</div>
@@ -107,12 +112,12 @@
         <div class="front red">
           <div class="index">Q<br />&diams;</div>
           <img class="face" src="@routes.Assets.versioned("images/cards/queen.gif")" alt="queen" width="80" height="130" />
-          <div class="spotA1">&diams;</div>
-          <div class="spotC5">&diams;</div>
+          <div class="face-suit spotA1">&diams;</div>
+          <div class="face-suit spotC5">&diams;</div>
         </div>
       </div>
     </div>
-    <div id="player-cards-4" class="small hand " >
+    <div id="player-cards-4" class="medium hand " >
       <div class="card" >
         <div class="front red">
           <div class="index">9<br />&hearts;</div>
@@ -128,11 +133,11 @@
         </div>
       </div>
       <div class="card" >
-        <div class="front red">
-          <div class="index">Q<br />&diams;</div>
-          <img class="face" src="@routes.Assets.versioned("images/cards/queen.gif")" alt="queen" width="80" height="130" />
-          <div class="spotA1">&diams;</div>
-          <div class="spotC5">&diams;</div>
+        <div class="front">
+          <div class="index">J<br />&clubs;</div>
+          <img class="face" src="@routes.Assets.versioned("images/cards/jack.gif")" alt="jack" width="80" height="130" />
+          <div class="face-suit spotA1">&clubs;</div>
+          <div class="face-suit spotC5">&clubs;</div>
         </div>
       </div>
     </div>

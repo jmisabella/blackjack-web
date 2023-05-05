@@ -283,6 +283,139 @@ function cardMarkup(rank, suit) {
   return card;
 }
 
+function contains(lst, element) {
+  for (var i = 0; i < lst.length; i++) {
+    if (lst[i] == element) {
+      return true;
+    }
+  }
+  return false;
+}
+
+$(document).ready(function() {
+  $("#make-smaller").click(function (e) {
+    var classList = $('#dealer-cards').attr('class').split(/\s+/);
+    var nextSizeClass = "medium"; // default to medium 
+    if (contains(classList, "smallest") || contains(classList, "small")) {
+      nextSizeClass = "smallest";
+    } else if (contains(classList, "medium-small")) {
+      nextSizeClass = "small";
+    } else if (contains(classList, "medium")) {
+      nextSizeClass = "medium-small";
+    } else if (contains(classList, "medium-large")) {
+      nextSizeClass = "medium";
+    } else if (contains(classList, "large")) {
+      nextSizeClass = "medium-large";
+    } else if (contains(classList, "largest")) {
+      nextSizeClass = "large";
+    } else {
+      nextSizeClass = "medium"
+    }
+    $("#dealer-cards").removeClass("largest");
+    $("#dealer-cards").removeClass("large");
+    $("#dealer-cards").removeClass("medium-large");
+    $("#dealer-cards").removeClass("medium");
+    $("#dealer-cards").removeClass("medium-small");
+    $("#dealer-cards").removeClass("small");
+    $("#dealer-cards").removeClass("smallest");
+    $("#dealer-cards").addClass(nextSizeClass);
+    $("#player-cards-1").removeClass("largest");
+    $("#player-cards-1").removeClass("large");
+    $("#player-cards-1").removeClass("medium-large");
+    $("#player-cards-1").removeClass("medium");
+    $("#player-cards-1").removeClass("medium-small");
+    $("#player-cards-1").removeClass("small");
+    $("#player-cards-1").removeClass("smallest");
+    $("#player-cards-1").addClass(nextSizeClass);
+    $("#player-cards-2").removeClass("largest");
+    $("#player-cards-2").removeClass("large");
+    $("#player-cards-2").removeClass("medium-large");
+    $("#player-cards-2").removeClass("medium");
+    $("#player-cards-2").removeClass("medium-small");
+    $("#player-cards-2").removeClass("small");
+    $("#player-cards-2").removeClass("smallest");
+    $("#player-cards-2").addClass(nextSizeClass);
+    $("#player-cards-3").removeClass("largest");
+    $("#player-cards-3").removeClass("large");
+    $("#player-cards-3").removeClass("medium-large");
+    $("#player-cards-3").removeClass("medium");
+    $("#player-cards-3").removeClass("medium-small");
+    $("#player-cards-3").removeClass("small");
+    $("#player-cards-3").removeClass("smallest");
+    $("#player-cards-3").addClass(nextSizeClass);
+    $("#player-cards-4").removeClass("largest");
+    $("#player-cards-4").removeClass("large");
+    $("#player-cards-4").removeClass("medium-large");
+    $("#player-cards-4").removeClass("medium");
+    $("#player-cards-4").removeClass("medium-small");
+    $("#player-cards-4").removeClass("small");
+    $("#player-cards-4").removeClass("smallest");
+    $("#player-cards-4").addClass(nextSizeClass);
+  });
+  $("#make-larger").click(function (e) {
+    var classList = $('#dealer-cards').attr('class').split(/\s+/);
+    var nextSizeClass = "medium"; // default to medium 
+    if (contains(classList, "largest") || contains(classList, "large")) {
+      nextSizeClass = "largest";
+    } else if (contains(classList, "medium-large")) {
+      nextSizeClass = "large";
+    } else if (contains(classList, "medium")) {
+      nextSizeClass = "medium-large";
+    } else if (contains(classList, "medium-small")) {
+      nextSizeClass = "medium";
+    } else if (contains(classList, "small")) {
+      nextSizeClass = "medium-small";
+    } else if (contains(classList, "smallest")) {
+      nextSizeClass = "small";
+    } else {
+      nextSizeClass = "medium"
+    }
+    $("#dealer-cards").removeClass("largest");
+    $("#dealer-cards").removeClass("large");
+    $("#dealer-cards").removeClass("medium-large");
+    $("#dealer-cards").removeClass("medium");
+    $("#dealer-cards").removeClass("medium-small");
+    $("#dealer-cards").removeClass("small");
+    $("#dealer-cards").removeClass("smallest");
+    $("#dealer-cards").addClass(nextSizeClass);
+    $("#player-cards-1").removeClass("largest");
+    $("#player-cards-1").removeClass("large");
+    $("#player-cards-1").removeClass("medium-large");
+    $("#player-cards-1").removeClass("medium");
+    $("#player-cards-1").removeClass("medium-small");
+    $("#player-cards-1").removeClass("small");
+    $("#player-cards-1").removeClass("smallest");
+    $("#player-cards-1").addClass(nextSizeClass);
+    $("#player-cards-2").removeClass("largest");
+    $("#player-cards-2").removeClass("large");
+    $("#player-cards-2").removeClass("medium-large");
+    $("#player-cards-2").removeClass("medium");
+    $("#player-cards-2").removeClass("medium-small");
+    $("#player-cards-2").removeClass("small");
+    $("#player-cards-2").removeClass("smallest");
+    $("#player-cards-2").addClass(nextSizeClass);
+    $("#player-cards-3").removeClass("largest");
+    $("#player-cards-3").removeClass("large");
+    $("#player-cards-3").removeClass("medium-large");
+    $("#player-cards-3").removeClass("medium");
+    $("#player-cards-3").removeClass("medium-small");
+    $("#player-cards-3").removeClass("small");
+    $("#player-cards-3").removeClass("smallest");
+    $("#player-cards-3").addClass(nextSizeClass);
+    $("#player-cards-4").removeClass("largest");
+    $("#player-cards-4").removeClass("large");
+    $("#player-cards-4").removeClass("medium-large");
+    $("#player-cards-4").removeClass("medium");
+    $("#player-cards-4").removeClass("medium-small");
+    $("#player-cards-4").removeClass("small");
+    $("#player-cards-4").removeClass("smallest");
+    $("#player-cards-4").addClass(nextSizeClass);
+  });
+
+});
+
+
+
 // $("#btnTest").click(function (e) {
 //   let input = $("#txtTest").val();
 //   // var result = cardMarkupFromString(input);
