@@ -110,6 +110,14 @@
   height: 4.0em;
 }
 
+.chips {
+  margin: auto;
+  width: 3em;
+}
+.chips .chip {
+  margin: 0px;
+}
+
 .chip {
   margin: 1em;
   position: relative;
