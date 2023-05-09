@@ -131,45 +131,45 @@
 }
 
 .largest .chip {
+  width: 10px;
+  height: 10px;
+  background-size: 10px 10px;
+}
+.large .chip {
   width: 9px;
   height: 9px;
   background-size: 9px 9px;
 }
-.large .chip {
+.medium-large .chip {
   width: 8px;
   height: 8px;
   background-size: 8px 8px;
 }
-.medium-large .chip {
+.medium .chip {
   width: 7px;
   height: 7px;
   background-size: 7px 7px;
 }
-.medium .chip {
+.medium-small .chip {
   width: 6px;
   height: 6px;
   background-size: 6px 6px;
 }
-.medium-small .chip {
+.small .chip {
   width: 5px;
   height: 5px;
   background-size: 5px 5px;
 }
-.small .chip {
+.smallest .chip {
   width: 4px;
   height: 4px;
   background-size: 4px 4px;
 }
-.smallest .chip {
-  width: 3px;
-  height: 3px;
-  background-size: 3px 3px;
-}
 
 .chips .white { background-color: #ddd; }
-.chips .red { background-color: #800000; }
-.chips .blue { background-color: #000099; }
-.chips .green { background-color: #008000; }
+.chips .red { background-color: #990044; }
+.chips .blue { background-color: #223399; }
+.chips .green { background-color: #008800; }
 .chips .black { background-color: #222; }
 
 .separator {
@@ -237,7 +237,7 @@ div#outer-container {
   text-align:center;
   width:auto;
   max-width: 1024px;
-  margin: 8px;
+  margin: 4px;
 }
 
 div#inner-container {
@@ -246,6 +246,19 @@ div#inner-container {
   display: inline-block;
   padding: 7px;
 }
+
+/* .players {
+} */
+
+.player {
+  margin-left: auto;
+  width: 50%;
+  float: left;
+}
+/* .players .player .align-right {
+  text-align: right !important;
+  float: right;
+} */
 
 /* .player-cards {
   float: left;

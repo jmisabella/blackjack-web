@@ -390,6 +390,29 @@ function change_card_size(player_or_dealer, increase_or_decrease) {
   }
 }
 
+function chips(integerValue) {
+  var result = {} 
+  var tenThousandChipCount = parseInt(parseInt(integerValue, 10) / 10000, 10);
+  var fiveThousandChipCount = parseInt((parseInt(integerValue, 10) - (tenThousandChipCount * 10000)) / 5000, 10);
+  var thousandChipCount = parseInt((parseInt(integerValue, 10) - ((tenThousandChipCount * 10000) + (fiveThousandChipCount * 5000))/ 1000, 10));
+  var fiveHundredChipCount = parseInt((parseInt(integerValue, 10) - ((tenThousandChipCount * 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000))/ 500, 10));
+  var hundredChipCount = parseInt((parseInt(integerValue, 10) - ((tenThousandChipCount * 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000) + (fiveHundredChipCount * 500)) / 100, 10));
+  var fiftyChipCount = parseInt((parseInt(integerValue, 10) - ((tenThousandChipCount * 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000) + (fiveHundredChipCount * 500) + (hundredChipCount * 100))) / 50, 10));
+  var twentyFiveChipCount = parseInt((parseInt(integerValue, 10) - ((tenThousandChipCount * 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000) + (fiveHundredChipCount * 500) + (hundredChipCount * 100) + (fiftyChipCount * 50)) / 25, 10));
+  var tenChipCount = parseInt((parseInt(integerValue, 10) - ((tenThousandChipCount * 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000) + (fiveHundredChipCount * 500) + (hundredChipCount * 100) + (fiftyChipCount * 50) + (twentyFiveChipCount * 25)) / 10, 10));
+  var oneChipCount = parseInt((parseInt(integerValue, 10)  - ((tenThousandChipCount * 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000) + (fiveHundredChipCount * 500) + (hundredChipCount * 100) + (fiftyChipCount * 50) + (twentyFiveChipCount * 25) + (tenChipCount * 10)) / 1, 10));
+  result['10000'] = tenThousandChipCount;
+  result['5000'] = fiveThousandChipCount;
+  result['1000'] = thousandChipCount;
+  result['500'] = fiveHundredChipCount;
+  result['100'] = hundredChipCount;
+  result['50'] = fiftyChipCount;
+  result['25'] = twentyFiveChipCount;
+  result['10'] = tenChipCount;
+  result['1'] = oneChipCount;
+  return result;
+}
+
 $(document).ready(function() {
   $("#make-smaller").click(function (e) {
     change_card_size("player", "decrease");
@@ -398,18 +421,15 @@ $(document).ready(function() {
     change_card_size("player", "increase");
   });
 
+  $("#btnTest").click(function (e) {
+    var input = $("#txtTest").val();
+    
+    var result = chips(input);
+
+    alert("hello");
+  });
+
 });
-
-
-
-// $("#btnTest").click(function (e) {
-//   let input = $("#txtTest").val();
-//   // var result = cardMarkupFromString(input);
-//   let result = cardsMarkup(input);
-//   console.log(result)
-//   $("#testResult").html(result);
-// });
-
 
 var webSocket;
 var messageInput;
@@ -469,9 +489,6 @@ $("#send-button").click(function (e) {
     $("#message-input").focus();
 });
 
-    // change_card_size("player", "increase");
-
-
 // send the message when the user presses the <enter> key while in the textarea
 $(window).on("keydown", function (e) {
     if (e.which == 13) {
@@ -482,10 +499,6 @@ $(window).on("keydown", function (e) {
       change_card_size("player", "increase");
       return false;
     }
-    // if (e.shiftKey & e.key == "=") {
-    //   change_card_size("player", "increase");
-    //   return false;
-    // }
     if (e.key == "-") {
       change_card_size("player", "decrease");
       return false;
