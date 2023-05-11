@@ -390,6 +390,7 @@ function change_card_size(player_or_dealer, increase_or_decrease) {
   }
 }
 
+// given integer value, returns a dictionary (key/value list), with key being monetary value and value being number of chips
 function chips(integerValue) {
   //// chip values:
   //// 1,000,000 fuscia (unofficial)
@@ -405,7 +406,7 @@ function chips(integerValue) {
   ////         5 red
   ////         1 white 
 
-  // minuend minus subtrahend equals the difference
+  // minuend - subtrahend = difference
   var minuend = parseInt(integerValue, 10);
   var subtrahend = 0;
   var millionChipCount = parseInt(((minuend - subtrahend) / 1000000), 10);
@@ -444,6 +445,56 @@ function chips(integerValue) {
   result['5'] = fiveChipCount;
   result['1'] = oneChipCount;
   return result;
+}
+
+function chipsMarkup(integerValue) {
+  var chipsDict = chips(integerValue);
+  var markup = "<chips>";
+  for (var key in chipsDict) {
+    var color = "white";
+    switch(key) {
+      case "1000000":
+        color = "fuscia";
+        break;
+      case "500000":
+        color = "pink";
+        break;
+      case "100000":
+        color = "grey";
+        break;
+      case "25000":
+        color = "dark-green";
+        break;
+      case "5000":
+        color = "orange";
+        break;
+      case "1000":
+        color = "yellow";
+        break;
+      case "500":
+        color = "purple";
+        break;
+      case "100":
+        color = "black";
+        break;
+      case "25":
+        color = "green";
+        break;
+      case "10":
+        color = "blue";
+        break;
+      case "5":
+        color = "red";
+        break;
+      case "1":
+      default:
+        color = "white";
+        break;   
+    }
+    markup += "<div class=\"chip " + color + "\" ></div>";
+  } 
+  markup += "</chips>";
+  return markup;
 }
 
 $(document).ready(function() {
