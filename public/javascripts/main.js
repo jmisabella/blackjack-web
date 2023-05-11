@@ -391,43 +391,57 @@ function change_card_size(player_or_dealer, increase_or_decrease) {
 }
 
 function chips(integerValue) {
+  //// chip values:
+  //// 1,000,000 bright pink (unofficial)
+  ////   500,000 pink (unofficial)
+  ////   100,000 light blue or grey
+  ////    25,000 dark green
+  ////     5,000 orange
+  ////     1,000 yellow
+  ////       500 purple
+  ////       100 black
+  ////        25 green
+  ////        10 blue
+  ////         5 red
+  ////         1 white 
+
+  // minuend minus subtrahend equals the difference
+  var minuend = parseInt(integerValue, 10);
+  var subtrahend = 0;
+  var millionChipCount = parseInt(((minuend - subtrahend) / 1000000), 10);
+  subtrahend = subtrahend + (millionChipCount * 1000000);
+  var fiveHundredThousandChipCount = parseInt(((minuend - subtrahend) / 500000), 10);
+  subtrahend = subtrahend + (fiveHundredThousandChipCount * 500000);
+  var hundredThousandChipCount = parseInt(((minuend - subtrahend) / 100000), 10);
+  subtrahend = subtrahend + (hundredThousandChipCount * 100000);
+  var twentyFiveThousandChipCount = parseInt(((minuend - subtrahend) / 25000), 10);
+  subtrahend = subtrahend + (twentyFiveThousandChipCount * 25000);
+  var fiveThousandChipCount = parseInt(((minuend - subtrahend) / 5000), 10);
+  subtrahend = subtrahend + (fiveThousandChipCount * 5000);
+  var thousandChipCount = parseInt(((minuend - subtrahend) / 1000), 10);
+  subtrahend = subtrahend + (thousandChipCount * 1000);
+  var fiveHundredChipCount = parseInt(((minuend - subtrahend) / 500), 10);
+  subtrahend = subtrahend + (fiveHundredChipCount * 500);
+  var hundredChipCount = parseInt(((minuend - subtrahend) / 100), 10);
+  subtrahend = subtrahend + (hundredChipCount * 100);
+  var twentyFiveChipCount = parseInt(((minuend - subtrahend) / 25), 10);
+  subtrahend = subtrahend + (twentyFiveChipCount * 25);
+  var tenChipCount = parseInt(((minuend - subtrahend) / 10), 10);
+  subtrahend = subtrahend + (tenChipCount * 10);
+  var fiveChipCount = parseInt(((minuend - subtrahend) / 5), 10);
+  subtrahend = subtrahend + (fiveChipCount * 5);
+  var oneChipCount = parseInt((minuend - subtrahend), 10);
   var result = {}
-  // result['10000'] = tenThousandChipCount;
-  // result['5000'] = fiveThousandChipCount;
-  // result['1000'] = thousandChipCount;
-  // result['500'] = fiveHundredChipCount;
-  var converted = parseInt(integerValue, 10);
-  // var tenThousandChipCount = parseInt((converted / 10000), 10);
-  // var fiveThousandChipCount = parseInt(((converted - (tenThousandChipCount* 10000)) / 5000), 10);
-  // var thousandChipCount = parseInt(((converted - ((tenThousandChipCount* 10000) + (fiveThousandChipCount * 5000))) / 1000), 10);
-  // var fiveHundredChipCount = parseInt(((converted - ((tenThousandChipCount* 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000))) / 500), 10);
-  // var hundredChipCount = parseInt((converted - ((tenThousandChipCount* 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000) + (fiveHundredChipCount * 500)) / 100), 10); 
-  // var fiftyChipCount = parseInt(((converted - ((hundredChipCount * 100))) / 50), 10);
-  // var twentyFiveChipCount = parseInt(((converted - ((hundredChipCount * 100) + (fiftyChipCount * 50))) / 25), 10);
-  // var tenChipCount = parseInt(((converted - ((hundredChipCount * 100) + (fiftyChipCount * 50) + (twentyFiveChipCount * 25))) / 10), 10);
-  // var oneChipCount = parseInt((converted - ((hundredChipCount * 100) + (fiftyChipCount * 50) + (twentyFiveChipCount * 25) + (tenChipCount * 10))), 10);
-
-  var tenThousandChipCount = parseInt((converted / 10000), 10);
-  var fiveThousandChipCount = parseInt(((converted - (tenThousandChipCount* 10000)) / 5000), 10);
-  // TODO...
-
-  var tenThousandChipCount = parseInt((converted / 10000), 10);
-  var fiveThousandChipCount = parseInt(((converted - (tenThousandChipCount* 10000)) / 5000), 10);
-  var thousandChipCount = parseInt(((converted - ((tenThousandChipCount* 10000) + (fiveThousandChipCount * 5000))) / 1000), 10);
-  var fiveHundredChipCount = parseInt(((converted - ((tenThousandChipCount* 10000) + (fiveThousandChipCount * 5000) + (thousandChipCount * 1000))) / 500), 10);
-
-  var hundredChipCount = parseInt((converted / 100), 10); 
-  var fiftyChipCount = parseInt(((converted - (hundredChipCount * 100)) / 50), 10);
-  var twentyFiveChipCount = parseInt(((converted - ((hundredChipCount * 100) + (fiftyChipCount * 50))) / 25), 10);
-  var tenChipCount = parseInt(((converted - ((hundredChipCount * 100) + (fiftyChipCount * 50) + (twentyFiveChipCount * 25))) / 10), 10);
-  var oneChipCount = parseInt((converted - ((hundredChipCount * 100) + (fiftyChipCount * 50) + (twentyFiveChipCount * 25) + (tenChipCount * 10))), 10);
-
-  result['10000'] = tenThousandChipCount;
+  result['1000000'] = millionChipCount;
+  result['500000'] = fiveHundredThousandChipCount;
+  result['100000'] = hundredThousandChipCount;
+  result['25000'] = twentyFiveThousandChipCount;
   result['5000'] = fiveThousandChipCount;
+  result['1000'] = thousandChipCount;
   result['100'] = hundredChipCount;
-  result['50'] = fiftyChipCount;
   result['25'] = twentyFiveChipCount;
   result['10'] = tenChipCount;
+  result['5'] = fiveChipCount;
   result['1'] = oneChipCount;
   return result;
 }
