@@ -392,7 +392,7 @@ function change_card_size(player_or_dealer, increase_or_decrease) {
 
 function chips(integerValue) {
   //// chip values:
-  //// 1,000,000 bright pink (unofficial)
+  //// 1,000,000 fuscia (unofficial)
   ////   500,000 pink (unofficial)
   ////   100,000 light blue or grey
   ////    25,000 dark green

@@ -171,6 +171,13 @@
 .chips .blue { background-color: #223399; }
 .chips .green { background-color: #008800; }
 .chips .black { background-color: #222; }
+.chips .purple { background-color: #880088; }
+.chips .yellow { background-color: #F8F700; }
+.chips .orange { background-color: #F88500; }
+.chips .dark-green { background-color: #006400; }
+.chips .grey { background-color: #818181; }
+.chips .pink { background-color: #FFC0CB; }
+.chips .fuscia { background-color: #FF00FF; }
 
 .separator {
   margin: 50px;
