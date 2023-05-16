@@ -447,9 +447,9 @@ function chips(integerValue) {
   return result;
 }
 
-function chipsMarkup(integerValue) {
+function chipsInnerMarkup(integerValue) {
   var chipsDict = chips(integerValue);
-  var markup = "<chips>";
+  var markup = ""; //"<chips>";
   for (var key in chipsDict) {
     var color = "white";
     switch(key) {
@@ -491,9 +491,9 @@ function chipsMarkup(integerValue) {
         color = "white";
         break;   
     }
-    markup += "<div class=\"chip " + color + "\" ></div>";
+    markup += "<div class=\"chip " + color + "\" title=\"" + key + "\"></div>";
   } 
-  markup += "</chips>";
+  // markup += "</chips>";
   return markup;
 }
 
