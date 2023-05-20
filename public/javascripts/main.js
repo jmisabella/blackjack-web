@@ -505,6 +505,20 @@ $(document).ready(function() {
     change_card_size("player", "increase");
   });
 
+  $("#settings").click(function (e) {
+    $('#settings-modal').css('display', 'block');
+    $('#settings-modal').addClass('modal');
+    $('#settings-modal').modal('toggle');
+  });
+
+
+  $("#settings-close").click(function (e) {
+    $('#settings-modal').modal('hide');
+    $('#settings-modal').css('display', 'none');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+  });
+
   $("#btnTest").click(function (e) {
     var input = $("#txtTest").val();
     

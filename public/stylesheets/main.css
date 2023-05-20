@@ -240,11 +240,35 @@ body.dark-mode button#play-pause-button.pause {
   background-image: none;
 }  */
 
+#settings-modal {
+  width: 300px;
+  height: 300px;
+  border: solid 1px #238323;
+  background-color: #6b8364;
+  top: 20%;
+  left: 42%;
+  margin: auto;
+}
+
+#settings-close {
+  float: right;
+  margin: 2px 6px;
+  cursor: pointer;
+}
+
+/* mobile device specific rules */
+@media (max-width: 900px) {
+  #settings-modal {
+    left: 10% !important;
+  }
+}
+
 div#outer-container {
   text-align:center;
   width:auto;
   max-width: 1024px;
-  margin: 4px;
+  /* margin: 4px; */
+  margin: auto;
 }
 
 div#inner-container {
@@ -252,6 +276,11 @@ div#inner-container {
   border: 1px solid #238323;
   display: inline-block;
   padding: 7px;
+
+}
+
+div#inner-container .player {
+  padding: 7px 7px 7px 46px;
 }
 
 /* .players {
