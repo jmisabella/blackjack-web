@@ -284,6 +284,12 @@ body.dark-mode button#play-pause-button.pause {
   /* float: right; */
   /* width: 50%; */
 }
+#settings-modal .range-wrap input#settings-deck-count {
+  width: 50%;
+}
+#settings-modal .range-wrap input#settings-split-limit {
+  width: 54%;
+}
 
 /* mobile device specific rules */
 @media (max-width: 900px) {
