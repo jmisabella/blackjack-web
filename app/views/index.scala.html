@@ -29,31 +29,37 @@
         deck count: <output class="bubble"></output>
         <input type="range" class="range" min="1" max="8" value="1" id="settings-deck-count" />
       </span>
-      <span id="settings-allow-surrender" >
+      <span id="settings-allow-surrender-span" >
         allow surrender: 
         <input type="radio" id="allow-surrender-choice-1" value="true" name="settings-allow-surrender" checked="checked" />
         <label for="allow-surrender-choice-1">yes</label>
         <input type="radio" id="allow-surrender-choice-2" value="false" name="settings-allow-surrender" />
         <label for="allow-surrender-choice-2">no</label>
       </span>
-      <span id="settings-split-limit" class="range-wrap">
+      <span id="settings-split-limit-span" class="range-wrap">
         split limit: <output class="bubble"></output>
         <input type="range"  class="range" min="0" max="3" value="3" id="settings-split-limit" />
       </span>
-      <span id="settings-hit-on-split-aces" >
+      <span id="settings-hit-on-split-aces-span" >
         hit on split aces: 
         <input type="radio" id="hit-on-split-aces-choice-1" value="true" name="settings-hit-on-split-aces" checked="checked" />
         <label for="hit-on-split-aces-choice-1">yes</label>
         <input type="radio" id="hit-on-split-aces-choice-2" value="false" name="settings-hit-on-split-aces" />
         <label for="hit-on-split-aces-choice-2">no</label>
       </span>
-      <span id="settings-resplit-on-split-aces" >
+      <span id="settings-resplit-on-split-aces-span" >
         re-split on split aces: 
         <input type="radio" id="resplit-on-split-aces-choice-1" value="true" name="settings-resplit-on-split-aces" checked="checked" />
         <label for="resplit-on-split-aces-choice-1">yes</label>
         <input type="radio" id="resplit-on-split-aces-choice-2" value="false" name="settings-resplit-on-split-aces" />
         <label for="resplit-on-split-aces-choice-2">no</label>
       </span>
+      <span id="settings-initial-bank-span" class="range-wrap">
+        initial bank: <output class="bubble"></output>
+        <input type="range" class="range" min="1" max="5000" value="2000" id="settings-initial-bank" />
+      </span>
+      <!-- TODO: minimum bet, initial bank  -->
+      <input type="button" id="settings-submit" value="New Game" />
     </div>
 
     <div id="display-controls" >
@@ -61,7 +67,7 @@
         <span><a href="#" id="make-smaller" title="smaller">-</a></span>
         <span><a href="#" id="pause" title="pause">||</a></span>
         <span><a href="#" id="play" title="play" class="align-right">&#9658;</a></span>
-        <span><a href="#" id="settings" title="settings" class="align-right" >~</a></span>
+        <span><a href="#" id="settings" title="new game" class="align-right" >~</a></span>
         <span><a href="#" id="make-larger" title="larger" class="align-right">+</a></span>
       </p>
     </div> 

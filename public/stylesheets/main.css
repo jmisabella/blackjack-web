@@ -250,7 +250,7 @@ body.dark-mode button#play-pause-button.pause {
 
 #settings-modal {
   width: 359px;
-  height: 360px;
+  height: 460px;
   border: solid 1px #238323;
   background-color: #6b8364;
   top: 20%;
@@ -269,7 +269,7 @@ body.dark-mode button#play-pause-button.pause {
   text-align: left; 
   display: inline-block;
   width: 100%;
-  padding-left: 10px;
+  padding-left: 20px;
   margin-bottom: 8px;
   font-weight: bold;
 }
@@ -284,6 +284,12 @@ body.dark-mode button#play-pause-button.pause {
   /* float: right; */
   /* width: 50%; */
 }
+
+#settings-modal input[type=button] {
+  color: #d3d3d3; 
+  background-color: #014D43;
+}
+
 #settings-modal .range-wrap input#settings-deck-count {
   width: 50%;
 }
