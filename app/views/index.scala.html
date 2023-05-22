@@ -8,6 +8,56 @@
 
     <div id="settings-modal" class="modal" aria-hidden="true" tabindex="-1" role="dialog" style="display: none;" >
       <span id="settings-close"  >&#10006;</span>
+      <br /> 
+      <span id="settings-dealer-hit-limit-span" >
+        dealer hit limit: 
+        <input type="radio" id="dealer-hit-limit-choice-1" value="S17" name="settings-dealer-hit-limit" />
+        <label for="dealer-hit-limit-choice-1">S17</label>
+        <input type="radio" id="dealer-hit-limit-choice-2" value="H17" name="settings-dealer-hit-limit" />
+        <label for="dealer-hit-limit-choice-2">H17</label>
+      </span>
+      <span id="settings-blackjack-payout-span" >
+        blackjack payout: 
+        <input type="radio" id="blackjack-payout-choice-1" value="ThreeToTwo" name="settings-blackjack-payout" />
+        <label for="blackjack-payout-choice-1">3:2</label>
+        <input type="radio" id="blackjack-payout-choice-2" value="SixToFive" name="settings-blackjack-payout" />
+        <label for="blackjack-payout-choice-2">6:5</label>
+        <input type="radio" id="blackjack-payout-choice-3" value="OneToOne" name="settings-blackjack-payout" />
+        <label for="blackjack-payout-choice-3">1:1</label>
+      </span>
+      <span id="settings-deck-count-span" class="range-wrap">
+        deck count: <output class="bubble"></output>
+        <!-- <div class="range-wrap" > -->
+          <input type="range" class="range" min="1" max="12" value="1" id="settings-deck-count" />
+        <!-- </div> -->
+      </span>
+      <span id="settings-allow-surrender" >
+        allow surrender: 
+        <input type="radio" id="allow-surrender-choice-1" value="true" name="settings-allow-surrender" />
+        <label for="allow-surrender-choice-1">yes</label>
+        <input type="radio" id="allow-surrender-choice-2" value="false" name="settings-allow-surrender" />
+        <label for="allow-surrender-choice-2">no</label>
+      </span>
+      <span id="settings-split-limit" class="range-wrap">
+        split limit: <output class="bubble"></output>
+        <!-- <div class="range-wrap" > -->
+          <input type="range"  class="range" min="0" max="3" value="3" id="settings-split-limit" />
+        <!-- </div> -->
+      </span>
+      <span id="settings-hit-on-split-aces" >
+        hit on split aces: 
+        <input type="radio" id="hit-on-split-aces-choice-1" value="true" name="settings-hit-on-split-aces" />
+        <label for="hit-on-split-aces-choice-1">yes</label>
+        <input type="radio" id="hit-on-split-aces-choice-2" value="false" name="settings-hit-on-split-aces" />
+        <label for="hit-on-split-aces-choice-2">no</label>
+      </span>
+      <span id="settings-resplit-on-split-aces" >
+        re-split on split aces: 
+        <input type="radio" id="resplit-on-split-aces-choice-1" value="true" name="settings-resplit-on-split-aces" />
+        <label for="resplit-on-split-aces-choice-1">yes</label>
+        <input type="radio" id="resplit-on-split-aces-choice-2" value="false" name="settings-resplit-on-split-aces" />
+        <label for="resplit-on-split-aces-choice-2">no</label>
+      </span>
     </div>
 
     <div id="display-controls" >

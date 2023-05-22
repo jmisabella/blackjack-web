@@ -236,13 +236,21 @@ body.dark-mode button#play-pause-button.pause {
   background-position: center center !important;
 } 
 
-/* body.light-mode button#play-pause-button {
-  background-image: none;
-}  */
+.bubble {
+  width: 24px;
+  padding: 8px 24px 8px 12px;
+  text-align: center; 
+}
+.bubble::after {
+  content: "";
+  width: 2px;
+  height: 2px;
+  background: red;
+}
 
 #settings-modal {
-  width: 300px;
-  height: 300px;
+  width: 359px;
+  height: 360px;
   border: solid 1px #238323;
   background-color: #6b8364;
   top: 20%;
@@ -250,16 +258,37 @@ body.dark-mode button#play-pause-button.pause {
   margin: auto;
 }
 
-#settings-close {
+#settings-modal #settings-close {
   float: right;
   margin: 2px 6px;
   cursor: pointer;
+  width: auto;
+}
+
+#settings-modal span {
+  text-align: left; 
+  display: inline-block;
+  width: 100%;
+  padding-left: 10px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+#settings-modal span label {
+  padding-right: 3px;
+}
+
+#settings-modal .range-wrap input {
+  margin: 0 5px !important;
+  padding: 0 5px !important;
+  /* float: right; */
+  /* width: 50%; */
 }
 
 /* mobile device specific rules */
 @media (max-width: 900px) {
   #settings-modal {
-    left: 10% !important;
+    left: 2% !important;
   }
 }
 
