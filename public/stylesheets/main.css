@@ -296,6 +296,9 @@ body.dark-mode button#play-pause-button.pause {
 #settings-modal .range-wrap input#settings-split-limit {
   width: 54%;
 }
+#settings-modal .range-wrap input#settings-initial-bank {
+  width: 90%;
+} 
 
 /* mobile device specific rules */
 @media (max-width: 900px) {
