@@ -1,6 +1,7 @@
 
 #display-controls p { font-size: 0px; }
-#display-controls span { width: 20%; display: inline-block; margin-bottom: 0; }
+/* #display-controls span { width: 20%; display: inline-block; margin-bottom: 0; } */
+#display-controls span { width: 25%; display: inline-block; margin-bottom: 0; }
 #display-controls span a { font-size: 24px; font-weight: bold; color: #238323; }
 #display-controls span a:hover { text-decoration: none; color: #fff; }
 #display-controls span.align-right { text-align: right; }
@@ -253,9 +254,16 @@ body.dark-mode button#play-pause-button.pause {
   height: 445px;
   border: solid 1px #238323;
   background-color: #6b8364;
-  top: 20%;
+  /* top: 20%;
   left: 40%;
-  margin: auto;
+  margin: auto; */
+
+  top: 30%;
+  left: 50%;
+  margin-left: -180px;
+  margin-top: -150px;
+
+
 }
 
 #settings-modal #settings-close {
@@ -306,7 +314,12 @@ body.dark-mode button#play-pause-button.pause {
 /* mobile device specific rules */
 @media (max-width: 900px) {
   #settings-modal {
-    left: 2% !important;
+    /* left: 2% !important; */
+ 
+    top: 35% !important;
+    left: 50% !important;
+    margin-left: -180px !important;
+    margin-top: -150px !important;
   }
 }
 

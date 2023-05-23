@@ -528,9 +528,11 @@ $(document).ready(function() {
   
   $("#make-smaller").click(function (e) {
     change_card_size("player", "decrease");
+    change_card_size("dealer", "decrease");
   });
   $("#make-larger").click(function (e) {
     change_card_size("player", "increase");
+    change_card_size("dealer", "increase");
   });
 
   $("#settings").click(function (e) {
@@ -627,10 +629,12 @@ $(window).on("keydown", function (e) {
     }
     if (e.key == "=" || e.key == "+") {
       change_card_size("player", "increase");
+      change_card_size("dealer", "increase");
       return false;
     }
     if (e.key == "-") {
       change_card_size("player", "decrease");
+      change_card_size("dealer", "decrease");
       return false;
     }
 });
