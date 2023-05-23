@@ -29,16 +29,16 @@
         deck count: <output class="bubble"></output>
         <input type="range" class="range" min="1" max="8" value="1" id="settings-deck-count" />
       </span>
+      <span id="settings-split-limit-span" class="range-wrap">
+        split limit: <output class="bubble"></output>
+        <input type="range"  class="range" min="0" max="3" value="3" id="settings-split-limit" />
+      </span>
       <span id="settings-allow-surrender-span" >
         allow surrender: 
         <input type="radio" id="allow-surrender-choice-1" value="true" name="settings-allow-surrender" checked="checked" />
         <label for="allow-surrender-choice-1">yes</label>
         <input type="radio" id="allow-surrender-choice-2" value="false" name="settings-allow-surrender" />
         <label for="allow-surrender-choice-2">no</label>
-      </span>
-      <span id="settings-split-limit-span" class="range-wrap">
-        split limit: <output class="bubble"></output>
-        <input type="range"  class="range" min="0" max="3" value="3" id="settings-split-limit" />
       </span>
       <span id="settings-hit-on-split-aces-span" >
         hit on split aces: 
@@ -56,10 +56,10 @@
       </span>
       <span id="settings-initial-bank-span" class="range-wrap">
         initial bank: <output class="bubble"></output>
-        <input type="range" class="range" min="1" max="6000" value="2000" step="1" id="settings-initial-bank" />
+        <input type="range" class="range" min="5" max="6000" value="2000" step="5" id="settings-initial-bank" />
       </span>
-      <!-- TODO: minimum bet, initial bank  -->
-      <input type="button" id="settings-submit" value="New Game" />
+      <!-- TODO: minimum bet -->
+      <input type="button" id="settings-submit" value="Play" />
     </div>
 
     <div id="display-controls" >
@@ -97,23 +97,8 @@
     </div>
     <div class="separator" ></div>
 
-    <!-- <div class="chips">
-      <div class="chip white"></div>
-      <div class="chip red"></div>
-      <div class="chip blue"></div>
-      <div class="chip green"></div>
-      <div class="chip black"></div>
-    </div> -->
-
-    <!-- <div class="separator" ></div> -->
-    
-    <!-- <div class="form-group">
-      <textarea id="message-input" class="form-control" ></textarea>
-    </div> -->
-    <!-- <button id="send-button" type="button" >Send</button> -->
-
-    <input type="text" id="txtTest" />
-    <input type="button" id="btnTest" title="text" value="TEST" /> 
+    <!-- <input type="text" id="txtTest" />
+    <input type="button" id="btnTest" title="text" value="TEST" />  -->
 
     <div id="player-cards-4" class="medium player" >
       <div class="chips">
