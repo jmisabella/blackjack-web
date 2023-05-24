@@ -1,0 +1,365 @@
+
+#display-controls p { font-size: 0px; }
+/* #display-controls span { width: 20%; display: inline-block; margin-bottom: 0; } */
+#display-controls span { width: 25%; display: inline-block; margin-bottom: 0; }
+#display-controls span a { font-size: 24px; font-weight: bold; color: #238323; }
+#display-controls span a:hover { text-decoration: none; color: #fff; }
+#display-controls span.align-right { text-align: right; }
+
+.hand {
+  margin: 5px;
+  /* margin-bottom: 7px;  */
+  /* margin-left: auto;
+  margin-right: auto; */
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,  minmax(10px, max-content)) ;
+}
+
+.hand .card {
+  float: left;
+  margin-left: -2.5em; /* this is what overlaps the cards */
+  transform: rotate(3deg); 
+}
+
+/* simply adjust the card's font-size in order to resize the entire card!!! */
+.card {
+  background-image: url("../images/cards/cardback.gif");
+  /* border: 1px solid #000000 !important; */
+  border-color: #808080 #000000 #000000 #808080 !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  color: #000000;
+  font-size: 20pt;
+  position: absolute;
+  width:  3.75em;
+  height: 5.00em;
+}
+.card:after {
+  text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.3), 1px 1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.largest .card {
+  font-size: 22pt;
+}
+.large .card {
+  font-size: 20pt;
+}
+.medium-large .card {
+  font-size: 18pt;
+}
+.medium .card {
+  font-size: 16pt;
+}
+.medium-small .card {
+  font-size: 14pt;
+}
+.small .card {
+  font-size: 12pt;
+}
+.smallest .card {
+  font-size: 10pt;
+}
+
+.front {
+  background-color: #ffffff;
+  color: #000000;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.spotA1 { position: absolute; left: 0.60em; top: 0.5em; }
+.spotA2 { position: absolute; left: 0.60em; top: 1.5em; }
+.spotA3 { position: absolute; left: 0.60em; top: 2.0em; }
+.spotA4 { position: absolute; left: 0.60em; top: 2.5em; }
+.spotA5 { position: absolute; left: 0.60em; top: 3.5em; }
+.spotB1 { position: absolute; left: 1.55em; top: 0.5em; }
+.spotB2 { position: absolute; left: 1.55em; top: 1.0em; }
+.spotB3 { position: absolute; left: 1.55em; top: 2.0em; }
+.spotB4 { position: absolute; left: 1.55em; top: 3.0em; }
+.spotB5 { position: absolute; left: 1.55em; top: 3.5em; }
+.spotC1 { position: absolute; left: 2.50em; top: 0.5em; }
+.spotC2 { position: absolute; left: 2.50em; top: 1.5em; }
+.spotC3 { position: absolute; left: 2.50em; top: 2.0em; }
+.spotC4 { position: absolute; left: 2.50em; top: 2.5em; }
+.spotC5 { position: absolute; left: 2.50em; top: 3.5em; }
+
+.red { color: #ff0000; }
+
+.ace {
+  font-size: 300%;
+  position: absolute;
+  left: 0.325em;
+  top:  0.250em;
+}
+.index {
+  font-size: 50%;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  left: 0.25em;
+  top:  0.25em;
+}
+
+.face {
+  border: 1px solid #000000;
+  position: absolute;
+  left: 0.50em;
+  top:  0.45em;
+  width:  2.6em;
+  height: 4.0em;
+}
+
+.chips {
+  margin: auto;
+  width: 3em;
+}
+.chips .chip {
+  margin: 0px;
+}
+
+.chip {
+  margin: 1em;
+  position: relative;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5), 0 0 1px 0 rgba(0, 0, 0, 0.4) inset;
+  border-radius: 50%;
+  background-size: 6px 6px;
+  background-position: center center;
+}
+
+.largest .chip {
+  width: 10px;
+  height: 10px;
+  background-size: 10px 10px;
+}
+.large .chip {
+  width: 9px;
+  height: 9px;
+  background-size: 9px 9px;
+}
+.medium-large .chip {
+  width: 8px;
+  height: 8px;
+  background-size: 8px 8px;
+}
+.medium .chip {
+  width: 7px;
+  height: 7px;
+  background-size: 7px 7px;
+}
+.medium-small .chip {
+  width: 6px;
+  height: 6px;
+  background-size: 6px 6px;
+}
+.small .chip {
+  width: 5px;
+  height: 5px;
+  background-size: 5px 5px;
+}
+.smallest .chip {
+  width: 4px;
+  height: 4px;
+  background-size: 4px 4px;
+}
+
+.chips .white { background-color: #ddd; }
+.chips .red { background-color: #990044; }
+.chips .blue { background-color: #223399; }
+.chips .green { background-color: #008800; }
+.chips .black { background-color: #222; }
+.chips .purple { background-color: #880088; }
+.chips .yellow { background-color: #F8F700; }
+.chips .orange { background-color: #F88500; }
+.chips .dark-green { background-color: #006400; }
+.chips .grey { background-color: #808080; }
+.chips .pink { background-color: #FFC0CB; }
+.chips .fuscia { background-color: #FF00FF; }
+
+.separator {
+  margin: 50px;
+}
+
+body {
+  overflow: hidden;
+  width:100%;
+}
+
+/* body.light-mode {
+  background-color:#e9e9e9 !important;
+  color: #000;
+}
+
+body.dark-mode {
+  background-color: #014D43 !important;
+  color: #cecece;
+} */
+
+body {
+  background-color: #014D43 !important;
+  color: #cecece;
+}
+
+body.dark-mode button,
+body.dark-mode select {
+  background-color: #111 !important;
+  color: #cecece !important;
+}
+
+body.light-mode button#play-pause-button {
+  background-image: none;
+} 
+body.light-mode button#play-pause-button.play {
+  background: url("../images/play-ffffff.png"), #6c757d !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+} 
+body.light-mode button#play-pause-button.pause {
+  background: url("../images/pause-ffffff.png"), #6c757d !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+} 
+body.dark-mode button#play-pause-button {
+  background-image: none;
+} 
+body.dark-mode button#play-pause-button.play {
+  background: url("../images/play-cecece.png"), #111 !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+} 
+body.dark-mode button#play-pause-button.pause {
+  background: url("../images/pause-cecece.png"), #111 !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+} 
+
+.bubble {
+  width: 24px;
+  padding: 8px 24px 8px 12px;
+  text-align: center; 
+}
+.bubble::after {
+  content: "";
+  width: 2px;
+  height: 2px;
+  background: red;
+}
+
+#settings-modal {
+  width: 359px;
+  height: 445px;
+  border: solid 1px #238323;
+  background-color: #6b8364;
+  /* top: 20%;
+  left: 40%;
+  margin: auto; */
+
+  top: 30%;
+  left: 50%;
+  margin-left: -180px;
+  margin-top: -150px;
+
+
+}
+
+#settings-modal #settings-close {
+  float: right;
+  /* margin: 2px 6px; */
+  margin: 12px 20px -12px 0;
+  cursor: pointer;
+  width: auto;
+}
+
+#settings-modal span {
+  text-align: left; 
+  display: inline-block;
+  width: 100%;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+#settings-modal span label {
+  padding-right: 3px;
+}
+
+#settings-modal .range-wrap input {
+  margin: 0 5px !important;
+  padding: 0 5px !important;
+  /* float: right; */
+  /* width: 50%; */
+}
+
+#settings-modal input[type=button] {
+  color: #d3d3d3;
+  font-weight: bold;
+  background-color: #014D43;
+  border-radius: 12px;
+}
+
+#settings-modal .range-wrap input#settings-deck-count {
+  width: 50%;
+}
+#settings-modal .range-wrap input#settings-split-limit {
+  width: 54%;
+}
+#settings-modal .range-wrap input#settings-initial-bank {
+  width: 90%;
+} 
+
+/* mobile device specific rules */
+@media (max-width: 900px) {
+  #settings-modal {
+    /* left: 2% !important; */
+ 
+    top: 35% !important;
+    left: 50% !important;
+    margin-left: -180px !important;
+    margin-top: -150px !important;
+  }
+}
+
+div#outer-container {
+  text-align:center;
+  width:auto;
+  max-width: 1024px;
+  /* margin: 4px; */
+  margin: auto;
+}
+
+div#inner-container {
+  width: 94%; 
+  border: 1px solid #238323;
+  display: inline-block;
+  padding: 7px;
+
+}
+
+div#inner-container .player {
+  padding: 7px 7px 7px 46px;
+}
+
+/* .players {
+} */
+
+.player {
+  margin-left: auto;
+  width: 50%;
+  float: left;
+}
+/* .players .player .align-right {
+  text-align: right !important;
+  float: right;
+} */
+
+/* .player-cards {
+  float: left;
+} */
+
+/* .player-cards:last-child {
+  margin-right: 141px;
+} */
