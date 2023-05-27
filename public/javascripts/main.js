@@ -449,7 +449,7 @@ function chips(integerValue) {
 
 function chipsInnerMarkup(integerValue) {
   var chipsDict = chips(integerValue);
-  var markup = ""; //"<chips>";
+  var markup = "<div class=\"chips\">";
   for (var key in chipsDict) {
     var color = "white";
     switch(key) {
@@ -493,7 +493,7 @@ function chipsInnerMarkup(integerValue) {
     }
     markup += "<div class=\"chip " + color + "\" title=\"" + key + "\"></div>";
   } 
-  // markup += "</chips>";
+  markup += "</div>";
   return markup;
 }
 
@@ -519,9 +519,50 @@ $(document).ready(function() {
   });
   
   $("#settings-submit").click(function (e) {
-    // TODO: submit new game to server to retrieve game steps to display
+    // submit new game to server to retrieve game steps to display
+    var dealerHitLimit = $("input[type='radio'][name='settings-dealer-hit-limit']").val();
+    var blackjackPayout = $("input[type='radio'][name='settings-blackjack-payout']").val();
+    var deckCount = $("#settings-deck-count").val();
+    var splitLimit = $("#settings-split-limit").val();
+    var allowSurrender = $("input[type='radio'][name='settings-allow-surrender']").val();
+    var hitOnSplitAces = $("input[type='radio'][name='settings-hit-on-split-aces']").val();
+    var resplitOnSplitAces = $("input[type='radio'][name='settings-resplit-on-split-aces']").val();
+    var initialBank = $("#settings-initial-bank").val();
 
+    var settings = {
+      "dealer-hit-limit": dealerHitLimit,
+      "blackjack-payout": blackjackPayout,
+      "deck-count": deckCount,
+      "split-limit": splitLimit,
+      "allow-surrender": allowSurrender,
+      "hit-on-split-aces": hitOnSplitAces,
+      "resplit-on-split-aces": resplitOnSplitAces,
+      "initial-bank": initialBank 
+    };
+
+    let json = {
+      message: JSON.stringify(settings)
+    }
+
+    // var settings = new Object();
+    // settings.dealer_hit_limit = dealerHitLimit;
+    // settings.blackjack_payout = blackjackPayout;
+    // settings.deck_count = deckCount;
+    // settings.split_limit = splitLimit;
+    // settings.allow_surrender = allowSurrender;
+    // settings.hit_on_split_aces = hitOnSplitAces;
+    // settings.resplit_on_split_aces = resplitOnSplitAces;
+
+    // var json = JSON.stringify(settings);
+
+    // send our json message to the server
+    // sendToServer(json);
+    webSocket.send(JSON.stringify(json));
     
+    // alert(json);
+
+    // TODO: create JSON as expected by the BlackjackOptions case class
+
     //// webSocket.send(JSON.stringify(jsonMessage));
   
   });
