@@ -40,7 +40,8 @@ class BlackjackWebSocketActor(clientActorRef: ActorRef) extends Actor {
 
           // val response = clientMessage match {
           //   case msg => msg 
-          }
+          // }
+
            //  // val nextIteration = controller.completeGame(state)
             // state = controller.init(nextIteration)
             // // logger.info(s"JS-VALUE: $jsValue")
