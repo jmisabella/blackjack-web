@@ -529,7 +529,7 @@ $(document).ready(function() {
     var resplitOnSplitAces = $("input[type='radio'][name='settings-resplit-on-split-aces']").val();
     var initialBank = $("#settings-initial-bank").val();
 
-    var settings = {
+    var settings = { 
       "dealer-hit-limit": dealerHitLimit,
       "blackjack-payout": blackjackPayout,
       "deck-count": deckCount,
@@ -537,8 +537,19 @@ $(document).ready(function() {
       "allow-surrender": allowSurrender,
       "hit-on-split-aces": hitOnSplitAces,
       "resplit-on-split-aces": resplitOnSplitAces,
-      "initial-bank": initialBank 
+      "initial-bank": initialBank
     };
+    
+    // var settings = { 
+    //   "dealer-hit-limit": dealerHitLimit,
+    //   "blackjack-payout": blackjackPayout,
+    //   "deck-count": parseInt(deckCount, 10),
+    //   "split-limit": parseInt(splitLimit, 10),
+    //   "allow-surrender": (allowSurrender === "true"),
+    //   "hit-on-split-aces": (hitOnSplitAces === "true"),
+    //   "resplit-on-split-aces": (resplitOnSplitAces === "true"),
+    //   "initial-bank": parseInt(initialBank, 10)
+    // };
 
     let json = {
       message: JSON.stringify(settings)
