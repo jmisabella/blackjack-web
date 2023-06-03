@@ -505,6 +505,12 @@ function setBubble(range, bubble) {
   bubble.innerHTML = val;
 }
 
+// $body = $("body");
+// $(document).on({
+//     ajaxStart: function() { $body.addClass("loading");    },
+//      ajaxStop: function() { $body.removeClass("loading"); }    
+// });
+
 $(document).ready(function() {
   
   const allRanges = document.querySelectorAll(".range-wrap");
@@ -519,6 +525,10 @@ $(document).ready(function() {
   });
   
   $("#settings-submit").click(function (e) {
+    // $body = $("body");
+    // $body.addClass("loading"); 
+    // $body.addClass("modal"); 
+    
     // submit new game to server to retrieve game steps to display
     var dealerHitLimit = $("input[type='radio'][name='settings-dealer-hit-limit']").val();
     var blackjackPayout = $("input[type='radio'][name='settings-blackjack-payout']").val();
@@ -575,7 +585,16 @@ $(document).ready(function() {
     // TODO: create JSON as expected by the BlackjackOptions case class
 
     //// webSocket.send(JSON.stringify(jsonMessage));
-  
+    
+    $('#settings-modal').modal('hide');
+    $('#settings-modal').css('display', 'none');
+    // $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+    // $body.removeClass("loading"); 
+    // $body.removeClass("modal"); 
+
+    $("#loading-modal").css('display', 'block');
+
   });
   
   $("#make-smaller").click(function (e) {
@@ -589,7 +608,7 @@ $(document).ready(function() {
 
   $("#settings").click(function (e) {
     $('#settings-modal').css('display', 'block');
-    $('#settings-modal').addClass('modal');
+    // $('#settings-modal').addClass('modal');
     $('#settings-modal').modal('toggle');
   });
 
@@ -597,7 +616,7 @@ $(document).ready(function() {
   $("#settings-close").click(function (e) {
     $('#settings-modal').modal('hide');
     $('#settings-modal').css('display', 'none');
-    $('body').removeClass('modal-open');
+    // $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   });
 
@@ -644,6 +663,7 @@ function onError(event) {
 }
 
 function onMessage(event) {
+    $("#loading-modal").css('display', 'none');
     console.log(event.data);
     let receivedData = JSON.parse(event.data);
     console.log("New Data: ", receivedData);
