@@ -12,10 +12,15 @@
               /* url('http://i.stack.imgur.com/FhHRx.gif')  */
               /* url("../images/cat-loading.gif") */
               url("../images/rotating-chip.gif")
-              50% 50% 
+              50% 40% 
               no-repeat;
 }
 
+#remaining-steps {
+  visibility: hidden;
+  width: 0px !important;
+  height: 0px !important;
+}
 
 #display-controls p { font-size: 0px; }
 /* #display-controls span { width: 20%; display: inline-block; margin-bottom: 0; } */

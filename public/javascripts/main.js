@@ -44,6 +44,9 @@ function wait(ms){
 }
 
 function cardsMarkup(json) {
+  if (json == null || json == "") {
+    return "";
+  }
   let obj = JSON.parse(json);
   var cards = ""; 
   for (const element of obj) {
@@ -506,13 +509,20 @@ function setBubble(range, bubble) {
 }
 
 // $body = $("body");
-// $(document).on({
+// $(document).on(r
 //     ajaxStart: function() { $body.addClass("loading");    },
 //      ajaxStop: function() { $body.removeClass("loading"); }    
 // });
 
+
+
 $(document).ready(function() {
-  
+
+  window.addEventListener("load", init, false);
+
+  var interval = 220;
+  var nextMoveIntervalEvent = window.setInterval(step, interval);
+
   const allRanges = document.querySelectorAll(".range-wrap");
   allRanges.forEach(wrap => {
     const range = wrap.querySelector(".range");
@@ -549,42 +559,11 @@ $(document).ready(function() {
       "resplit-on-split-aces": resplitOnSplitAces,
       "initial-bank": initialBank
     };
-    
-    // var settings = { 
-    //   "dealer-hit-limit": dealerHitLimit,
-    //   "blackjack-payout": blackjackPayout,
-    //   "deck-count": parseInt(deckCount, 10),
-    //   "split-limit": parseInt(splitLimit, 10),
-    //   "allow-surrender": (allowSurrender === "true"),
-    //   "hit-on-split-aces": (hitOnSplitAces === "true"),
-    //   "resplit-on-split-aces": (resplitOnSplitAces === "true"),
-    //   "initial-bank": parseInt(initialBank, 10)
-    // };
 
     let json = {
       message: JSON.stringify(settings)
     }
-
-    // var settings = new Object();
-    // settings.dealer_hit_limit = dealerHitLimit;
-    // settings.blackjack_payout = blackjackPayout;
-    // settings.deck_count = deckCount;
-    // settings.split_limit = splitLimit;
-    // settings.allow_surrender = allowSurrender;
-    // settings.hit_on_split_aces = hitOnSplitAces;
-    // settings.resplit_on_split_aces = resplitOnSplitAces;
-
-    // var json = JSON.stringify(settings);
-
-    // send our json message to the server
-    // sendToServer(json);
     webSocket.send(JSON.stringify(json));
-    
-    // alert(json);
-
-    // TODO: create JSON as expected by the BlackjackOptions case class
-
-    //// webSocket.send(JSON.stringify(jsonMessage));
     
     $('#settings-modal').modal('hide');
     $('#settings-modal').css('display', 'none');
@@ -634,6 +613,75 @@ $(document).ready(function() {
 
 });
 
+function step() {
+  var raw = $("#remaining-steps").text();
+  if (raw == "") {
+    return;
+  }
+  var steps = JSON.parse(raw);
+  console.info("STEP: REMAINING COUNT: " + steps.length); 
+  $currentDiv = null;
+  var current = head(steps);
+  var remaining = JSON.stringify(tail(steps));
+  var player = current.playerId;
+  var action = current.action;
+  var actionTokens = current.actionTokens;
+  var beforeCards = current.beforeCards;
+  // afterCards is seq of seq of cards (to account for when player splits)
+  var afterCards = current.afterCards;
+  var afterTokens = current.afterTokens;
+
+  if (player == "Dealer" || player == "dealer") {
+    $currentDiv = $("#dealer-cards");
+  } else { // TODO: other cases, e.g. when player has split?
+    $currentDiv = $("#player-cards-1");
+  }
+  if (action == "Bet") {
+    var newMarkup = chipsInnerMarkup(afterTokens) + " " + existingMarkup;
+    $currentDiv.html(newMarkup);
+  } else if (action == "Hit") {
+    // TODO
+    var existingMarkup = $currentDiv.html();
+    var newMarkup = cardsMarkup(afterCards);
+    $currentDiv.html(newMarkup);
+  } else if (action == "Stand") {
+    // TODO
+
+  } else if (action == "ShowCards") {
+    var newMarkup = cardsMarkup(afterCards);
+    $currentDiv.html(newMarkup);
+  } else if (action == "Lose") {
+    // TODO
+    $("#dealer-cards").html("");
+    $("#player-cards-1").html("");
+    $("#player-cards-2").html("");
+    $("#player-cards-3").html("");
+    $("#player-cards-4").html("");
+  } else if (action == "Win") {
+    // TODO
+    $("#dealer-cards").html("");
+    $("#player-cards-1").html("");
+    $("#player-cards-2").html("");
+    $("#player-cards-3").html("");
+    $("#player-cards-4").html("");
+  } else if (action == "Tie") {
+    // TODO
+    $("#dealer-cards").html("");
+    $("#player-cards-1").html("");
+    $("#player-cards-2").html("");
+    $("#player-cards-3").html("");
+    $("#player-cards-4").html("");
+  }
+  
+  $("#remaining-steps").text(remaining);
+
+  window.clearInterval(stepIntervalEvent); 
+  stepIntervalEvent = window.setInterval(step, interval); }
+
+
+var interval = 220;
+var stepIntervalEvent = window.setInterval(step, interval);
+
 var webSocket;
 var messageInput;
 
@@ -653,7 +701,6 @@ function onOpen(event) {
 
 function onClose(event) {
   consoleLog("DISCONNECTED");
-  appendClientMessageToView(":", "DISCONNECTED");
   init();
 }
 
@@ -662,23 +709,27 @@ function onError(event) {
     consoleLog("ERROR: " + JSON.stringify(event));
 }
 
+
 function onMessage(event) {
     $("#loading-modal").css('display', 'none');
     console.log(event.data);
     let receivedData = JSON.parse(event.data);
     console.log("New Data: ", receivedData);
+
+    var players = receivedData.body.blackjack.players;
+    var remaining = receivedData.body.blackjack.history;
+    $("#remaining-steps").text(JSON.stringify(remaining));
+    // TODO: step through the steps, display each step on the screen with a pause between steps
+    console.info("REMAINING COUNT: " + remaining.length);
+    // TODO... 
+    // while (remaining.length > 0) {
+    //   step(remaining);
+    //   // console.info("REMAINING COUNT: " + remaining.length);
+    // }
+
     // get the text from the "body" field of the json we
     // receive from the server.
-    appendServerMessageToView("Server", receivedData.body);
-}
-
-function appendClientMessageToView(title, message) {
-    $("#message-content").append("<span>" + title + ": " + message + "<br /></span>");
-}
-
-function appendServerMessageToView(title, message) {
-    $("#message-content").append("<span>" + title + ": " + message + "<br /><br /></span>");
-}
+} 
 
 function consoleLog(message) {
     console.log("New message: ", message);
@@ -686,17 +737,10 @@ function consoleLog(message) {
 
 window.addEventListener("load", init, false);
 
-$("#send-button").click(function (e) {
-    console.log("Sending ...");
-    getMessageAndSendToServer();
-    // put focus back in the textarea
-    $("#message-input").focus();
-});
-
 // send the message when the user presses the <enter> key while in the textarea
 $(window).on("keydown", function (e) {
     if (e.which == 13) {
-        getMessageAndSendToServer();
+        // getMessageAndSendToServer();
         return false;
     }
     if (e.key == "=" || e.key == "+") {
@@ -718,42 +762,37 @@ $(window).on("keydown", function (e) {
 //     }
 // });
 
-// there’s a lot going on here:
-// 1. get our message from the textarea.
-// 2. append that message to our view/div.
-// 3. create a json version of the message.
-// 4. send the message to the server.
-function getMessageAndSendToServer() {
+// 1. create a json version of the message.
+// 2. send the message to the server.
+// function getMessageAndSendToServer() {
 
-    // get the text from the textarea
-    messageInput = $("#message-input").val();
+//     // get the text from the textarea
+//     messageInput = $("#message-input").val();
 
-    // clear the textarea
-    $("#message-input").val("");
+//     // clear the textarea
+//     $("#message-input").val("");
 
-    // if the trimmed message was blank, return now
-    if ($.trim(messageInput) == "") {
-        return false;
-    }
+//     // if the trimmed message was blank, return now
+//     if ($.trim(messageInput) == "") {
+//         return false;
+//     }
 
-    // add the message to the view/div
-    appendClientMessageToView("Me", messageInput);
+//     // create the message as json
+//     let jsonMessage = {
+//         message: messageInput
+//     };
 
-    // create the message as json
-    let jsonMessage = {
-        message: messageInput
-    };
+//     // send our json message to the server
+//     sendToServer(jsonMessage);
+// }
 
-    // send our json message to the server
-    sendToServer(jsonMessage);
-}
-
-// send the data to the server using the WebSocket
-function sendToServer(jsonMessage) {
-    if(webSocket.readyState == WebSocket.OPEN) {
-        consoleLog("SENT: " + jsonMessage.message);
-        webSocket.send(JSON.stringify(jsonMessage));
-    } else {
-        consoleLog("Could not send data. Websocket is not open.");
-    }
-}
+// // send the data to the server using the WebSocket
+// function sendToServer(jsonMessage) {
+//     if(webSocket.readyState == WebSocket.OPEN) {
+//         consoleLog("SENT: " + jsonMessage.message);
+//         webSocket.send(JSON.stringify(jsonMessage));
+//     } else {
+//         consoleLog("Could not send data. Websocket is not open.");
+//         init();
+//     }
+// }
