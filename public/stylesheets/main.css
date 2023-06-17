@@ -16,7 +16,8 @@
               no-repeat;
 }
 
-#remaining-steps {
+#remaining-steps,
+#previous-div {
   visibility: hidden;
   width: 0px !important;
   height: 0px !important;

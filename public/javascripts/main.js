@@ -44,10 +44,10 @@ function wait(ms){
 }
 
 function cardsMarkup(json) {
-  if (json == null || json == "") {
+  if (json == null || json.toString() == "") {
     return "";
   }
-  let obj = JSON.parse(json);
+  let obj = JSON.parse(json.toString());
   var cards = ""; 
   for (const element of obj) {
     if (cards != "") {
@@ -55,7 +55,8 @@ function cardsMarkup(json) {
     }
     cards += cardMarkup(element.rank, element.suit);  
   }
-  return "<div class=\"hand\">" + cards + "</div>";
+  // return "<div class=\"hand\">" + cards + "</div>";
+  return cards;
 }
 
 function cardMarkup(rank, suit) {
@@ -627,56 +628,142 @@ function step() {
   var action = current.action;
   var actionTokens = current.actionTokens;
   var beforeCards = current.beforeCards;
+  var actionPhrase = null;
+  actionPhrase = player + " " + action; 
   // afterCards is seq of seq of cards (to account for when player splits)
+  var actionCards = current.actionCards;
   var afterCards = current.afterCards;
   var afterTokens = current.afterTokens;
-
+  var previousDiv = $("#previous-div").text();
   if (player == "Dealer" || player == "dealer") {
     $currentDiv = $("#dealer-cards");
-  } else { // TODO: other cases, e.g. when player has split?
-    $currentDiv = $("#player-cards-1");
+  } else {
+    if (previousDiv == null || previousDiv == "") {
+      $currentDiv = $("#player-cards-1");
+    } else {
+      switch(previousDiv) {
+        case "dealer-cards":
+          $currentDiv = $("#player-cards-1");
+          break;
+        case "player-cards-1":
+          $currentDiv = player == "dealer" ? $("#dealer-cards") : $("#player-cards-2");
+          break;
+        case "player-cards-2":
+          $currentDiv = player == "dealer" ? $("#dealer-cards") : $("#player-cards-3");
+          break;
+        case "player-cards-3":
+          $currentDiv = player == "dealer" ? $("#dealer-cards") : $("#player-cards-4");
+          break;
+        case "player-cards-4":
+          $currentDiv = player == "dealer" ? $("#dealer-cards") : $("#player-cards-1");
+          break;
+        default:
+          $currentDiv = $("#player-cards-1");
+          break;
+       }
+    }
   }
-  if (action == "Bet") {
-    var newMarkup = chipsInnerMarkup(afterTokens) + " " + existingMarkup;
-    $currentDiv.html(newMarkup);
+  if (action == "Bet" || action == "DoubleDown") {
+    var newMarkup = chipsInnerMarkup(actionTokens);
+    $currentDiv.find(".chips").html(newMarkup);
+    actionPhrase = action + actionTokens.toString();
+  } else if (action == "IsDealt") {
+    actionPhrase = action;
+    // console.info("isDealt DEALT CARDS: " + JSON.stringify(actionCards));
+    var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Hit") {
-    // TODO
-    var existingMarkup = $currentDiv.html();
-    var newMarkup = cardsMarkup(afterCards);
-    $currentDiv.html(newMarkup);
+    actionPhrase = action;
+    var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    $currentDiv.find(".hand").html(newMarkup);
+  } else if (action == "Split") {
+    actionPhrase = action;
+    switch (afterCards.length) {
+      case 1:
+        // console.info("CARDS: " + JSON.stringify(afterCards[0]));
+        // alert("{\"rank\":\"Six\",\"suit\":\"Diamonds\"}");
+        // alert(cardsMarkup("{\"rank\":\"Six\",\"suit\":\"Diamonds\"}"));
+        var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+        $currentDiv.find(".hand").html(newMarkup);
+        break;
+      case 2:
+        var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+        $currentDiv.find(".hand").html(newMarkup);
+        newMarkup = cardsMarkup(JSON.stringify(afterCards[1]));
+        switch(previousDiv) {
+          case null:
+            $("#player-cards-2").find(".hand").html(newMarkup);
+            break;
+          case "":
+            $("#player-cards-2").find(".hand").html(newMarkup);
+            break;
+          case "player-cards-1":
+            $("#player-cards-2").find(".hand").html(newMarkup);
+            break;
+          case "player-cards-2":
+            $("#player-cards-3").find(".hand").html(newMarkup);
+            break;
+          case "player-cards-3":
+            $("#player-cards-4").find(".hand").html(newMarkup);
+            break;
+          case "player-cards-4":
+            $("#player-cards-1").find(".hand").html(newMarkup);
+            break;
+          default:
+            $("#player-cards-2").find(".hand").html(newMarkup);
+            break;
+        }
+      default:
+        var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+        $currentDiv.find(".hand").html(newMarkup);
+        break;
+    }
   } else if (action == "Stand") {
-    // TODO
-
+    actionPhrase = "Stand";
+    // TODO: anything else for stand?
   } else if (action == "ShowCards") {
-    var newMarkup = cardsMarkup(afterCards);
+    var newMarkup = cardsMarkup(JSON.stringify(afterCards));
     $currentDiv.html(newMarkup);
   } else if (action == "Lose") {
-    // TODO
-    $("#dealer-cards").html("");
-    $("#player-cards-1").html("");
-    $("#player-cards-2").html("");
-    $("#player-cards-3").html("");
-    $("#player-cards-4").html("");
+    actionPhrase = "Loses";
+    $("#dealer-cards div.chips").html("");
+    $("#player-cards-1 div.chips").html("");
+    $("#player-cards-1 div.hand").html("");
+    $("#player-cards-2 div.chips").html("");
+    $("#player-cards-2 div.hand").html("");
+    $("#player-cards-3 div.chips").html("");
+    $("#player-cards-3 div.hand").html("");
+    $("#player-cards-4 div.chips").html("");
+    $("#player-cards-4 div.hand").html("");
   } else if (action == "Win") {
-    // TODO
-    $("#dealer-cards").html("");
-    $("#player-cards-1").html("");
-    $("#player-cards-2").html("");
-    $("#player-cards-3").html("");
-    $("#player-cards-4").html("");
+    actionPhrase = "Wins";
+    $("#dealer-cards div.chips").html("");
+    $("#player-cards-1 div.chips").html("");
+    $("#player-cards-1 div.hand").html("");
+    $("#player-cards-2 div.chips").html("");
+    $("#player-cards-2 div.hand").html("");
+    $("#player-cards-3 div.chips").html("");
+    $("#player-cards-3 div.hand").html("");
+    $("#player-cards-4 div.chips").html("");
+    $("#player-cards-4 div.hand").html("");
   } else if (action == "Tie") {
-    // TODO
-    $("#dealer-cards").html("");
-    $("#player-cards-1").html("");
-    $("#player-cards-2").html("");
-    $("#player-cards-3").html("");
-    $("#player-cards-4").html("");
+    actionPhrase = "Tie";
+    $("#dealer-cards div.chips").html("");
+    $("#player-cards-1 div.chips").html("");
+    $("#player-cards-1 div.hand").html("");
+    $("#player-cards-2 div.chips").html("");
+    $("#player-cards-2 div.hand").html("");
+    $("#player-cards-3 div.chips").html("");
+    $("#player-cards-3 div.hand").html("");
+    $("#player-cards-4 div.chips").html("");
+    $("#player-cards-4 div.hand").html("");
   }
-  
+  $("#previous-div").text($currentDiv);
   $("#remaining-steps").text(remaining);
-
+  console.info("ACTION: " + actionPhrase);
   window.clearInterval(stepIntervalEvent); 
-  stepIntervalEvent = window.setInterval(step, interval); }
+  stepIntervalEvent = window.setInterval(step, interval); 
+}
 
 
 var interval = 220;
