@@ -673,8 +673,10 @@ function step() {
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Hit") {
+    // TODO: Hit should display cards using afterCards, not actionCards, however we need to work through how to address split hands
     actionPhrase = action;
-    var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    // var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    var newMarkup = cardsMarkup(JSON.stringify(head(afterCards.reverse)));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Split") {
     actionPhrase = action;
@@ -722,11 +724,12 @@ function step() {
     actionPhrase = "Stand";
     // TODO: anything else for stand?
   } else if (action == "ShowCards") {
-    var newMarkup = cardsMarkup(JSON.stringify(afterCards));
-    $currentDiv.html(newMarkup);
+    var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Lose") {
     actionPhrase = "Loses";
     $("#dealer-cards div.chips").html("");
+    $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
     $("#player-cards-1 div.hand").html("");
     $("#player-cards-2 div.chips").html("");
@@ -738,6 +741,7 @@ function step() {
   } else if (action == "Win") {
     actionPhrase = "Wins";
     $("#dealer-cards div.chips").html("");
+    $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
     $("#player-cards-1 div.hand").html("");
     $("#player-cards-2 div.chips").html("");
@@ -749,6 +753,7 @@ function step() {
   } else if (action == "Tie") {
     actionPhrase = "Tie";
     $("#dealer-cards div.chips").html("");
+    $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
     $("#player-cards-1 div.hand").html("");
     $("#player-cards-2 div.chips").html("");
@@ -765,8 +770,8 @@ function step() {
   stepIntervalEvent = window.setInterval(step, interval); 
 }
 
-
-var interval = 220;
+// var interval = 220;
+var interval = 400;
 var stepIntervalEvent = window.setInterval(step, interval);
 
 var webSocket;

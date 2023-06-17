@@ -41,9 +41,9 @@
 }
 
 .hand .card {
-  float: left;
-  margin-left: -2.5em; /* this is what overlaps the cards */
-  transform: rotate(3deg); 
+  float: left !important;
+  margin-left: -2.5em !important; /* this is what overlaps the cards */
+  transform: rotate(3deg) !important; 
 }
 
 /* simply adjust the card's font-size in order to resize the entire card!!! */
