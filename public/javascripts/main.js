@@ -521,8 +521,6 @@ $(document).ready(function() {
 
   window.addEventListener("load", init, false);
 
-  var interval = 220;
-  var nextMoveIntervalEvent = window.setInterval(step, interval);
 
   const allRanges = document.querySelectorAll(".range-wrap");
   allRanges.forEach(wrap => {
@@ -615,6 +613,12 @@ $(document).ready(function() {
 });
 
 function step() {
+  var actionVisible = $("#action").css("visibility") == "visible";
+  if ($("#action").css("visibility") == "visible") {
+    wait(1000);
+    $("#action").css("visibility", "hidden");
+    return;
+  }
   var raw = $("#remaining-steps").text();
   if (raw == "") {
     return;
@@ -666,20 +670,20 @@ function step() {
   if (action == "Bet" || action == "DoubleDown") {
     var newMarkup = chipsInnerMarkup(actionTokens);
     $currentDiv.find(".chips").html(newMarkup);
-    actionPhrase = action + actionTokens.toString();
+    actionPhrase = player + " " + action + " " + actionTokens.toString();
   } else if (action == "IsDealt") {
-    actionPhrase = action;
+    actionPhrase = player + " " + action;
     // console.info("isDealt DEALT CARDS: " + JSON.stringify(actionCards));
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Hit") {
     // TODO: Hit should display cards using afterCards, not actionCards, however we need to work through how to address split hands
-    actionPhrase = action;
+    actionPhrase = player + " " + action;
     // var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     var newMarkup = cardsMarkup(JSON.stringify(head(afterCards.reverse)));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Split") {
-    actionPhrase = action;
+    actionPhrase = player + " " + action;
     switch (afterCards.length) {
       case 1:
         // console.info("CARDS: " + JSON.stringify(afterCards[0]));
@@ -721,13 +725,13 @@ function step() {
         break;
     }
   } else if (action == "Stand") {
-    actionPhrase = "Stand";
+    actionPhrase = player + " " + "Stands";
     // TODO: anything else for stand?
   } else if (action == "ShowCards") {
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Lose") {
-    actionPhrase = "Loses";
+    actionPhrase = player + " " + "Loses";
     $("#dealer-cards div.chips").html("");
     $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
@@ -739,7 +743,7 @@ function step() {
     $("#player-cards-4 div.chips").html("");
     $("#player-cards-4 div.hand").html("");
   } else if (action == "Win") {
-    actionPhrase = "Wins";
+    actionPhrase = player + " " + "Wins";
     $("#dealer-cards div.chips").html("");
     $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
@@ -765,14 +769,18 @@ function step() {
   }
   $("#previous-div").text($currentDiv);
   $("#remaining-steps").text(remaining);
+  $("#action").text(actionPhrase);
+  $("#action").css("visibility", "visible");
   console.info("ACTION: " + actionPhrase);
   window.clearInterval(stepIntervalEvent); 
   stepIntervalEvent = window.setInterval(step, interval); 
 }
 
 // var interval = 220;
-var interval = 400;
-var stepIntervalEvent = window.setInterval(step, interval);
+// var interval = 400;
+var interval = 900;
+var stepIntervalEvent = null;
+// var stepIntervalEvent = window.setInterval(step, interval);
 
 var webSocket;
 var messageInput;
@@ -811,14 +819,7 @@ function onMessage(event) {
     var players = receivedData.body.blackjack.players;
     var remaining = receivedData.body.blackjack.history;
     $("#remaining-steps").text(JSON.stringify(remaining));
-    // TODO: step through the steps, display each step on the screen with a pause between steps
     console.info("REMAINING COUNT: " + remaining.length);
-    // TODO... 
-    // while (remaining.length > 0) {
-    //   step(remaining);
-    //   // console.info("REMAINING COUNT: " + remaining.length);
-    // }
-
     // get the text from the "body" field of the json we
     // receive from the server.
 } 
@@ -828,6 +829,16 @@ function consoleLog(message) {
 }
 
 window.addEventListener("load", init, false);
+
+$("#play-pause").click(function (e) {
+  if ($("#play-pause").html() == "||") {
+    window.clearInterval(stepIntervalEvent);
+    $("#play-pause").html("&#9658;");
+  } else {
+    stepIntervalEvent = window.setInterval(step, interval);
+    $("#play-pause").html("||");
+  } 
+});
 
 // send the message when the user presses the <enter> key while in the textarea
 $(window).on("keydown", function (e) {

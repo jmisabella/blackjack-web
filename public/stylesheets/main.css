@@ -1,4 +1,12 @@
 
+#action {
+  color: #fff;
+  font-weight: bold;
+  margin: 0 30%;
+  text-align: center; 
+  visibility: hidden;
+}
+
 #loading-modal {
   display:    none;
   position:   fixed;
