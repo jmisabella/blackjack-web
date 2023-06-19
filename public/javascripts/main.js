@@ -628,7 +628,7 @@ function step() {
   $currentDiv = null;
   var current = head(steps);
   var remaining = JSON.stringify(tail(steps));
-  var player = current.playerId;
+  var player = current.playerId.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("d", "D").replace("p", "P");
   var action = current.action;
   var actionTokens = current.actionTokens;
   var beforeCards = current.beforeCards;
@@ -667,20 +667,29 @@ function step() {
        }
     }
   }
-  if (action == "Bet" || action == "DoubleDown") {
+  if (action == "Shuffle") {
+    actionPhrase = player + " Shuffles";
+  } else if (action == "LeaveTable") {
+    actionPhrase = player + " Leaves Table";
+  } else if (action == "Surrender") {
+    actionPhrase = player + " Surrenders";
+  } else if (action == "BuyInsurance") {
+    actionPhrase = player + " Buys " + actionTokens + " Worth of Insurance";
+  } else if (action == "InsufficientFunds") {
+    actionPhrase = player + " Has Insufficient Funds";
+  } else if (action == "Bet" || action == "DoubleDown") {
     var newMarkup = chipsInnerMarkup(actionTokens);
     $currentDiv.find(".chips").html(newMarkup);
-    actionPhrase = player + " " + action + " " + actionTokens.toString();
+    actionPhrase = player + " Doubles Down an Additional" + actionTokens.toString();
   } else if (action == "IsDealt") {
     actionPhrase = player + " " + action;
     // console.info("isDealt DEALT CARDS: " + JSON.stringify(actionCards));
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
+    actionPhrase = "";
   } else if (action == "Hit") {
-    // TODO: Hit should display cards using afterCards, not actionCards, however we need to work through how to address split hands
-    actionPhrase = player + " " + action;
-    // var newMarkup = cardsMarkup(JSON.stringify(actionCards));
-    var newMarkup = cardsMarkup(JSON.stringify(head(afterCards.reverse)));
+    actionPhrase = player + " Hits"
+    var newMarkup = cardsMarkup(JSON.stringify(head(afterCards)));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Split") {
     actionPhrase = player + " " + action;
@@ -815,9 +824,16 @@ function onMessage(event) {
     console.log(event.data);
     let receivedData = JSON.parse(event.data);
     console.log("New Data: ", receivedData);
-
+    // TODO: update cards library to include players' bank amounts in the history
     var players = receivedData.body.blackjack.players;
     var remaining = receivedData.body.blackjack.history;
+    if (players.length == 0 || players[0] == null) {
+      $("#bank").text(""); 
+    } else {
+      alert(players[o].bank.toString());
+      $("#bank").text(players[0].bank.toString());
+    }
+    $("#bank").text(bank); 
     $("#remaining-steps").text(JSON.stringify(remaining));
     console.info("REMAINING COUNT: " + remaining.length);
     // get the text from the "body" field of the json we
