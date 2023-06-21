@@ -627,6 +627,10 @@ function step() {
   console.info("STEP: REMAINING COUNT: " + steps.length); 
   $currentDiv = null;
   var current = head(steps);
+  var bank = current.afterTokens;
+  if (bank != null && bank != "") {
+    $("#bank").text(bank) 
+  }
   var remaining = JSON.stringify(tail(steps));
   var player = current.playerId.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("d", "D").replace("p", "P");
   var action = current.action;
@@ -680,7 +684,13 @@ function step() {
   } else if (action == "Bet" || action == "DoubleDown") {
     var newMarkup = chipsInnerMarkup(actionTokens);
     $currentDiv.find(".chips").html(newMarkup);
-    actionPhrase = player + " Doubles Down an Additional" + actionTokens.toString();
+    var act = "";
+    if (action == "Bet") {
+      act = " Bets ";
+    } else {
+      act = " Doubles Down an Additional ";
+    }
+    actionPhrase = player + act + actionTokens.toString();
   } else if (action == "IsDealt") {
     actionPhrase = player + " " + action;
     // console.info("isDealt DEALT CARDS: " + JSON.stringify(actionCards));
@@ -707,24 +717,32 @@ function step() {
         newMarkup = cardsMarkup(JSON.stringify(afterCards[1]));
         switch(previousDiv) {
           case null:
+            // alert("previous div: null, next div: #player-cards-2");
             $("#player-cards-2").find(".hand").html(newMarkup);
             break;
           case "":
+            // alert("previous div: empty string, next div: #player-cards-2");
             $("#player-cards-2").find(".hand").html(newMarkup);
             break;
           case "player-cards-1":
+            // alert("previous div: #player-cards-1, next div: #player-cards-2");
             $("#player-cards-2").find(".hand").html(newMarkup);
             break;
           case "player-cards-2":
+            // alert("previous div: #player-cards-2, next div: #player-cards-3");
             $("#player-cards-3").find(".hand").html(newMarkup);
             break;
           case "player-cards-3":
+            // alert("previous div: #player-cards-3, next div: #player-cards-4");
             $("#player-cards-4").find(".hand").html(newMarkup);
             break;
           case "player-cards-4":
+            // alert("previous div: #player-cards-4, next div: #player-cards-1");
             $("#player-cards-1").find(".hand").html(newMarkup);
             break;
           default:
+            // TODO: this is the executed block when splitting from 1 hand to 2, previous div is not apparently getting set properly
+            // alert("previous div not found, defaulting to use next div: #player-cards-2");
             $("#player-cards-2").find(".hand").html(newMarkup);
             break;
         }
@@ -739,6 +757,7 @@ function step() {
   } else if (action == "ShowCards") {
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
+    actionPhrase = "";
   } else if (action == "Lose") {
     actionPhrase = player + " " + "Loses";
     $("#dealer-cards div.chips").html("");
@@ -787,7 +806,9 @@ function step() {
 
 // var interval = 220;
 // var interval = 400;
-var interval = 900;
+// var interval = 900;
+// var interval = 600;
+var interval = 300;
 var stepIntervalEvent = null;
 // var stepIntervalEvent = window.setInterval(step, interval);
 
@@ -827,13 +848,6 @@ function onMessage(event) {
     // TODO: update cards library to include players' bank amounts in the history
     var players = receivedData.body.blackjack.players;
     var remaining = receivedData.body.blackjack.history;
-    if (players.length == 0 || players[0] == null) {
-      $("#bank").text(""); 
-    } else {
-      alert(players[o].bank.toString());
-      $("#bank").text(players[0].bank.toString());
-    }
-    $("#bank").text(bank); 
     $("#remaining-steps").text(JSON.stringify(remaining));
     console.info("REMAINING COUNT: " + remaining.length);
     // get the text from the "body" field of the json we
