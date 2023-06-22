@@ -32,7 +32,8 @@
 }
 
 #remaining-steps,
-#previous-div {
+#previous-div,
+#last-action {
   visibility: hidden;
   width: 0px !important;
   height: 0px !important;

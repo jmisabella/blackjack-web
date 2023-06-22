@@ -547,6 +547,7 @@ $(document).ready(function() {
     var hitOnSplitAces = $("input[type='radio'][name='settings-hit-on-split-aces']").val();
     var resplitOnSplitAces = $("input[type='radio'][name='settings-resplit-on-split-aces']").val();
     var initialBank = $("#settings-initial-bank").val();
+    $("#bank").text(initialBank);
 
     var settings = { 
       "dealer-hit-limit": dealerHitLimit,
@@ -613,6 +614,22 @@ $(document).ready(function() {
 });
 
 function step() {
+  var lastAction = $("#last-action").text();
+  if (lastAction == "Win" || lastAction == "Lose" || lastAction == "Tie") {
+    wait(2000); 
+    $("#dealer-cards div.chips").html("");
+    $("#dealer-cards div.hand").html("");
+    $("#player-cards-1 div.chips").html("");
+    $("#player-cards-1 div.hand").html("");
+    $("#player-cards-2 div.chips").html("");
+    $("#player-cards-2 div.hand").html("");
+    $("#player-cards-3 div.chips").html("");
+    $("#player-cards-3 div.hand").html("");
+    $("#player-cards-4 div.chips").html("");
+    $("#player-cards-4 div.hand").html("");
+    $("#last-action").text("");
+    return; 
+  }
   var actionVisible = $("#action").css("visibility") == "visible";
   if ($("#action").css("visibility") == "visible") {
     wait(1000);
@@ -634,6 +651,7 @@ function step() {
   var remaining = JSON.stringify(tail(steps));
   var player = current.playerId.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("d", "D").replace("p", "P");
   var action = current.action;
+  $("#last-action").text(action);
   var actionTokens = current.actionTokens;
   var beforeCards = current.beforeCards;
   var actionPhrase = null;
@@ -751,6 +769,10 @@ function step() {
         $currentDiv.find(".hand").html(newMarkup);
         break;
     }
+  } else if (action == "Bust") {
+    actionPhrase = player + " Busts";
+  } else if (action == "Blackjack") {
+    actionPhrase = "Blackjack for " + player;
   } else if (action == "Stand") {
     actionPhrase = player + " " + "Stands";
     // TODO: anything else for stand?
@@ -760,40 +782,13 @@ function step() {
     actionPhrase = "";
   } else if (action == "Lose") {
     actionPhrase = player + " " + "Loses";
-    $("#dealer-cards div.chips").html("");
-    $("#dealer-cards div.hand").html("");
-    $("#player-cards-1 div.chips").html("");
-    $("#player-cards-1 div.hand").html("");
-    $("#player-cards-2 div.chips").html("");
-    $("#player-cards-2 div.hand").html("");
-    $("#player-cards-3 div.chips").html("");
-    $("#player-cards-3 div.hand").html("");
-    $("#player-cards-4 div.chips").html("");
-    $("#player-cards-4 div.hand").html("");
+    $("#action").text(actionPhrase);
   } else if (action == "Win") {
     actionPhrase = player + " " + "Wins";
-    $("#dealer-cards div.chips").html("");
-    $("#dealer-cards div.hand").html("");
-    $("#player-cards-1 div.chips").html("");
-    $("#player-cards-1 div.hand").html("");
-    $("#player-cards-2 div.chips").html("");
-    $("#player-cards-2 div.hand").html("");
-    $("#player-cards-3 div.chips").html("");
-    $("#player-cards-3 div.hand").html("");
-    $("#player-cards-4 div.chips").html("");
-    $("#player-cards-4 div.hand").html("");
+    $("#action").text(actionPhrase);
   } else if (action == "Tie") {
     actionPhrase = "Tie";
-    $("#dealer-cards div.chips").html("");
-    $("#dealer-cards div.hand").html("");
-    $("#player-cards-1 div.chips").html("");
-    $("#player-cards-1 div.hand").html("");
-    $("#player-cards-2 div.chips").html("");
-    $("#player-cards-2 div.hand").html("");
-    $("#player-cards-3 div.chips").html("");
-    $("#player-cards-3 div.hand").html("");
-    $("#player-cards-4 div.chips").html("");
-    $("#player-cards-4 div.hand").html("");
+    $("#action").text(actionPhrase);
   }
   $("#previous-div").text($currentDiv);
   $("#remaining-steps").text(remaining);
