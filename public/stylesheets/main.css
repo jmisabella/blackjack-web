@@ -376,7 +376,7 @@ div#inner-container {
   border: 1px solid #238323;
   display: inline-block;
   padding: 7px;
-
+  min-height: 580px;
 }
 
 div#inner-container .player {

@@ -451,9 +451,12 @@ function chips(integerValue) {
   return result;
 }
 
-function chipsInnerMarkup(integerValue) {
+function chipsInnerMarkup(integerValue, includeOuterDiv) {
   var chipsDict = chips(integerValue);
-  var markup = "<div class=\"chips\">";
+  var markup = "";
+  if (includeOuterDiv) {
+    markup = "<div class=\"chips\">";
+  }
   for (var key in chipsDict) {
     var color = "white";
     switch(key) {
@@ -495,9 +498,14 @@ function chipsInnerMarkup(integerValue) {
         color = "white";
         break;   
     }
-    markup += "<div class=\"chip " + color + "\" title=\"" + key + "\"></div>";
+    var tokenCount = parseInt(chipsDict[key], 10);
+    for (let i = 0; i < tokenCount; i++) {
+      markup += "<div class=\"chip " + color + "\" title=\"" + key + "\"></div>";
+    }
   } 
-  markup += "</div>";
+  if (includeOuterDiv) {
+    markup += "</div>";
+  }
   return markup;
 }
 
@@ -602,11 +610,13 @@ $(document).ready(function() {
   $("#btnTest").click(function (e) {
     var input = $("#txtTest").val();
     
-    var results = chips(input);
-    var str = "";
-    for (var key in results) {
-      str = str + "\r\n " + key + ": " + results[key];
-    }
+    // var results = chips(input);
+    // var str = "";
+    // for (var key in results) {
+    //   str = str + "\r\n " + key + ": " + results[key];
+    // }
+
+    var str = chipsInnerMarkup(input, false);
 
     alert(str);
   });
@@ -700,13 +710,16 @@ function step() {
   } else if (action == "InsufficientFunds") {
     actionPhrase = player + " Has Insufficient Funds";
   } else if (action == "Bet" || action == "DoubleDown") {
-    var newMarkup = chipsInnerMarkup(actionTokens);
-    $currentDiv.find(".chips").html(newMarkup);
     var act = "";
     if (action == "Bet") {
       act = " Bets ";
+      var newMarkup = chipsInnerMarkup(actionTokens, false);
+      $currentDiv.find(".chips").html(newMarkup);
     } else {
       act = " Doubles Down an Additional ";
+      var existingMarkup = $currentDiv.find(".chips").html();
+      var newMarkup = chipsInnerMarkup(actionTokens, false);
+      $currentDiv.find(".chips").html(existingMarkup + newMarkup);
     }
     actionPhrase = player + act + actionTokens.toString();
   } else if (action == "IsDealt") {
