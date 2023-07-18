@@ -43,6 +43,31 @@ function wait(ms){
   }
 }
 
+// get the nth index of pattern from given str string
+function nthIndex(str, pat, n) {
+  var length= str.length, i= -1;
+  while(n-- && i++<length) {
+      i= str.indexOf(pat, i);
+      if (i < 0) break;
+  }
+  return i;
+}
+
+// Given string value and delimiter and optional number of skips, splits string into a 2-element array 
+// containing the 2 values resulting from splitting once.
+function splitOnce(str, delimiter, numberOfSkips = 0) {
+  if (numberOfSkips <= 0) {
+    var first = str.substring(0, str.indexOf(delimiter)) 
+    var second = str.substring(str.indexOf(delimiter)) 
+    return [first, second];
+  } else {
+    var index = nthIndex(str, delimiter, numberOfSkips + 1);
+    var first = str.substring(0, index);
+    var second = str.substring(index);
+    return [first, second];
+  }
+}
+
 function cardsMarkup(json) {
   if (json == null || json.toString() == "") {
     return "";
@@ -540,8 +565,13 @@ $(document).ready(function() {
     });
     setBubble(range, bubble);
   });
-  
+
+
   $("#settings-submit").click(function (e) {
+    // var result = splitOnce("[{\"rank\": \"Two\", \"suit\": \"Hearts\"},{\"rank\": \"Three\", \"suit\": \"Spades\"},{\"rank\": \"Four\", \"suit\": \"Diamonds\"}]", "},{", 1);
+    // alert("1: " + result[0]);
+    // alert("2: " + result[1]);
+
     // $body = $("body");
     // $body.addClass("loading"); 
     // $body.addClass("modal"); 
@@ -625,7 +655,7 @@ $(document).ready(function() {
 
 function step() {
   var lastAction = $("#last-action").text();
-  if (lastAction == "Win" || lastAction == "Lose" || lastAction == "Tie") {
+  if (lastAction == "Win" || lastAction == "Lose" || lastAction == "Tie" || lastAction == "Bust" || lastAction == "Blackjack") {
     wait(2000); 
     $("#dealer-cards div.chips").html("");
     $("#dealer-cards div.hand").html("");
@@ -650,7 +680,39 @@ function step() {
   if (raw == "") {
     return;
   }
-  var steps = JSON.parse(raw);
+  var nextStepRaw = "";
+  var remainingRaw = raw;
+  var validJson = false;
+  var i = 0;
+  while ((nextStepRaw == "" && !validJson) || i < 30) {
+    alert("i: " + i);
+    try {
+      if (i >= 30) {
+        break;
+      }
+      var result = splitOnce(raw, "},{", i);
+      nextStepRaw = result[0];
+      remainingRaw = result[1];
+      JSON.parse(nextStepRaw + "}]");
+      validJson = true; // if an error isn't thrown, then JSON is valid
+      // alert("valid JSON: " + nextStepRaw + "}]");
+      nextStepRaw = nextStepRaw + "}]";
+      remainingRaw = "[" + remainingRaw.substring(2);
+      // alert("remaining JSON: " + remainingRaw);
+      break;
+    } catch (error) {
+      validJson = false;
+      i += 1;
+    }
+  }
+  // var steps = null;
+  var steps = JSON.parse(nextStepRaw);
+  // var nextStepRaw = raw.substring(0, raw.indexOf("},{")) + "}]";
+  // var remainingStepsRaw = "[" + raw.substring(raw.indexOf("},{") + 2);
+  // alert(nextStepRaw);
+  // alert(remainingStepsRaw);
+  // var steps = JSON.parse(nextStepRaw);
+  // // var steps = JSON.parse(raw);
   console.info("STEP: REMAINING COUNT: " + steps.length); 
   $currentDiv = null;
   var current = head(steps);
@@ -658,7 +720,9 @@ function step() {
   if (bank != null && bank != "") {
     $("#bank").text(bank) 
   }
-  var remaining = JSON.stringify(tail(steps));
+  // var remaining = JSON.stringify(tail(steps));
+  // var remaining = remainingStepsRaw;
+  var remaining = remainingRaw;
   var player = current.playerId.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("d", "D").replace("p", "P");
   var action = current.action;
   $("#last-action").text(action);
@@ -720,6 +784,9 @@ function step() {
       var existingMarkup = $currentDiv.find(".chips").html();
       var newMarkup = chipsInnerMarkup(actionTokens, false);
       $currentDiv.find(".chips").html(existingMarkup + newMarkup);
+      // afterCards reflects the newly-dealt card from doubling-down
+      var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+      $currentDiv.find(".hand").html(newMarkup);
     }
     actionPhrase = player + act + actionTokens.toString();
   } else if (action == "IsDealt") {
@@ -734,7 +801,7 @@ function step() {
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Split") {
     actionPhrase = player + " " + action;
-    switch (afterCards.length) {
+    switch (afterCards.length) { // this is the number of hands
       case 1:
         // console.info("CARDS: " + JSON.stringify(afterCards[0]));
         // alert("{\"rank\":\"Six\",\"suit\":\"Diamonds\"}");
@@ -784,8 +851,12 @@ function step() {
     }
   } else if (action == "Bust") {
     actionPhrase = player + " Busts";
+    // var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+    var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Blackjack") {
-    actionPhrase = "Blackjack for " + player;
+    // actionPhrase = "Blackjack for " + player;
+    actionPhrase = "Blackjack!!";
   } else if (action == "Stand") {
     actionPhrase = player + " " + "Stands";
     // TODO: anything else for stand?
