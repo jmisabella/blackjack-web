@@ -685,7 +685,7 @@ function step() {
   var validJson = false;
   var i = 0;
   while ((nextStepRaw == "" && !validJson) || i < 30) {
-    alert("i: " + i);
+    // alert("i: " + i);
     try {
       if (i >= 30) {
         break;
