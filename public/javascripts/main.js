@@ -656,7 +656,7 @@ $(document).ready(function() {
 function step() {
   var lastAction = $("#last-action").text();
   if (lastAction == "Win" || lastAction == "Lose" || lastAction == "Tie" || lastAction == "Bust" || lastAction == "Blackjack") {
-    wait(2000); 
+    // wait(300); 
     $("#dealer-cards div.chips").html("");
     $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
@@ -672,7 +672,7 @@ function step() {
   }
   var actionVisible = $("#action").css("visibility") == "visible";
   if ($("#action").css("visibility") == "visible") {
-    wait(1000);
+    wait(160);
     $("#action").css("visibility", "hidden");
     return;
   }
@@ -887,7 +887,8 @@ function step() {
 // var interval = 400;
 // var interval = 900;
 // var interval = 600;
-var interval = 300;
+// var interval = 300;
+var interval = 200;
 var stepIntervalEvent = null;
 // var stepIntervalEvent = window.setInterval(step, interval);
 
