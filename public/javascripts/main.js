@@ -656,7 +656,8 @@ $(document).ready(function() {
 function step() {
   var lastAction = $("#last-action").text();
   if (lastAction == "Win" || lastAction == "Lose" || lastAction == "Tie" || lastAction == "Bust" || lastAction == "Blackjack") {
-    // wait(300); 
+    // wait(350); 
+    wait(interval * 1.75); 
     $("#dealer-cards div.chips").html("");
     $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
@@ -672,7 +673,8 @@ function step() {
   }
   var actionVisible = $("#action").css("visibility") == "visible";
   if ($("#action").css("visibility") == "visible") {
-    wait(160);
+    wait(interval * 1.75); 
+    // wait(350);
     $("#action").css("visibility", "hidden");
     return;
   }
@@ -705,23 +707,13 @@ function step() {
       i += 1;
     }
   }
-  // var steps = null;
   var steps = JSON.parse(nextStepRaw);
-  // var nextStepRaw = raw.substring(0, raw.indexOf("},{")) + "}]";
-  // var remainingStepsRaw = "[" + raw.substring(raw.indexOf("},{") + 2);
-  // alert(nextStepRaw);
-  // alert(remainingStepsRaw);
-  // var steps = JSON.parse(nextStepRaw);
-  // // var steps = JSON.parse(raw);
-  console.info("STEP: REMAINING COUNT: " + steps.length); 
   $currentDiv = null;
   var current = head(steps);
   var bank = current.afterTokens;
   if (bank != null && bank != "") {
     $("#bank").text(bank) 
   }
-  // var remaining = JSON.stringify(tail(steps));
-  // var remaining = remainingStepsRaw;
   var remaining = remainingRaw;
   var player = current.playerId.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("d", "D").replace("p", "P");
   var action = current.action;
@@ -766,21 +758,21 @@ function step() {
   if (action == "Shuffle") {
     actionPhrase = player + " Shuffles";
   } else if (action == "LeaveTable") {
-    actionPhrase = player + " Leaves Table";
+    actionPhrase = "Leaving Game";
   } else if (action == "Surrender") {
-    actionPhrase = player + " Surrenders";
+    actionPhrase = "Surrender";
   } else if (action == "BuyInsurance") {
-    actionPhrase = player + " Buys " + actionTokens + " Worth of Insurance";
+    actionPhrase = "+" + actionTokens + " (Insurance)";
   } else if (action == "InsufficientFunds") {
-    actionPhrase = player + " Has Insufficient Funds";
+    actionPhrase = "Insufficient Funds";
   } else if (action == "Bet" || action == "DoubleDown") {
-    var act = "";
+    var suffix = "";
     if (action == "Bet") {
-      act = " Bets ";
+      suffix = "";
       var newMarkup = chipsInnerMarkup(actionTokens, false);
       $currentDiv.find(".chips").html(newMarkup);
     } else {
-      act = " Doubles Down an Additional ";
+      suffix = " (Double-Down)";
       var existingMarkup = $currentDiv.find(".chips").html();
       var newMarkup = chipsInnerMarkup(actionTokens, false);
       $currentDiv.find(".chips").html(existingMarkup + newMarkup);
@@ -788,24 +780,20 @@ function step() {
       var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
       $currentDiv.find(".hand").html(newMarkup);
     }
-    actionPhrase = player + act + actionTokens.toString();
+    actionPhrase = "+" + actionTokens.toString() + suffix;
   } else if (action == "IsDealt") {
     actionPhrase = player + " " + action;
-    // console.info("isDealt DEALT CARDS: " + JSON.stringify(actionCards));
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
     actionPhrase = "";
   } else if (action == "Hit") {
-    actionPhrase = player + " Hits"
+    actionPhrase = ""
     var newMarkup = cardsMarkup(JSON.stringify(head(afterCards)));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Split") {
-    actionPhrase = player + " " + action;
+    actionPhrase = action;
     switch (afterCards.length) { // this is the number of hands
       case 1:
-        // console.info("CARDS: " + JSON.stringify(afterCards[0]));
-        // alert("{\"rank\":\"Six\",\"suit\":\"Diamonds\"}");
-        // alert(cardsMarkup("{\"rank\":\"Six\",\"suit\":\"Diamonds\"}"));
         var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
         $currentDiv.find(".hand").html(newMarkup);
         break;
@@ -850,7 +838,11 @@ function step() {
         break;
     }
   } else if (action == "Bust") {
-    actionPhrase = player + " Busts";
+    if (player.toLowerCase() == "dealer") {
+      actionPhrase = player + " Busts";
+    } else {
+      actionPhrase = "Bust";
+    }
     // var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
@@ -858,17 +850,32 @@ function step() {
     // actionPhrase = "Blackjack for " + player;
     actionPhrase = "Blackjack!!";
   } else if (action == "Stand") {
-    actionPhrase = player + " " + "Stands";
+    if (player.toLowerCase() == "dealer") {
+      actionPhrase = player + " " + "Stands";
+    } else {
+      actionPhrase = "Stand";
+    }
     // TODO: anything else for stand?
   } else if (action == "ShowCards") {
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
     actionPhrase = "";
   } else if (action == "Lose") {
-    actionPhrase = player + " " + "Loses";
+    if (player.toLowerCase() == "dealer") {
+      // actionPhrase = player + " " + "Loses";
+      actionPhrase = "Win";
+    } else {
+      // actionPhrase = "Lose";
+      actionPhrase = "House Wins";
+    }
     $("#action").text(actionPhrase);
   } else if (action == "Win") {
-    actionPhrase = player + " " + "Wins";
+    if (player.toLowerCase() == "dealer") {
+      // actionPhrase = player + " " + "Wins";
+      actionPhrase = "House Wins";
+    } else {
+      actionPhrase = "Win";
+    }
     $("#action").text(actionPhrase);
   } else if (action == "Tie") {
     actionPhrase = "Tie";
