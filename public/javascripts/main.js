@@ -567,6 +567,7 @@ $(document).ready(function() {
   });
 
 
+  
   $("#settings-submit").click(function (e) {
     // var result = splitOnce("[{\"rank\": \"Two\", \"suit\": \"Hearts\"},{\"rank\": \"Three\", \"suit\": \"Spades\"},{\"rank\": \"Four\", \"suit\": \"Diamonds\"}]", "},{", 1);
     // alert("1: " + result[0]);
@@ -847,8 +848,11 @@ function step() {
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Blackjack") {
-    // actionPhrase = "Blackjack for " + player;
-    actionPhrase = "Blackjack!!";
+    if (player.toLowerCase() == "dealer") {
+      actionPhrase = player + " has Blackjack";
+    } else {
+      actionPhrase = "Blackjack";
+    }
   } else if (action == "Stand") {
     if (player.toLowerCase() == "dealer") {
       actionPhrase = player + " " + "Stands";
@@ -889,13 +893,14 @@ function step() {
   window.clearInterval(stepIntervalEvent); 
   stepIntervalEvent = window.setInterval(step, interval); 
 }
+var interval = 200;
 
 // var interval = 220;
 // var interval = 400;
 // var interval = 900;
 // var interval = 600;
 // var interval = 300;
-var interval = 200;
+// var interval = 200;
 var stepIntervalEvent = null;
 // var stepIntervalEvent = window.setInterval(step, interval);
 
@@ -946,6 +951,14 @@ function consoleLog(message) {
 }
 
 window.addEventListener("load", init, false);
+
+$("#speed").change(function() {
+  var pauseMs = $("#speed").val();
+  interval = pauseMs;
+  if ($("#play-pause").html() != "||") {
+    stepIntervalEvent = window.setInterval(step, interval);
+  }
+});
 
 $("#play-pause").click(function (e) {
   if ($("#play-pause").html() == "||") {

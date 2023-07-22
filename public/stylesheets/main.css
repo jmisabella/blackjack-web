@@ -43,10 +43,12 @@
 
 #display-controls p { font-size: 0px; }
 /* #display-controls span { width: 20%; display: inline-block; margin-bottom: 0; } */
-#display-controls span { width: 25%; display: inline-block; margin-bottom: 0; }
+/* #display-controls span { width: 25%; display: inline-block; margin-bottom: 0; } */
+#display-controls span { width: 20%; display: inline-block; margin-bottom: 0; }
 #display-controls span a { font-size: 24px; font-weight: bold; color: #238323; }
 #display-controls span a:hover { text-decoration: none; color: #fff; }
 #display-controls span.align-right { text-align: right; }
+#display-controls span input#speed { width: 50% !important; display: inline-block; margin-bottom: 0; }
 
 .hand {
   margin: 5px;
@@ -354,7 +356,17 @@ body.dark-mode button#play-pause-button.pause {
 }
 #settings-modal .range-wrap input#settings-initial-bank {
   width: 90%;
-} 
+}
+#span-speed-slider {
+  font-size: 12px;
+  color: #fff;
+}
+input#speed {
+  width: 10% !important;
+}
+input.reverse {
+  direction: rtl;
+}
 
 /* mobile device specific rules */
 @media (max-width: 900px) {
