@@ -48,7 +48,7 @@
 #display-controls span a { font-size: 24px; font-weight: bold; color: #238323; }
 #display-controls span a:hover { text-decoration: none; color: #fff; }
 #display-controls span.align-right { text-align: right; }
-#display-controls span input#speed { width: 50% !important; display: inline-block; margin-bottom: 0; }
+#display-controls span input#speed { width: 50% !important; display: inline-block; margin-bottom: 0; cursor: pointer; }
 
 .hand {
   margin: 5px;
@@ -378,6 +378,9 @@ input.reverse {
     margin-left: -180px !important;
     margin-top: -150px !important;
   }
+
+  #display-controls span input#speed { width: 75% !important; }
+
 }
 
 div#outer-container {

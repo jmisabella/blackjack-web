@@ -941,7 +941,7 @@ function onMessage(event) {
     var players = receivedData.body.blackjack.players;
     var remaining = receivedData.body.blackjack.history;
     $("#remaining-steps").text(JSON.stringify(remaining));
-    console.info("REMAINING COUNT: " + remaining.length);
+    // console.info("REMAINING COUNT: " + remaining.length);
     // get the text from the "body" field of the json we
     // receive from the server.
 } 
@@ -953,6 +953,20 @@ function consoleLog(message) {
 window.addEventListener("load", init, false);
 
 $("#speed").change(function() {
+  var pauseMs = $("#speed").val();
+  interval = pauseMs;
+  if ($("#play-pause").html() != "||") {
+    stepIntervalEvent = window.setInterval(step, interval);
+  }
+});
+$("#speed").on("pointermove", function(e) {
+  var pauseMs = $("#speed").val();
+  interval = pauseMs;
+  if ($("#play-pause").html() != "||") {
+    stepIntervalEvent = window.setInterval(step, interval);
+  }
+});
+$("#speed").on("input propertychange", function(e) {
   var pauseMs = $("#speed").val();
   interval = pauseMs;
   if ($("#play-pause").html() != "||") {
