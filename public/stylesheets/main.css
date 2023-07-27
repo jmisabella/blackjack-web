@@ -44,7 +44,8 @@
 #display-controls p { font-size: 0px; }
 /* #display-controls span { width: 20%; display: inline-block; margin-bottom: 0; } */
 /* #display-controls span { width: 25%; display: inline-block; margin-bottom: 0; } */
-#display-controls span { width: 20%; display: inline-block; margin-bottom: 0; }
+/* #display-controls span { width: 20%; display: inline-block; margin-bottom: 0; } */
+#display-controls span { width: 16%; display: inline-block; margin-bottom: 0; }
 #display-controls span a { font-size: 24px; font-weight: bold; color: #238323; }
 #display-controls span a:hover { text-decoration: none; color: #fff; }
 #display-controls span.align-right { text-align: right; }
@@ -296,6 +297,18 @@ body.dark-mode button#play-pause-button.pause {
   background: red;
 }
 
+#single-test-modal {
+  width: 359px;
+  height: 445px;
+  border: solid 1px #238323;
+  background-color: #6b8364;
+  top: 30%;
+  left: 50%;
+  margin-left: -180px;
+  margin-top: -150px;
+
+}
+
 #settings-modal {
   width: 359px;
   height: 445px;
@@ -313,7 +326,8 @@ body.dark-mode button#play-pause-button.pause {
 
 }
 
-#settings-modal #settings-close {
+#settings-modal #settings-close,
+#single-test-modal #single-test-close {
   float: right;
   /* margin: 2px 6px; */
   margin: 12px 20px -12px 0;
@@ -321,7 +335,8 @@ body.dark-mode button#play-pause-button.pause {
   width: auto;
 }
 
-#settings-modal span {
+#settings-modal span, 
+#single-test-modal span {
   text-align: left; 
   display: inline-block;
   width: 100%;
@@ -330,18 +345,21 @@ body.dark-mode button#play-pause-button.pause {
   font-weight: bold;
 }
 
-#settings-modal span label {
+#settings-modal span label,
+#single-test-modal span label {
   padding-right: 3px;
 }
 
-#settings-modal .range-wrap input {
+#settings-modal .range-wrap input,
+#single-test-modal .range-wrap input {
   margin: 0 5px !important;
   padding: 0 5px !important;
   /* float: right; */
   /* width: 50%; */
 }
 
-#settings-modal input[type=button] {
+#settings-modal input[type=button],
+#single-test-modal input[type=button] {
   color: #d3d3d3;
   font-weight: bold;
   background-color: #014D43;
@@ -371,8 +389,12 @@ input.reverse {
 /* mobile device specific rules */
 @media (max-width: 900px) {
   #settings-modal {
-    /* left: 2% !important; */
- 
+    top: 35% !important;
+    left: 50% !important;
+    margin-left: -180px !important;
+    margin-top: -150px !important;
+  }
+  #single-test-modal {
     top: 35% !important;
     left: 50% !important;
     margin-left: -180px !important;

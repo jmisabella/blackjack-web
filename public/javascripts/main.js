@@ -566,7 +566,10 @@ $(document).ready(function() {
     setBubble(range, bubble);
   });
 
+  $("#single-test").click(function (e) {
 
+    // TODO...
+  });
   
   $("#settings-submit").click(function (e) {
     // var result = splitOnce("[{\"rank\": \"Two\", \"suit\": \"Hearts\"},{\"rank\": \"Three\", \"suit\": \"Spades\"},{\"rank\": \"Four\", \"suit\": \"Diamonds\"}]", "},{", 1);
@@ -624,12 +627,24 @@ $(document).ready(function() {
     change_card_size("dealer", "increase");
   });
 
+  $("#single-test").click(function (e) {
+    $('#single-test-modal').css('display', 'block');
+    // $('#single-test-modal').addClass('modal');
+    $('#single-test-modal').modal('toggle');
+  });
+  
   $("#settings").click(function (e) {
     $('#settings-modal').css('display', 'block');
     // $('#settings-modal').addClass('modal');
     $('#settings-modal').modal('toggle');
   });
 
+  $("#single-test-close").click(function (e) {
+    $('#single-test-modal').modal('hide');
+    $('#single-test-modal').css('display', 'none');
+    // $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+  });
 
   $("#settings-close").click(function (e) {
     $('#settings-modal').modal('hide');
