@@ -584,23 +584,57 @@ $(document).ready(function() {
     var hitOnSplitAces = $("input[type='radio'][name='settings-hit-on-split-aces']").val();
     var resplitOnSplitAces = $("input[type='radio'][name='settings-resplit-on-split-aces']").val();
     var initialBank = $("#settings-initial-bank").val();
+ 
+    var playerFirstCard = $("#player-first-card").val();
+    var playerSecondCard = $("#player-second-card").val();
+    var dealerFirstCard = $("#dealer-first-card").val();
+    var dealerSecondCard = $("#dealer-second-card").val();
+
+    var settings = null;
     $("#bank").text(initialBank);
-
-    var settings = { 
-      "dealer-hit-limit": dealerHitLimit,
-      "blackjack-payout": blackjackPayout,
-      "deck-count": deckCount,
-      "split-limit": splitLimit,
-      "allow-surrender": allowSurrender,
-      "hit-on-split-aces": hitOnSplitAces,
-      "resplit-on-split-aces": resplitOnSplitAces,
-      "initial-bank": initialBank
-    };
-
+    
+    if (playerFirstCard != null &&
+      playerFirstCard != "na" &&
+      playerSecondCard != null &&
+      playerSecondCard != "na" &&
+      dealerFirstCard != null &&
+      dealerFirstCard != "na" &&
+      dealerSecondCard != null &&
+      dealerSecondCard != "na") {
+        // alert("YES");
+        settings = { 
+          "dealer-hit-limit": dealerHitLimit,
+          "blackjack-payout": blackjackPayout,
+          "deck-count": deckCount,
+          "split-limit": splitLimit,
+          "allow-surrender": allowSurrender,
+          "hit-on-split-aces": hitOnSplitAces,
+          "resplit-on-split-aces": resplitOnSplitAces,
+          "initial-bank": initialBank,
+          "initial-player-ranks": [playerFirstCard, playerSecondCard], 
+          "initial-dealer-ranks": [dealerFirstCard, dealerSecondCard], 
+      };
+    } else {
+      // alert("NO");
+      settings = { 
+        "dealer-hit-limit": dealerHitLimit,
+        "blackjack-payout": blackjackPayout,
+        "deck-count": deckCount,
+        "split-limit": splitLimit,
+        "allow-surrender": allowSurrender,
+        "hit-on-split-aces": hitOnSplitAces,
+        "resplit-on-split-aces": resplitOnSplitAces,
+        "initial-bank": initialBank
+      };
+    }
+    // alert(JSON.stringify(settings));
     let json = {
       message: JSON.stringify(settings)
     }
+     
+    // alert(JSON.stringify(json));
     webSocket.send(JSON.stringify(json));
+    // webSocket.send(json);
     
     $('#settings-modal').modal('hide');
     $('#settings-modal').css('display', 'none');
