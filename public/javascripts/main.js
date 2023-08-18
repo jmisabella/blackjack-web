@@ -601,7 +601,6 @@ $(document).ready(function() {
       dealerFirstCard != "na" &&
       dealerSecondCard != null &&
       dealerSecondCard != "na") {
-        // alert("YES");
         settings = { 
           "dealer-hit-limit": dealerHitLimit,
           "blackjack-payout": blackjackPayout,
@@ -615,7 +614,6 @@ $(document).ready(function() {
           "initial-dealer-ranks": [dealerFirstCard, dealerSecondCard], 
       };
     } else {
-      // alert("NO");
       settings = { 
         "dealer-hit-limit": dealerHitLimit,
         "blackjack-payout": blackjackPayout,
@@ -627,23 +625,20 @@ $(document).ready(function() {
         "initial-bank": initialBank
       };
     }
-    // alert(JSON.stringify(settings));
     let json = {
       message: JSON.stringify(settings)
     }
      
-    // alert(JSON.stringify(json));
     webSocket.send(JSON.stringify(json));
-    // webSocket.send(json);
     
     $('#settings-modal').modal('hide');
     $('#settings-modal').css('display', 'none');
-    // $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-    // $body.removeClass("loading"); 
-    // $body.removeClass("modal"); 
 
     $("#loading-modal").css('display', 'block');
+   
+    stepIntervalEvent = window.setInterval(step, interval);
+    $("#play-pause").html("||");
 
   });
   
@@ -658,29 +653,13 @@ $(document).ready(function() {
 
   $("#settings").click(function (e) {
     $('#settings-modal').css('display', 'block');
-    // $('#settings-modal').addClass('modal');
     $('#settings-modal').modal('toggle');
   });
 
   $("#settings-close").click(function (e) {
     $('#settings-modal').modal('hide');
     $('#settings-modal').css('display', 'none');
-    // $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-  });
-
-  $("#btnTest").click(function (e) {
-    var input = $("#txtTest").val();
-    
-    // var results = chips(input);
-    // var str = "";
-    // for (var key in results) {
-    //   str = str + "\r\n " + key + ": " + results[key];
-    // }
-
-    var str = chipsInnerMarkup(input, false);
-
-    alert(str);
   });
 
 });
@@ -1007,8 +986,12 @@ $("#speed").on("input propertychange", function(e) {
 
 $("#play-pause").click(function (e) {
   if ($("#play-pause").html() == "||") {
-    window.clearInterval(stepIntervalEvent);
     $("#play-pause").html("&#9658;");
+    window.clearInterval(stepIntervalEvent);
+    wait(2000);
+    window.clearInterval(stepIntervalEvent);
+    window.clearInterval(stepIntervalEvent);
+    window.clearInterval(stepIntervalEvent);
   } else {
     stepIntervalEvent = window.setInterval(step, interval);
     $("#play-pause").html("||");
