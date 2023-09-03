@@ -637,6 +637,7 @@ $(document).ready(function() {
 
     $("#loading-modal").css('display', 'block');
    
+    window.clearInterval(stepIntervalEvent);
     stepIntervalEvent = window.setInterval(step, interval);
     $("#play-pause").html("||");
 
@@ -802,6 +803,7 @@ function step() {
     var newMarkup = cardsMarkup(JSON.stringify(head(afterCards)));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Split") {
+    // alert("SPLIT!"); // TODO: Split is not occurring when it should...
     actionPhrase = action;
     switch (afterCards.length) { // this is the number of hands
       case 1:
@@ -899,6 +901,9 @@ function step() {
   $("#remaining-steps").text(remaining);
   $("#action").text(actionPhrase);
   $("#action").css("visibility", "visible");
+  // TODO: make action fade in/out
+  // $("#action").removeClass("fade");
+  $("#action").addClass("fade");
   console.info("ACTION: " + actionPhrase);
   window.clearInterval(stepIntervalEvent); 
   stepIntervalEvent = window.setInterval(step, interval); 
@@ -966,6 +971,7 @@ $("#speed").change(function() {
   var pauseMs = $("#speed").val();
   interval = pauseMs;
   if ($("#play-pause").html() != "||") {
+    window.clearInterval(stepIntervalEvent);
     stepIntervalEvent = window.setInterval(step, interval);
   }
 });
@@ -973,6 +979,7 @@ $("#speed").on("pointermove", function(e) {
   var pauseMs = $("#speed").val();
   interval = pauseMs;
   if ($("#play-pause").html() != "||") {
+    window.clearInterval(stepIntervalEvent);
     stepIntervalEvent = window.setInterval(step, interval);
   }
 });
@@ -980,6 +987,7 @@ $("#speed").on("input propertychange", function(e) {
   var pauseMs = $("#speed").val();
   interval = pauseMs;
   if ($("#play-pause").html() != "||") {
+    window.clearInterval(stepIntervalEvent);
     stepIntervalEvent = window.setInterval(step, interval);
   }
 });
@@ -988,11 +996,9 @@ $("#play-pause").click(function (e) {
   if ($("#play-pause").html() == "||") {
     $("#play-pause").html("&#9658;");
     window.clearInterval(stepIntervalEvent);
-    wait(2000);
-    window.clearInterval(stepIntervalEvent);
-    window.clearInterval(stepIntervalEvent);
-    window.clearInterval(stepIntervalEvent);
+    wait(interval * 4);
   } else {
+    window.clearInterval(stepIntervalEvent);
     stepIntervalEvent = window.setInterval(step, interval);
     $("#play-pause").html("||");
   } 

@@ -1,8 +1,39 @@
 
+@-webkit-keyframes fadeinout {
+  0%,100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+  0%,100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* #action {
+  background: red;
+  -webkit-animation: fadeinout 1s linear forwards;
+  animation: fadeinout 1s linear forwards;
+} */
+
 #action {
-  margin: 0 30%;
+  /* margin: 0 30%; */
   text-align: center; 
   visibility: hidden;
+
+  position: absolute;
+  top: 25%;
+  left: 30%; 
+
+  /* -webkit-animation: fadeinout 1s linear forwards;
+  animation: fadeinout 1s linear forwards; */
+}
+
+.fade {
+  /* -webkit-animation: fadeinout 300ms linear forwards !important;
+  animation: fadeinout 300ms linear forwards !important; */
+  -webkit-animation: fadeinout 1s linear forwards;
+  animation: fadeinout 1s linear forwards;
+  animation-iteration-count: infinite !important; 
 }
 
 #bank {
