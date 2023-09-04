@@ -21,7 +21,7 @@
   visibility: hidden;
 
   position: absolute;
-  top: 25%;
+  top: 20%;
   left: 60%; 
 
   /* -webkit-animation: fadeinout 1s linear forwards;
@@ -44,7 +44,10 @@
 #action, #bank {
   color: #fff;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 28px;
+}
+#action.large, #bank.large {
+  font-size: 36px;
 }
 
 #loading-modal {
