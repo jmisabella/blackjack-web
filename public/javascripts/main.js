@@ -1004,6 +1004,17 @@ $("#play-pause").click(function (e) {
   } 
 });
 
+$("#dark-mode").click(function (e) {
+  var isDark = $("#dark-mode").is(":checked");
+  if (isDark) {
+    $("body").addClass("dark-mode");
+    $("body").removeClass("light-mode");
+  } else {
+    $("body").addClass("light-mode");
+    $("body").removeClass("dark-mode");
+  }
+});
+
 // send the message when the user presses the <enter> key while in the textarea
 $(window).on("keydown", function (e) {
     if (e.which == 13) {
