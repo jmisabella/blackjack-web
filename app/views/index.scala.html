@@ -5,7 +5,6 @@
 <div id="outer-container">
 
   <div id="inner-container">
-
     <div id="settings-modal" class="modal" aria-hidden="true" tabindex="-1" role="dialog" style="display: none;" >
       <span id="settings-close"  >&#10006;</span>
       <br /> 
@@ -58,194 +57,126 @@
         initial bank: <output class="bubble"></output>
         <input type="range" class="range" min="5" max="6000" value="2000" step="5" id="settings-initial-bank" />
       </span>
-      <!-- TODO: minimum bet -->
+      <span id="settings-player-initial-cards" >
+        player initial cards:
+        <select id="player-first-card">
+          <option value="na">N/A</option> 
+          <option value="Two">2</option>
+          <option value="Three">3</option>
+          <option value="Four">4</option>
+          <option value="Five">5</option>
+          <option value="Six">6</option>
+          <option value="Seven">7</option>
+          <option value="Eight">8</option>
+          <option value="Nine">9</option>
+          <option value="Ten">10</option>
+          <option value="Jack">J</option>
+          <option value="Queen">Q</option>
+          <option value="King">K</option>
+          <option value="Ace">A</option>
+        </select>
+        <select id="player-second-card">
+          <option value="na">N/A</option> 
+          <option value="Two">2</option>
+          <option value="Three">3</option>
+          <option value="Four">4</option>
+          <option value="Five">5</option>
+          <option value="Six">6</option>
+          <option value="Seven">7</option>
+          <option value="Eight">8</option>
+          <option value="Nine">9</option>
+          <option value="Ten">10</option>
+          <option value="Jack">J</option>
+          <option value="Queen">Q</option>
+          <option value="King">K</option>
+          <option value="Ace">A</option>
+        </select>
+      </span>
+      <span id="settings-dealer-initial-cards">
+        dealer initial cards:
+        <select id="dealer-first-card">
+          <option value="na">N/A</option> 
+          <option value="Two">2</option>
+          <option value="Three">3</option>
+          <option value="Four">4</option>
+          <option value="Five">5</option>
+          <option value="Six">6</option>
+          <option value="Seven">7</option>
+          <option value="Eight">8</option>
+          <option value="Nine">9</option>
+          <option value="Ten">10</option>
+          <option value="Jack">J</option>
+          <option value="Queen">Q</option>
+          <option value="King">K</option>
+          <option value="Ace">A</option>
+        </select>
+        <select id="dealer-second-card">
+          <option value="na">N/A</option> 
+          <option value="Two">2</option>
+          <option value="Three">3</option>
+          <option value="Four">4</option>
+          <option value="Five">5</option>
+          <option value="Six">6</option>
+          <option value="Seven">7</option>
+          <option value="Eight">8</option>
+          <option value="Nine">9</option>
+          <option value="Ten">10</option>
+          <option value="Jack">J</option>
+          <option value="Queen">Q</option>
+          <option value="King">K</option>
+          <option value="Ace">A</option>
+        </select>
+      </span>
+      <br />
+      <br />
       <input type="button" id="settings-submit" value="Play" />
     </div>
 
     <div id="display-controls" >
       <p>
         <span><a href="#" id="make-smaller" title="smaller">-</a></span>
-        <!-- <span><a href="#" id="pause" title="pause">||</a></span> -->
-        <span><a href="#" id="play_pause" title="play" class="align-right">&#9658;</a></span>
-        <span><a href="#" id="settings" title="new game" class="align-right" >~</a></span>
+        <span><a href="#" id="play-pause" title="play" class="align-right">&#9658;</a></span>
+        <span><input type="checkbox" id="dark-mode" checked title="dark mode" class="align-right" /></span>
+        <span><input type="range" id="speed" class="range reverse" min="50" max="700" value="200" step="50" /></span>
+        <span><a href="#" id="settings" title="new game" class="align-right" >&#10753;</a></span>
         <span><a href="#" id="make-larger" title="larger" class="align-right">+</a></span>
       </p>
     </div> 
-    <div id="dealer-cards" class="medium hand dealer" >
-      <div class="card" >
-        <!-- <div class="front red">
-          <div class="index">Q<br />&diams;</div>
-          <img class="face" src="@routes.Assets.versioned("images/cards/queen.gif")" alt="queen" width="80" height="130" />
-          <div class="spotA1">&diams;</div>
-          <div class="spotC5">&diams;</div>
-        </div> -->
-      </div>
-      <div class="card" >
-        <div class="front">
-          <div class="index">9<br />&spades;</div>
-          <div class="spotA1">&spades;</div>
-          <div class="spotA2">&spades;</div>
-          <div class="spotA4">&spades;</div>
-          <div class="spotA5">&spades;</div>
-          <div class="spotB3">&spades;</div>
-          <div class="spotC1">&spades;</div>
-          <div class="spotC2">&spades;</div>
-          <div class="spotC4">&spades;</div>
-          <div class="spotC5">&spades;</div>
-        </div>
-      </div>
+    <div id="bank"></div>
+    
+    <div id="dealer-cards" class="medium dealer" >
+      <div class="chips"></div>
+      <div class="hand"></div>
     </div>
     <div class="separator" ></div>
-
-    <!-- <input type="text" id="txtTest" />
-    <input type="button" id="btnTest" title="text" value="TEST" />  -->
-
+    <span id="action" class="fade">Dealer Hits</span>
     <div id="player-cards-4" class="medium player" >
-      <div class="chips">
-        <div class="chip white"></div>
-        <div class="chip white"></div>
-        <div class="chip white"></div>
-        <div class="chip red"></div>
-        <div class="chip red"></div>
-        <div class="chip blue"></div>
-        <div class="chip green"></div>
-        <div class="chip black"></div>
-      </div>
-      <div class="hand">
-        <div class="card" >
-          <div class="front red">
-            <div class="index">Q<br />&diams;</div>
-            <img class="face" src="@routes.Assets.versioned("images/cards/queen.gif")" alt="queen" width="80" height="130" />
-            <div class="face-suit spotA1">&diams;</div>
-            <div class="face-suit spotC5">&diams;</div>
-          </div>
-        </div>
-        <div class="card" >
-          <div class="front red">
-            <div class="index">9<br />&hearts;</div>
-            <div class="spotA1">&hearts;</div>
-            <div class="spotA2">&hearts;</div>
-            <div class="spotA4">&hearts;</div>
-            <div class="spotA5">&hearts;</div>
-            <div class="spotB3">&hearts;</div>
-            <div class="spotC1">&hearts;</div>
-            <div class="spotC2">&hearts;</div>
-            <div class="spotC4">&hearts;</div>
-            <div class="spotC5">&hearts;</div>
-          </div>
-        </div>
-      </div>
+      <div class="chips"></div>
+      <div class="hand"></div>
     </div>
+
     <div id="player-cards-3" class="medium player" >
-      <div class="chips">
-        <div class="chip white"></div>
-        <div class="chip white"></div>
-        <div class="chip white"></div>
-        <div class="chip red"></div>
-        <div class="chip red"></div>
-        <div class="chip blue"></div>
-        <div class="chip green"></div>
-        <div class="chip black"></div>
-      </div>
-      <div class="hand"> 
-        <div class="card" >
-          <div class="front red">
-            <div class="index">Q<br />&diams;</div>
-            <img class="face" src="@routes.Assets.versioned("images/cards/queen.gif")" alt="queen" width="80" height="130" />
-            <div class="face-suit spotA1">&diams;</div>
-            <div class="face-suit spotC5">&diams;</div>
-          </div>
-        </div>
-        <div class="card" >
-          <div class="front red">
-            <div class="index">9<br />&hearts;</div>
-            <div class="spotA1">&hearts;</div>
-            <div class="spotA2">&hearts;</div>
-            <div class="spotA4">&hearts;</div>
-            <div class="spotA5">&hearts;</div>
-            <div class="spotB3">&hearts;</div>
-            <div class="spotC1">&hearts;</div>
-            <div class="spotC2">&hearts;</div>
-            <div class="spotC4">&hearts;</div>
-            <div class="spotC5">&hearts;</div>
-          </div>
-        </div>
-      </div>
+      <div class="chips"></div>
+      <div class="hand"></div>
     </div>
+
     <div id="player-cards-2" class="medium player align-right" >
-      <div class="chips">
-        <div class="chip white"></div>
-        <div class="chip white"></div>
-        <div class="chip white"></div>
-        <div class="chip red"></div>
-        <div class="chip red"></div>
-        <div class="chip blue"></div>
-        <div class="chip green"></div>
-        <div class="chip black"></div>
-      </div>
-      <div class="hand">
-        <div class="card" >
-          <div class="front red">
-            <div class="index">9<br />&hearts;</div>
-            <div class="spotA1">&hearts;</div>
-            <div class="spotA2">&hearts;</div>
-            <div class="spotA4">&hearts;</div>
-            <div class="spotA5">&hearts;</div>
-            <div class="spotB3">&hearts;</div>
-            <div class="spotC1">&hearts;</div>
-            <div class="spotC2">&hearts;</div>
-            <div class="spotC4">&hearts;</div>
-            <div class="spotC5">&hearts;</div>
-          </div>
-        </div>
-        <div class="card" >
-          <div class="front red">
-            <div class="index">Q<br />&diams;</div>
-            <img class="face" src="@routes.Assets.versioned("images/cards/queen.gif")" alt="queen" width="80" height="130" />
-            <div class="face-suit spotA1">&diams;</div>
-            <div class="face-suit spotC5">&diams;</div>
-          </div>
-        </div>
-      </div>
+      <div class="chips"></div>
+      <div class="hand"></div>
     </div>
 
     <div id="player-cards-1" class="medium player" >
-      <div class="chips">
-        <div class="chip white"></div>
-        <div class="chip white"></div>
-        <div class="chip white"></div>
-        <div class="chip red"></div>
-        <div class="chip red"></div>
-        <div class="chip blue"></div>
-        <div class="chip green"></div>
-        <div class="chip black"></div>
-      </div>
-      <div class="hand">
-        <div class="card" >
-          <div class="front red">
-            <div class="index">9<br />&hearts;</div>
-            <div class="spotA1">&hearts;</div>
-            <div class="spotA2">&hearts;</div>
-            <div class="spotA4">&hearts;</div>
-            <div class="spotA5">&hearts;</div>
-            <div class="spotB3">&hearts;</div>
-            <div class="spotC1">&hearts;</div>
-            <div class="spotC2">&hearts;</div>
-            <div class="spotC4">&hearts;</div>
-            <div class="spotC5">&hearts;</div>
-          </div>
-        </div>
-        <div class="card" >
-          <div class="front">
-            <div class="index">J<br />&clubs;</div>
-            <img class="face" src="@routes.Assets.versioned("images/cards/jack.gif")" alt="jack" width="80" height="130" />
-            <div class="face-suit spotA1">&clubs;</div>
-            <div class="face-suit spotC5">&clubs;</div>
-          </div>
-        </div>
-      </div>
+      <div class="chips"></div>
+      <div class="hand"></div>
     </div>
+
   </div><!-- #inner-container -->
 </div><!-- #outer-container -->
+
+<div id="loading-modal"><span>LOADING...</span></div>
+
+<div id="remaining-steps"></div>
+<div id="previous-div"></div>
+<div id="last-action"></div>
 
 }

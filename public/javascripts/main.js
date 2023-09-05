@@ -43,8 +43,36 @@ function wait(ms){
   }
 }
 
+// get the nth index of pattern from given str string
+function nthIndex(str, pat, n) {
+  var length= str.length, i= -1;
+  while(n-- && i++<length) {
+      i= str.indexOf(pat, i);
+      if (i < 0) break;
+  }
+  return i;
+}
+
+// Given string value and delimiter and optional number of skips, splits string into a 2-element array 
+// containing the 2 values resulting from splitting once.
+function splitOnce(str, delimiter, numberOfSkips = 0) {
+  if (numberOfSkips <= 0) {
+    var first = str.substring(0, str.indexOf(delimiter)) 
+    var second = str.substring(str.indexOf(delimiter)) 
+    return [first, second];
+  } else {
+    var index = nthIndex(str, delimiter, numberOfSkips + 1);
+    var first = str.substring(0, index);
+    var second = str.substring(index);
+    return [first, second];
+  }
+}
+
 function cardsMarkup(json) {
-  let obj = JSON.parse(json);
+  if (json == null || json.toString() == "") {
+    return "";
+  }
+  let obj = JSON.parse(json.toString());
   var cards = ""; 
   for (const element of obj) {
     if (cards != "") {
@@ -52,7 +80,8 @@ function cardsMarkup(json) {
     }
     cards += cardMarkup(element.rank, element.suit);  
   }
-  return "<div class=\"hand\">" + cards + "</div>";
+  // return "<div class=\"hand\">" + cards + "</div>";
+  return cards;
 }
 
 function cardMarkup(rank, suit) {
@@ -447,9 +476,12 @@ function chips(integerValue) {
   return result;
 }
 
-function chipsInnerMarkup(integerValue) {
+function chipsInnerMarkup(integerValue, includeOuterDiv) {
   var chipsDict = chips(integerValue);
-  var markup = ""; //"<chips>";
+  var markup = "";
+  if (includeOuterDiv) {
+    markup = "<div class=\"chips\">";
+  }
   for (var key in chipsDict) {
     var color = "white";
     switch(key) {
@@ -491,9 +523,14 @@ function chipsInnerMarkup(integerValue) {
         color = "white";
         break;   
     }
-    markup += "<div class=\"chip " + color + "\" title=\"" + key + "\"></div>";
+    var tokenCount = parseInt(chipsDict[key], 10);
+    for (let i = 0; i < tokenCount; i++) {
+      markup += "<div class=\"chip " + color + "\" title=\"" + key + "\"></div>";
+    }
   } 
-  // markup += "</chips>";
+  if (includeOuterDiv) {
+    markup += "</div>";
+  }
   return markup;
 }
 
@@ -505,8 +542,19 @@ function setBubble(range, bubble) {
   bubble.innerHTML = val;
 }
 
+// $body = $("body");
+// $(document).on(r
+//     ajaxStart: function() { $body.addClass("loading");    },
+//      ajaxStop: function() { $body.removeClass("loading"); }    
+// });
+
+
+
 $(document).ready(function() {
-  
+
+  window.addEventListener("load", init, false);
+
+
   const allRanges = document.querySelectorAll(".range-wrap");
   allRanges.forEach(wrap => {
     const range = wrap.querySelector(".range");
@@ -517,13 +565,82 @@ $(document).ready(function() {
     });
     setBubble(range, bubble);
   });
-  
-  $("#settings-submit").click(function (e) {
-    // TODO: submit new game to server to retrieve game steps to display
 
+  $("#settings-submit").click(function (e) {
+    // var result = splitOnce("[{\"rank\": \"Two\", \"suit\": \"Hearts\"},{\"rank\": \"Three\", \"suit\": \"Spades\"},{\"rank\": \"Four\", \"suit\": \"Diamonds\"}]", "},{", 1);
+    // alert("1: " + result[0]);
+    // alert("2: " + result[1]);
+
+    // $body = $("body");
+    // $body.addClass("loading"); 
+    // $body.addClass("modal"); 
     
-    //// webSocket.send(JSON.stringify(jsonMessage));
-  
+    // submit new game to server to retrieve game steps to display
+    var dealerHitLimit = $("input[type='radio'][name='settings-dealer-hit-limit']").val();
+    var blackjackPayout = $("input[type='radio'][name='settings-blackjack-payout']").val();
+    var deckCount = $("#settings-deck-count").val();
+    var splitLimit = $("#settings-split-limit").val();
+    var allowSurrender = $("input[type='radio'][name='settings-allow-surrender']").val();
+    var hitOnSplitAces = $("input[type='radio'][name='settings-hit-on-split-aces']").val();
+    var resplitOnSplitAces = $("input[type='radio'][name='settings-resplit-on-split-aces']").val();
+    var initialBank = $("#settings-initial-bank").val();
+ 
+    var playerFirstCard = $("#player-first-card").val();
+    var playerSecondCard = $("#player-second-card").val();
+    var dealerFirstCard = $("#dealer-first-card").val();
+    var dealerSecondCard = $("#dealer-second-card").val();
+
+    var settings = null;
+    $("#bank").text(initialBank);
+    
+    if (playerFirstCard != null &&
+      playerFirstCard != "na" &&
+      playerSecondCard != null &&
+      playerSecondCard != "na" &&
+      dealerFirstCard != null &&
+      dealerFirstCard != "na" &&
+      dealerSecondCard != null &&
+      dealerSecondCard != "na") {
+        settings = { 
+          "dealer-hit-limit": dealerHitLimit,
+          "blackjack-payout": blackjackPayout,
+          "deck-count": deckCount,
+          "split-limit": splitLimit,
+          "allow-surrender": allowSurrender,
+          "hit-on-split-aces": hitOnSplitAces,
+          "resplit-on-split-aces": resplitOnSplitAces,
+          "initial-bank": initialBank,
+          "initial-player-ranks": [playerFirstCard, playerSecondCard], 
+          "initial-dealer-ranks": [dealerFirstCard, dealerSecondCard], 
+      };
+    } else {
+      settings = { 
+        "dealer-hit-limit": dealerHitLimit,
+        "blackjack-payout": blackjackPayout,
+        "deck-count": deckCount,
+        "split-limit": splitLimit,
+        "allow-surrender": allowSurrender,
+        "hit-on-split-aces": hitOnSplitAces,
+        "resplit-on-split-aces": resplitOnSplitAces,
+        "initial-bank": initialBank
+      };
+    }
+    let json = {
+      message: JSON.stringify(settings)
+    }
+     
+    webSocket.send(JSON.stringify(json));
+    
+    $('#settings-modal').modal('hide');
+    $('#settings-modal').css('display', 'none');
+    $('.modal-backdrop').remove();
+
+    $("#loading-modal").css('display', 'block');
+   
+    window.clearInterval(stepIntervalEvent);
+    stepIntervalEvent = window.setInterval(step, interval);
+    $("#play-pause").html("||");
+
   });
   
   $("#make-smaller").click(function (e) {
@@ -537,31 +654,296 @@ $(document).ready(function() {
 
   $("#settings").click(function (e) {
     $('#settings-modal').css('display', 'block');
-    $('#settings-modal').addClass('modal');
     $('#settings-modal').modal('toggle');
   });
-
 
   $("#settings-close").click(function (e) {
     $('#settings-modal').modal('hide');
     $('#settings-modal').css('display', 'none');
-    $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   });
 
-  $("#btnTest").click(function (e) {
-    var input = $("#txtTest").val();
-    
-    var results = chips(input);
-    var str = "";
-    for (var key in results) {
-      str = str + "\r\n " + key + ": " + results[key];
-    }
-
-    alert(str);
-  });
-
 });
+
+function step() {
+  var lastAction = $("#last-action").text();
+  if (lastAction == "Win" || 
+    lastAction == "Lose" || 
+    lastAction == "Tie" || 
+    lastAction == "Bust" || 
+    lastAction == "Blackjack" || 
+    lastAction.includes("Stand") ||  // ???
+    lastAction.includes("Dealer Busts") ||  // ???
+    lastAction.includes("+") ||  // ???
+    // lastAction.includes("Win") ||  // !!! ???
+    lastAction.includes("-") ||  // ???
+    lastAction.startsWith("+")  // ??? 
+    //|| 
+    // lastAction == ""  
+    ) {
+    // wait(350); 
+    // wait(interval * 1.75);  // TODO: Remove this? Uncomment this?
+    $("#dealer-cards div.chips").html("");
+    $("#dealer-cards div.hand").html("");
+    $("#player-cards-1 div.chips").html("");
+    $("#player-cards-1 div.hand").html("");
+    $("#player-cards-2 div.chips").html("");
+    $("#player-cards-2 div.hand").html("");
+    $("#player-cards-3 div.chips").html("");
+    $("#player-cards-3 div.hand").html("");
+    $("#player-cards-4 div.chips").html("");
+    $("#player-cards-4 div.hand").html("");
+    $("#last-action").text("");
+    return; 
+  }
+
+  var actionVisible = $("#action").css("visibility") == "visible";
+  if ($("#action").css("visibility") == "visible") {
+    // wait(interval);
+    // wait(interval * 1.75);  // TODO: uncomment this line
+    wait(interval * 1.75);  // TODO: uncomment this line
+    // wait(350);
+    $("#action").css("visibility", "hidden");
+    return;
+  }
+  var raw = $("#remaining-steps").text();
+  if (raw == "") {
+    return;
+  }
+  var nextStepRaw = "";
+  var remainingRaw = raw;
+  var validJson = false;
+  var i = 0;
+  while ((nextStepRaw == "" && !validJson) || i < 30) {
+    // alert("i: " + i);
+    try {
+      if (i >= 30) {
+        break;
+      }
+      var result = splitOnce(raw, "},{", i);
+      nextStepRaw = result[0];
+      remainingRaw = result[1];
+      JSON.parse(nextStepRaw + "}]");
+      validJson = true; // if an error isn't thrown, then JSON is valid
+      // alert("valid JSON: " + nextStepRaw + "}]");
+      nextStepRaw = nextStepRaw + "}]";
+      remainingRaw = "[" + remainingRaw.substring(2);
+      // alert("remaining JSON: " + remainingRaw);
+      break;
+    } catch (error) {
+      validJson = false;
+      i += 1;
+    }
+  }
+  var steps = JSON.parse(nextStepRaw);
+  $currentDiv = null;
+  var current = head(steps);
+  var bank = current.afterTokens;
+  if (bank != null && bank != "") {
+    $("#bank").text(bank) 
+  }
+  var remaining = remainingRaw;
+  var player = current.playerId.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("d", "D").replace("p", "P");
+  var action = current.action;
+  $("#last-action").text(action);
+  var actionTokens = current.actionTokens;
+  var beforeCards = current.beforeCards;
+  var actionPhrase = null;
+  actionPhrase = player + " " + action; 
+  // afterCards is seq of seq of cards (to account for when player splits)
+  var actionCards = current.actionCards;
+  var afterCards = current.afterCards;
+  var afterTokens = current.afterTokens;
+  var previousDiv = $("#previous-div").text();
+  if (player == "Dealer" || player == "dealer") {
+    $currentDiv = $("#dealer-cards");
+  } else {
+    if (previousDiv == null || previousDiv == "") {
+      $currentDiv = $("#player-cards-1");
+    } else {
+      switch(previousDiv) {
+        case "dealer-cards":
+          $currentDiv = $("#player-cards-1");
+          break;
+        case "player-cards-1":
+          $currentDiv = player == "dealer" ? $("#dealer-cards") : $("#player-cards-2");
+          break;
+        case "player-cards-2":
+          $currentDiv = player == "dealer" ? $("#dealer-cards") : $("#player-cards-3");
+          break;
+        case "player-cards-3":
+          $currentDiv = player == "dealer" ? $("#dealer-cards") : $("#player-cards-4");
+          break;
+        case "player-cards-4":
+          $currentDiv = player == "dealer" ? $("#dealer-cards") : $("#player-cards-1");
+          break;
+        default:
+          $currentDiv = $("#player-cards-1");
+          break;
+       }
+    }
+  }
+  if (action == "Shuffle") {
+    actionPhrase = player + " Shuffles";
+  } else if (action == "LeaveTable") {
+    actionPhrase = "Leaving Game";
+  } else if (action == "Surrender") {
+    actionPhrase = "Surrender";
+  } else if (action == "BuyInsurance") {
+    actionPhrase = "+" + actionTokens + " (Insurance)";
+  } else if (action == "InsufficientFunds") {
+    actionPhrase = "Insufficient Funds";
+  } else if (action == "Bet" || action == "DoubleDown") {
+    var suffix = "";
+    if (action == "Bet") {
+      suffix = "";
+      var newMarkup = chipsInnerMarkup(actionTokens, false);
+      $currentDiv.find(".chips").html(newMarkup);
+      actionPhrase = "- " + actionTokens; // ???
+    } else {
+      suffix = " (Double-Down)";
+      var existingMarkup = $currentDiv.find(".chips").html();
+      var newMarkup = chipsInnerMarkup(actionTokens, false);
+      $currentDiv.find(".chips").html(existingMarkup + newMarkup);
+      // afterCards reflects the newly-dealt card from doubling-down
+      var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+      $currentDiv.find(".hand").html(newMarkup);
+    }
+    actionPhrase = "+" + actionTokens.toString() + suffix;
+  } else if (action == "IsDealt") {
+    actionPhrase = player + " " + action;
+    var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    $currentDiv.find(".hand").html(newMarkup);
+    actionPhrase = "";
+  } else if (action == "Hit") {
+    actionPhrase = ""
+    var newMarkup = cardsMarkup(JSON.stringify(head(afterCards)));
+    $currentDiv.find(".hand").html(newMarkup);
+  } else if (action == "Split") {
+    actionPhrase = action;
+    switch (afterCards.length) { // this is the number of hands
+      case 1:
+        var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+        $currentDiv.find(".hand").html(newMarkup);
+        break;
+      case 2:
+        var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+        $currentDiv.find(".hand").html(newMarkup);
+        newMarkup = cardsMarkup(JSON.stringify(afterCards[1]));
+        switch(previousDiv) {
+          case null:
+            // alert("previous div: null, next div: #player-cards-2");
+            $("#player-cards-2").find(".hand").html(newMarkup);
+            break;
+          case "":
+            // alert("previous div: empty string, next div: #player-cards-2");
+            $("#player-cards-2").find(".hand").html(newMarkup);
+            break;
+          case "player-cards-1":
+            // alert("previous div: #player-cards-1, next div: #player-cards-2");
+            $("#player-cards-2").find(".hand").html(newMarkup);
+            break;
+          case "player-cards-2":
+            // alert("previous div: #player-cards-2, next div: #player-cards-3");
+            $("#player-cards-3").find(".hand").html(newMarkup);
+            break;
+          case "player-cards-3":
+            // alert("previous div: #player-cards-3, next div: #player-cards-4");
+            $("#player-cards-4").find(".hand").html(newMarkup);
+            break;
+          case "player-cards-4":
+            // alert("previous div: #player-cards-4, next div: #player-cards-1");
+            $("#player-cards-1").find(".hand").html(newMarkup);
+            break;
+          default:
+            // TODO: this is the executed block when splitting from 1 hand to 2, previous div is not apparently getting set properly
+            // alert("previous div not found, defaulting to use next div: #player-cards-2");
+            $("#player-cards-2").find(".hand").html(newMarkup);
+            break;
+        }
+      default:
+        var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+        $currentDiv.find(".hand").html(newMarkup);
+        break;
+    }
+  } else if (action == "Bust") {
+    if (player.toLowerCase() == "dealer") {
+      actionPhrase = player + " Busts";
+    } else {
+      actionPhrase = "Bust";
+    }
+    // var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
+    var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    $currentDiv.find(".hand").html(newMarkup);
+  } else if (action == "Blackjack") {
+    if (player.toLowerCase() == "dealer") {
+      actionPhrase = player + " has Blackjack";
+    } else {
+      actionPhrase = "Blackjack";
+    }
+  } else if (action == "Stand") {
+    if (player.toLowerCase() == "dealer") {
+      actionPhrase = player + " " + "Stands";
+    } else {
+      actionPhrase = "Stand";
+    }
+    // TODO: anything else for stand?
+  } else if (action == "ShowCards") {
+    var newMarkup = cardsMarkup(JSON.stringify(actionCards));
+    $currentDiv.find(".hand").html(newMarkup);
+    actionPhrase = "";
+  } else if (action == "Lose") {
+    if (player.toLowerCase() == "dealer") {
+      // actionPhrase = player + " " + "Loses";
+      actionPhrase = "Win";
+    } else {
+      // actionPhrase = "Lose";
+      actionPhrase = "House Wins";
+    }
+    $("#action").text(actionPhrase);
+  } else if (action == "Win") {
+    if (player.toLowerCase() == "dealer") {
+      // actionPhrase = player + " " + "Wins";
+      actionPhrase = "House Wins";
+    } else {
+      actionPhrase = "Win";
+    }
+    $("#action").text(actionPhrase);
+  } else if (action == "Tie") {
+    actionPhrase = "Tie";
+    $("#action").text(actionPhrase);
+  }
+  $("#previous-div").text($currentDiv);
+  $("#remaining-steps").text(remaining);
+  $("#action").text(actionPhrase);
+  $("#action").css("visibility", "visible");
+  // TODO: make action fade in/out
+  // $("#action").removeClass("fade");
+  $("#action").addClass("fade");
+  if ((actionPhrase.startsWith("+") && !actionPhrase.includes("Double")) || actionPhrase.startsWith("-")) {
+    $("#action").addClass("large");
+  } else {
+    $("#action").removeClass("large");
+  }
+  if (actionPhrase.startsWith("-")) {
+    $("#action").addClass("red");
+  } else {
+    $("#action").removeClass("red");
+  }
+  console.info("ACTION: " + actionPhrase);
+  window.clearInterval(stepIntervalEvent); 
+  stepIntervalEvent = window.setInterval(step, interval); 
+}
+var interval = 200;
+
+// var interval = 220;
+// var interval = 400;
+// var interval = 900;
+// var interval = 600;
+// var interval = 300;
+// var interval = 200;
+var stepIntervalEvent = null;
+// var stepIntervalEvent = window.setInterval(step, interval);
 
 var webSocket;
 var messageInput;
@@ -582,7 +964,6 @@ function onOpen(event) {
 
 function onClose(event) {
   consoleLog("DISCONNECTED");
-  appendClientMessageToView(":", "DISCONNECTED");
   init();
 }
 
@@ -591,22 +972,20 @@ function onError(event) {
     consoleLog("ERROR: " + JSON.stringify(event));
 }
 
+
 function onMessage(event) {
+    $("#loading-modal").css('display', 'none');
     console.log(event.data);
     let receivedData = JSON.parse(event.data);
     console.log("New Data: ", receivedData);
+    // TODO: update cards library to include players' bank amounts in the history
+    var players = receivedData.body.blackjack.players;
+    var remaining = receivedData.body.blackjack.history;
+    $("#remaining-steps").text(JSON.stringify(remaining));
+    // console.info("REMAINING COUNT: " + remaining.length);
     // get the text from the "body" field of the json we
     // receive from the server.
-    appendServerMessageToView("Server", receivedData.body);
-}
-
-function appendClientMessageToView(title, message) {
-    $("#message-content").append("<span>" + title + ": " + message + "<br /></span>");
-}
-
-function appendServerMessageToView(title, message) {
-    $("#message-content").append("<span>" + title + ": " + message + "<br /><br /></span>");
-}
+} 
 
 function consoleLog(message) {
     console.log("New message: ", message);
@@ -614,17 +993,58 @@ function consoleLog(message) {
 
 window.addEventListener("load", init, false);
 
-$("#send-button").click(function (e) {
-    console.log("Sending ...");
-    getMessageAndSendToServer();
-    // put focus back in the textarea
-    $("#message-input").focus();
+$("#speed").change(function() {
+  var pauseMs = $("#speed").val();
+  interval = pauseMs;
+  if ($("#play-pause").html() != "||") {
+    window.clearInterval(stepIntervalEvent);
+    stepIntervalEvent = window.setInterval(step, interval);
+  }
+});
+$("#speed").on("pointermove", function(e) {
+  var pauseMs = $("#speed").val();
+  interval = pauseMs;
+  if ($("#play-pause").html() != "||") {
+    window.clearInterval(stepIntervalEvent);
+    stepIntervalEvent = window.setInterval(step, interval);
+  }
+});
+$("#speed").on("input propertychange", function(e) {
+  var pauseMs = $("#speed").val();
+  interval = pauseMs;
+  if ($("#play-pause").html() != "||") {
+    window.clearInterval(stepIntervalEvent);
+    stepIntervalEvent = window.setInterval(step, interval);
+  }
+});
+
+$("#play-pause").click(function (e) {
+  if ($("#play-pause").html() == "||") {
+    $("#play-pause").html("&#9658;");
+    window.clearInterval(stepIntervalEvent);
+    wait(interval * 4);
+  } else {
+    window.clearInterval(stepIntervalEvent);
+    stepIntervalEvent = window.setInterval(step, interval);
+    $("#play-pause").html("||");
+  } 
+});
+
+$("#dark-mode").click(function (e) {
+  var isDark = $("#dark-mode").is(":checked");
+  if (isDark) {
+    $("body").addClass("dark-mode");
+    $("body").removeClass("light-mode");
+  } else {
+    $("body").addClass("light-mode");
+    $("body").removeClass("dark-mode");
+  }
 });
 
 // send the message when the user presses the <enter> key while in the textarea
 $(window).on("keydown", function (e) {
     if (e.which == 13) {
-        getMessageAndSendToServer();
+        // getMessageAndSendToServer();
         return false;
     }
     if (e.key == "=" || e.key == "+") {
@@ -646,42 +1066,37 @@ $(window).on("keydown", function (e) {
 //     }
 // });
 
-// there’s a lot going on here:
-// 1. get our message from the textarea.
-// 2. append that message to our view/div.
-// 3. create a json version of the message.
-// 4. send the message to the server.
-function getMessageAndSendToServer() {
+// 1. create a json version of the message.
+// 2. send the message to the server.
+// function getMessageAndSendToServer() {
 
-    // get the text from the textarea
-    messageInput = $("#message-input").val();
+//     // get the text from the textarea
+//     messageInput = $("#message-input").val();
 
-    // clear the textarea
-    $("#message-input").val("");
+//     // clear the textarea
+//     $("#message-input").val("");
 
-    // if the trimmed message was blank, return now
-    if ($.trim(messageInput) == "") {
-        return false;
-    }
+//     // if the trimmed message was blank, return now
+//     if ($.trim(messageInput) == "") {
+//         return false;
+//     }
 
-    // add the message to the view/div
-    appendClientMessageToView("Me", messageInput);
+//     // create the message as json
+//     let jsonMessage = {
+//         message: messageInput
+//     };
 
-    // create the message as json
-    let jsonMessage = {
-        message: messageInput
-    };
+//     // send our json message to the server
+//     sendToServer(jsonMessage);
+// }
 
-    // send our json message to the server
-    sendToServer(jsonMessage);
-}
-
-// send the data to the server using the WebSocket
-function sendToServer(jsonMessage) {
-    if(webSocket.readyState == WebSocket.OPEN) {
-        consoleLog("SENT: " + jsonMessage.message);
-        webSocket.send(JSON.stringify(jsonMessage));
-    } else {
-        consoleLog("Could not send data. Websocket is not open.");
-    }
-}
+// // send the data to the server using the WebSocket
+// function sendToServer(jsonMessage) {
+//     if(webSocket.readyState == WebSocket.OPEN) {
+//         consoleLog("SENT: " + jsonMessage.message);
+//         webSocket.send(JSON.stringify(jsonMessage));
+//     } else {
+//         consoleLog("Could not send data. Websocket is not open.");
+//         init();
+//     }
+// }
