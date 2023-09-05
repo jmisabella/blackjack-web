@@ -667,9 +667,22 @@ $(document).ready(function() {
 
 function step() {
   var lastAction = $("#last-action").text();
-  if (lastAction == "Win" || lastAction == "Lose" || lastAction == "Tie" || lastAction == "Bust" || lastAction == "Blackjack") {
+  if (lastAction == "Win" || 
+    lastAction == "Lose" || 
+    lastAction == "Tie" || 
+    lastAction == "Bust" || 
+    lastAction == "Blackjack" || 
+    lastAction.includes("Stand") ||  // ???
+    lastAction.includes("Dealer Busts") ||  // ???
+    lastAction.includes("+") ||  // ???
+    // lastAction.includes("Win") ||  // !!! ???
+    lastAction.includes("-") ||  // ???
+    lastAction.startsWith("+")  // ??? 
+    //|| 
+    // lastAction == ""  
+    ) {
     // wait(350); 
-    wait(interval * 1.75); 
+    // wait(interval * 1.75);  // TODO: Remove this? Uncomment this?
     $("#dealer-cards div.chips").html("");
     $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
@@ -683,9 +696,12 @@ function step() {
     $("#last-action").text("");
     return; 
   }
+
   var actionVisible = $("#action").css("visibility") == "visible";
   if ($("#action").css("visibility") == "visible") {
-    wait(interval * 1.75); 
+    // wait(interval);
+    // wait(interval * 1.75);  // TODO: uncomment this line
+    wait(interval * 1.75);  // TODO: uncomment this line
     // wait(350);
     $("#action").css("visibility", "hidden");
     return;
@@ -783,6 +799,7 @@ function step() {
       suffix = "";
       var newMarkup = chipsInnerMarkup(actionTokens, false);
       $currentDiv.find(".chips").html(newMarkup);
+      actionPhrase = "- " + actionTokens; // ???
     } else {
       suffix = " (Double-Down)";
       var existingMarkup = $currentDiv.find(".chips").html();
@@ -803,7 +820,6 @@ function step() {
     var newMarkup = cardsMarkup(JSON.stringify(head(afterCards)));
     $currentDiv.find(".hand").html(newMarkup);
   } else if (action == "Split") {
-    // alert("SPLIT!"); // TODO: Split is not occurring when it should...
     actionPhrase = action;
     switch (afterCards.length) { // this is the number of hands
       case 1:
@@ -904,6 +920,16 @@ function step() {
   // TODO: make action fade in/out
   // $("#action").removeClass("fade");
   $("#action").addClass("fade");
+  if ((actionPhrase.startsWith("+") && !actionPhrase.includes("Double")) || actionPhrase.startsWith("-")) {
+    $("#action").addClass("large");
+  } else {
+    $("#action").removeClass("large");
+  }
+  if (actionPhrase.startsWith("-")) {
+    $("#action").addClass("red");
+  } else {
+    $("#action").removeClass("red");
+  }
   console.info("ACTION: " + actionPhrase);
   window.clearInterval(stepIntervalEvent); 
   stepIntervalEvent = window.setInterval(step, interval); 

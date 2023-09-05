@@ -9,12 +9,6 @@
   50% { opacity: 1; }
 }
 
-/* #action {
-  background: red;
-  -webkit-animation: fadeinout 1s linear forwards;
-  animation: fadeinout 1s linear forwards;
-} */
-
 #action {
   /* margin: 0 30%; */
   text-align: center; 
@@ -23,9 +17,6 @@
   position: absolute;
   top: 20%;
   left: 60%; 
-
-  /* -webkit-animation: fadeinout 1s linear forwards;
-  animation: fadeinout 1s linear forwards; */
 }
 
 .fade {
@@ -42,13 +33,26 @@
 }
 
 #action, #bank {
-  color: #fff;
+  /* color: #fff; */
+  color: #f1f1f1;
   font-weight: bold;
-  font-size: 28px;
+  /* font-size: 28px; */
+  font-size: 22px;
+  text-shadow: 2px 2px #181a18;
 }
+
+.chips div.chip {
+  /* box-shadow: 1px 1px #767676 !important; */
+  box-shadow: -1px -1px #767676 !important;
+}
+
 #action.large, #bank.large {
-  font-size: 36px;
+  font-size: 42px;
 }
+#action.red, #bank.red {
+  color: #c10026;
+}
+
 
 #loading-modal {
   display:    none;
@@ -312,7 +316,8 @@ body.dark-mode {
 .dark-mode #settings-modal {
   border: solid 1px #606060;
   background-color: #808080;
-  color: #000;
+  /* color: #000; */
+  color: #181a18;
 }
 
 .light-mode #settings-modal input[type=button],
