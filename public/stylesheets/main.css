@@ -15,8 +15,10 @@
   visibility: hidden;
 
   position: absolute;
-  top: 20%;
-  left: 60%; 
+  /* top: 20%; */
+  /* left: 60%;  */
+  top: 15%;
+  left: 55%; 
 }
 
 .fade {
@@ -28,16 +30,23 @@
 }
 
 #bank {
-  text-align: right;
+  /* text-align: right; */
+  text-align: left;
   margin: 50px;
+  color: #f5f5ff;
+  font-size: 28px;
+}
+
+
+#action {
+  color: #f1f1f1;
+  font-size: 22px;
 }
 
 #action, #bank {
   /* color: #fff; */
-  color: #f1f1f1;
   font-weight: bold;
   /* font-size: 28px; */
-  font-size: 22px;
   text-shadow: 2px 2px #181a18;
 }
 
