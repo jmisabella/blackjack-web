@@ -666,23 +666,56 @@ $(document).ready(function() {
 });
 
 function step() {
+  var action = $("#action").text();
   var lastAction = $("#last-action").text();
-  if (lastAction == "Win" || 
+  var actionVisible = $("#action").css("visibility") == "visible";
+
+  consoleLog("LAST: " + lastAction + "; CURRENT: " + action + "; VISIBLE: " + actionVisible);
+
+  var clearAction = lastAction == "Win" || 
     lastAction == "Lose" || 
     lastAction == "Tie" || 
-    lastAction == "Bust" || 
+    lastAction.includes("Bust") || 
     lastAction == "Blackjack" || 
     lastAction.includes("Stand") ||  // ???
-    lastAction.includes("Dealer Busts") ||  // ???
-    lastAction.includes("+") ||  // ???
-    // lastAction.includes("Win") ||  // !!! ???
-    lastAction.includes("-") ||  // ???
-    lastAction.startsWith("+")  // ??? 
-    //|| 
-    // lastAction == ""  
-    ) {
-    // wait(350); 
-    // wait(interval * 1.75);  // TODO: Remove this? Uncomment this?
+    lastAction.includes("Dealer Busts"); // ||  // ???
+    // lastAction.includes("+") ||  // ???
+    // // lastAction.includes("Win") ||  // !!! ???
+    // lastAction.includes("-");
+       // ???
+
+  // var fadeOutHandAndBet = 
+  //   (
+  //     action.includes("ShowCards") || 
+  //     action.includes("Win") || 
+  //     action.includes("Lose") || 
+  //     action.includes("Tie") || 
+  //     action.includes("IsDealt") || 
+  //     action.includes("Stand") || 
+  //     action.includes("Bust") || 
+  //     lastAction == "Bust" || 
+  //     action == "Dealer Bust" || 
+  //     action == "Blackjack" || 
+  //     action.includes("Stand") ||  // ???
+  //     // true || 
+  //     action.includes("Dealer Busts"));  // ???
+
+  if (clearAction) {
+    // if (fadeOutHandAndBet) {
+    //   $("#dealer-cards div.chips").addClass("fout");
+    //   $("#dealer-cards div.hand").addClass("fout");
+    //   $("#player-cards-1 div.chips").addClass("fout");
+    //   $("#player-cards-1 div.hand").addClass("fout");
+    //   $("#player-cards-2 div.chips").addClass("fout");
+    //   $("#player-cards-2 div.hand").addClass("fout");
+    //   $("#player-cards-3 div.chips").addClass("fout");
+    //   $("#player-cards-3 div.hand").addClass("fout");
+    //   $("#player-cards-4 div.chips").addClass("fout");
+    //   $("#player-cards-4 div.hand").addClass("fout");
+    //   wait(interval * 1.75);
+    //   wait(interval * 1.75);
+    // }
+    wait(interval * 1.75);
     $("#dealer-cards div.chips").html("");
     $("#dealer-cards div.hand").html("");
     $("#player-cards-1 div.chips").html("");
@@ -694,15 +727,33 @@ function step() {
     $("#player-cards-4 div.chips").html("");
     $("#player-cards-4 div.hand").html("");
     $("#last-action").text("");
-    return; 
+    return;
+    // TODO: put fadeout animation prior to removing cards
   }
-
-  var actionVisible = $("#action").css("visibility") == "visible";
-  if ($("#action").css("visibility") == "visible") {
-    // wait(interval);
+  $("#dealer-cards div.chips").removeClass("fout");
+  $("#dealer-cards div.hand").removeClass("fout");
+  $("#player-cards-1 div.chips").removeClass("fout");
+  $("#player-cards-1 div.hand").removeClass("fout");
+  $("#player-cards-2 div.chips").removeClass("fout");
+  $("#player-cards-2 div.hand").removeClass("fout");
+  $("#player-cards-3 div.chips").removeClass("fout");
+  $("#player-cards-3 div.hand").removeClass("fout");
+  $("#player-cards-4 div.chips").removeClass("fout");
+  $("#player-cards-4 div.hand").removeClass("fout");
+  if (actionVisible) {
+    // if (fadeOutHandAndBet) {
+    //   $("#dealer-cards div.chips").addClass("fout");
+    //   $("#dealer-cards div.hand").addClass("fout");
+    //   $("#player-cards-1 div.chips").addClass("fout");
+    //   $("#player-cards-1 div.hand").addClass("fout");
+    //   $("#player-cards-2 div.chips").addClass("fout");
+    //   $("#player-cards-2 div.hand").addClass("fout");
+    //   $("#player-cards-3 div.chips").addClass("fout");
+    //   $("#player-cards-3 div.hand").addClass("fout");
+    //   $("#player-cards-4 div.chips").addClass("fout");
+    //   $("#player-cards-4 div.hand").addClass("fout");
+    // } 
     // wait(interval * 1.75);  // TODO: uncomment this line
-    wait(interval * 1.75);  // TODO: uncomment this line
-    // wait(350);
     $("#action").css("visibility", "hidden");
     return;
   }
@@ -799,8 +850,11 @@ function step() {
       suffix = "";
       var newMarkup = chipsInnerMarkup(actionTokens, false);
       $currentDiv.find(".chips").html(newMarkup);
-      actionPhrase = "- " + actionTokens; // ???
+      // actionPhrase = "- " + actionTokens; // ???
+      actionPhrase = actionTokens.toString() + suffix;
+      $("#action").addClass("large");
     } else {
+      $("#action").removeClass("large");
       suffix = " (Double-Down)";
       var existingMarkup = $currentDiv.find(".chips").html();
       var newMarkup = chipsInnerMarkup(actionTokens, false);
@@ -808,8 +862,10 @@ function step() {
       // afterCards reflects the newly-dealt card from doubling-down
       var newMarkup = cardsMarkup(JSON.stringify(afterCards[0]));
       $currentDiv.find(".hand").html(newMarkup);
+      actionPhrase = actionTokens.toString() + suffix;
     }
-    actionPhrase = "+" + actionTokens.toString() + suffix;
+    // alert("HEYY #1"); // TODO
+    // actionPhrase = "+" + actionTokens.toString() + suffix;
   } else if (action == "IsDealt") {
     actionPhrase = player + " " + action;
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
@@ -900,7 +956,8 @@ function step() {
       // actionPhrase = "Lose";
       actionPhrase = "House Wins";
     }
-    $("#action").text(actionPhrase);
+    actionPhrase = actionTokens; // TODO ???
+    // $("#action").text(actionPhrase);
   } else if (action == "Win") {
     if (player.toLowerCase() == "dealer") {
       // actionPhrase = player + " " + "Wins";
@@ -908,26 +965,67 @@ function step() {
     } else {
       actionPhrase = "Win";
     }
-    $("#action").text(actionPhrase);
+    actionPhrase = actionTokens; // TODO ???
+    if (!actionPhrase.toString().startsWith("-")) {
+      actionPhrase = "+" + actionPhrase.toString();
+    }
+    // $("#action").text(actionPhrase);
   } else if (action == "Tie") {
     actionPhrase = "Tie";
-    $("#action").text(actionPhrase);
+    // $("#action").text(actionPhrase);
   }
   $("#previous-div").text($currentDiv);
   $("#remaining-steps").text(remaining);
   $("#action").text(actionPhrase);
+  wait(interval * 3); // TODO: ??? remove?
+  // if (actionPhrase.startsWith("-") ||
+  //   // action == "IsDealt" || 
+  //   actionPhrase.startsWith("+") ||
+  //   actionPhrase.includes("Win") || 
+  //   actionPhrase.includes("Lose") ||
+  //   actionPhrase.includes("Tie") 
+  //   ) {
+  //     $("#dealer-cards div.chips").addClass("fout");
+  //     $("#dealer-cards div.hand").addClass("fout");
+  //     $("#player-cards-1 div.chips").addClass("fout");
+  //     $("#player-cards-1 div.hand").addClass("fout");
+  //     $("#player-cards-2 div.chips").addClass("fout");
+  //     $("#player-cards-2 div.hand").addClass("fout");
+  //     $("#player-cards-3 div.chips").addClass("fout");
+  //     $("#player-cards-3 div.hand").addClass("fout");
+  //     $("#player-cards-4 div.chips").addClass("fout");
+  //     $("#player-cards-4 div.hand").addClass("fout");
+  //     wait(interval * 2.75); 
+  //     $("#dealer-cards div.chips").removeClass("fout");
+  //     $("#dealer-cards div.hand").removeClass("fout");
+  //     $("#player-cards-1 div.chips").removeClass("fout");
+  //     $("#player-cards-1 div.hand").removeClass("fout");
+  //     $("#player-cards-2 div.chips").removeClass("fout");
+  //     $("#player-cards-2 div.hand").removeClass("fout");
+  //     $("#player-cards-3 div.chips").removeClass("fout");
+  //     $("#player-cards-3 div.hand").removeClass("fout");
+  //     $("#player-cards-4 div.chips").removeClass("fout");
+  //     $("#player-cards-4 div.hand").removeClass("fout");
+  //   }
   $("#action").css("visibility", "visible");
   // TODO: make action fade in/out
   // $("#action").removeClass("fade");
   $("#action").addClass("fade");
-  if ((actionPhrase.startsWith("+") && !actionPhrase.includes("Double")) || actionPhrase.startsWith("-")) {
+  if ((actionPhrase.toString().startsWith("+") && !actionPhrase.toString().includes("Double")) || actionPhrase.toString().startsWith("-")) {
     $("#action").addClass("large");
+    wait(interval * 2); // TODO: remove
+    // alert("HEYY #2");
   } else {
     $("#action").removeClass("large");
   }
-  if (actionPhrase.startsWith("-")) {
+  if (actionPhrase.toString().startsWith("-")) {
     $("#action").addClass("red");
+    $("#action").removeClass("green");
+  } else if (actionPhrase.toString().startsWith("+")) {
+    $("#action").addClass("green");
+    $("#action").removeClass("red");
   } else {
+    $("#action").removeClass("green");
     $("#action").removeClass("red");
   }
   console.info("ACTION: " + actionPhrase);
