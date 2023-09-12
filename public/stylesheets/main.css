@@ -9,6 +9,18 @@
   50% { opacity: 1; }
 }
 
+@-webkit-keyframes fadeout {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+@keyframes fadeout {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
 #action {
   /* margin: 0 30%; */
   text-align: center; 
@@ -28,6 +40,29 @@
   animation: fadeinout 1s linear forwards;
   animation-iteration-count: infinite !important; 
 }
+
+/* .fout {
+  -webkit-animation: fadeout 1800ms linear forwards;
+  animation: fadeout 1800ms linear forwards;
+  animation-iteration-count: 1 !important; 
+} */
+.fout * {
+  -webkit-animation: fadeout 1800ms linear forwards;
+  animation: fadeout 1800ms linear forwards;
+  animation-iteration-count: 1 !important; 
+}
+
+/* .fadein {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 2s linear;
+}
+
+.fadeout {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
+} */
 
 #bank {
   /* text-align: right; */
@@ -60,6 +95,9 @@
 }
 #action.red, #bank.red {
   color: #c10026;
+}
+#action.green, #bank.green {
+  color: #07da63; 
 }
 
 
