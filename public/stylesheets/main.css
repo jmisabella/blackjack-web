@@ -22,7 +22,8 @@
 }
 
 #dealer-cards {
-  min-height: 142px !important;
+  /* min-height: 142px !important; */
+  height: 142px !important;
 }
 
 #action {
