@@ -708,7 +708,11 @@ function step() {
   }
   if (clearAction) {
     // wait(interval * 1.75);
-    wait(interval * 3);
+    if ($("#action").text() != "") {
+      // wait(interval * 2.5);
+      wait(interval * 5);
+    } 
+    // wait(interval * 3);
     // $("#dealer-cards div.chips").html("");
     // $("#dealer-cards div.hand").html("");
     // $("#player-cards-1 div.chips").html("");
@@ -719,6 +723,7 @@ function step() {
     // $("#player-cards-3 div.hand").html("");
     // $("#player-cards-4 div.chips").html("");
     // $("#player-cards-4 div.hand").html("");
+    $("#action").text("");
     $("#last-action").text("");
     return;
   }
@@ -977,7 +982,7 @@ function step() {
   $("#remaining-steps").text(remaining);
   $("#action").text(actionPhrase);
   if (actionPhrase != null && actionPhrase != "") {
-    wait(interval * 3); // TODO: ??? remove?
+    wait(interval * 2.5); // TODO: ??? remove?
   }
   $("#action").css("visibility", "visible");
   // TODO: make action fade in/out
