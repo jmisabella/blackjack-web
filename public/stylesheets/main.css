@@ -21,6 +21,10 @@
   100% { opacity: 0; }
 }
 
+#dealer-cards {
+  min-height: 142px !important;
+}
+
 #action {
   /* margin: 0 30%; */
   text-align: center; 
@@ -434,13 +438,7 @@ body.dark-mode button#play-pause-button.pause {
 
 #settings-modal {
   width: 359px;
-  /* height: 445px; */
-  /* height: 585px; */
   height: 545px;
-  /* top: 20%;
-  left: 40%;
-  margin: auto; */
-
   top: 30%;
   left: 50%;
   margin-left: -180px;
@@ -506,7 +504,8 @@ input.reverse {
 /* mobile device specific rules */
 @media (max-width: 900px) {
   #settings-modal {
-    top: 35% !important;
+    /* top: 35% !important; */
+    top: 25% !important;
     left: 50% !important;
     margin-left: -180px !important;
     margin-top: -150px !important;
