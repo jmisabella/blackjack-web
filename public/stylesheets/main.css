@@ -21,6 +21,10 @@
   100% { opacity: 0; }
 }
 
+#dealer-cards {
+  min-height: 140px !important;
+}
+
 #action {
   /* margin: 0 30%; */
   text-align: center; 
