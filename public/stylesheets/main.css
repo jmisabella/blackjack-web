@@ -24,13 +24,12 @@
 #dealer-cards {
   min-height: 142px;
 }
-#player-cards-1,
+/* #player-cards-1,
 #player-cards-2,
 #player-cards-3,
 #player-cards-4 {
   vertical-align: text-bottom;
-  
-}
+} */
 
 #action {
   /* margin: 0 30%; */
