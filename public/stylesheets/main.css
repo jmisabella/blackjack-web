@@ -24,12 +24,6 @@
 #dealer-cards {
   min-height: 142px;
 }
-/* #player-cards-1,
-#player-cards-2,
-#player-cards-3,
-#player-cards-4 {
-  vertical-align: text-bottom;
-} */
 
 #action {
   /* margin: 0 30%; */
@@ -44,18 +38,11 @@
 }
 
 .fade {
-  /* -webkit-animation: fadeinout 300ms linear forwards !important;
-  animation: fadeinout 300ms linear forwards !important; */
   -webkit-animation: fadeinout 1s linear forwards;
   animation: fadeinout 1s linear forwards;
   animation-iteration-count: infinite !important; 
 }
 
-/* .fout {
-  -webkit-animation: fadeout 1800ms linear forwards;
-  animation: fadeout 1800ms linear forwards;
-  animation-iteration-count: 1 !important; 
-} */
 .fout * {
   -webkit-animation: fadeout 1800ms linear forwards;
   animation: fadeout 1800ms linear forwards;
@@ -78,7 +65,9 @@
   /* text-align: right; */
   text-align: left;
   margin: 50px;
-  color: #f5f5ff;
+  /* color: #f5f5ff; */
+  /* color: #dce1df; */
+  color: #c0c9c5;
   font-size: 28px;
 }
 
