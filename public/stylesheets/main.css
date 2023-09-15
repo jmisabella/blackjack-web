@@ -508,11 +508,9 @@ input.reverse {
 
   #display-controls span input#speed { width: 75% !important; }
   
-  #dealer-cards {
+  /* #dealer-cards {
     height: calc(100vh - calc(100vh - 100%));
-    /* display: list-item; 
-    min-height: inherit; */
-  }
+  } */
 
 }
 
