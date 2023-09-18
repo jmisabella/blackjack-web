@@ -38,14 +38,18 @@
 }
 
 .fade {
-  -webkit-animation: fadeinout 1s linear forwards;
+  /* -webkit-animation: fadeinout 1s linear forwards;
   animation: fadeinout 1s linear forwards;
+  animation-iteration-count: infinite !important;  */
+  -webkit-animation: fadeout 3s linear forwards;
+  animation: fadeout 3s linear forwards;
   animation-iteration-count: infinite !important; 
+
 }
 
 .fout * {
-  -webkit-animation: fadeout 1800ms linear forwards;
-  animation: fadeout 1800ms linear forwards;
+  -webkit-animation: fadeout 2s linear forwards;
+  animation: fadeout 2s linear forwards;
   animation-iteration-count: 1 !important; 
 }
 
@@ -508,11 +512,9 @@ input.reverse {
 
   #display-controls span input#speed { width: 75% !important; }
   
-  #dealer-cards {
+  /* #dealer-cards {
     height: calc(100vh - calc(100vh - 100%));
-    /* display: list-item; 
-    min-height: inherit; */
-  }
+  } */
 
 }
 

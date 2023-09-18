@@ -713,16 +713,6 @@ function step() {
       wait(interval * 5);
     } 
     // wait(interval * 3);
-    // $("#dealer-cards div.chips").html("");
-    // $("#dealer-cards div.hand").html("");
-    // $("#player-cards-1 div.chips").html("");
-    // $("#player-cards-1 div.hand").html("");
-    // $("#player-cards-2 div.chips").html("");
-    // $("#player-cards-2 div.hand").html("");
-    // $("#player-cards-3 div.chips").html("");
-    // $("#player-cards-3 div.hand").html("");
-    // $("#player-cards-4 div.chips").html("");
-    // $("#player-cards-4 div.hand").html("");
     $("#action").text("");
     $("#last-action").text("");
     return;
@@ -737,23 +727,11 @@ function step() {
   $("#player-cards-3 div.hand").removeClass("fout");
   $("#player-cards-4 div.chips").removeClass("fout");
   $("#player-cards-4 div.hand").removeClass("fout");
-  if (actionVisible) {
-    // if (fadeOutHandAndBet) {
-    //   $("#dealer-cards div.chips").addClass("fout");
-    //   $("#dealer-cards div.hand").addClass("fout");
-    //   $("#player-cards-1 div.chips").addClass("fout");
-    //   $("#player-cards-1 div.hand").addClass("fout");
-    //   $("#player-cards-2 div.chips").addClass("fout");
-    //   $("#player-cards-2 div.hand").addClass("fout");
-    //   $("#player-cards-3 div.chips").addClass("fout");
-    //   $("#player-cards-3 div.hand").addClass("fout");
-    //   $("#player-cards-4 div.chips").addClass("fout");
-    //   $("#player-cards-4 div.hand").addClass("fout");
-    // } 
-    // wait(interval * 1.75);  // TODO: uncomment this line
-    $("#action").css("visibility", "hidden");
-    return;
-  }
+  // if (actionVisible) {
+  //   // wait(interval * 1.75);  // TODO: uncomment this line
+  //   $("#action").css("visibility", "hidden");
+  //   return;
+  // }
   var raw = $("#remaining-steps").text();
   if (raw == "") {
     return;
@@ -942,7 +920,6 @@ function step() {
   } else if (action == "Stand") {
     if (player.toLowerCase() == "dealer") {
       //// don't display action when dealer stands
-      // actionPhrase = player + " " + "Stands";
       actionPhrase = "";
     } else {
       actionPhrase = "Stand";
@@ -957,11 +934,9 @@ function step() {
       // actionPhrase = player + " " + "Loses";
       actionPhrase = "Win";
     } else {
-      // actionPhrase = "Lose";
       actionPhrase = "House Wins";
     }
     actionPhrase = actionTokens; // TODO ???
-    // $("#action").text(actionPhrase);
   } else if (action == "Win") {
     if (player.toLowerCase() == "dealer") {
       // actionPhrase = player + " " + "Wins";
@@ -969,25 +944,24 @@ function step() {
     } else {
       actionPhrase = "Win";
     }
-    actionPhrase = actionTokens; // TODO ???
+    actionPhrase = actionTokens;
     if (!actionPhrase.toString().startsWith("-")) {
       actionPhrase = "+" + actionPhrase.toString();
     }
-    // $("#action").text(actionPhrase);
   } else if (action == "Tie") {
     actionPhrase = "Tie";
-    // $("#action").text(actionPhrase);
   }
   $("#previous-div").text($currentDiv);
   $("#remaining-steps").text(remaining);
-  $("#action").text(actionPhrase);
+  // $("#action").text(actionPhrase);
   if (actionPhrase != null && actionPhrase != "") {
+    $("#action").text(actionPhrase);
     wait(interval * 2.5); // TODO: ??? remove?
   }
   $("#action").css("visibility", "visible");
   // TODO: make action fade in/out
   // $("#action").removeClass("fade");
-  $("#action").addClass("fade");
+  // $("#action").addClass("fade"); // jmi: removed 9/18
   if ((actionPhrase.toString().startsWith("+") && !actionPhrase.toString().includes("Double")) || actionPhrase.toString().startsWith("-")) {
     $("#action").addClass("large");
     wait(interval * 2); // TODO: remove
