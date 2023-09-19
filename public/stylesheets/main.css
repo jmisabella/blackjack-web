@@ -21,6 +21,25 @@
   100% { opacity: 0; }
 }
 
+@-webkit-keyframes run {
+  0% {
+    up: 0;
+  }
+  50% {
+    up: 100%;
+  }
+  100% {
+    up: 0;    
+  }
+}
+
+/* .my-run {
+  position: absolute;
+  -webkit-animation: linear infinite;
+  -webkit-animation-name: run;
+  -webkit-animation-duration: 1s;
+} */
+
 #dealer-cards {
   min-height: 142px;
 }
@@ -34,7 +53,7 @@
   /* top: 20%; */
   /* left: 60%;  */
   /* top: 15%; */
-  top: 48%;
+  top: 58%;
   left: 55%; 
 }
 
@@ -45,7 +64,6 @@
   -webkit-animation: fadeout 3s linear forwards;
   animation: fadeout 3s linear forwards;
   animation-iteration-count: infinite !important; 
-
 }
 
 .fout * {
@@ -514,7 +532,8 @@ input.reverse {
   #display-controls span input#speed { width: 75% !important; }
   
   #action {
-    top: 48%;
+    /* top: 48%; */
+    top: 58%;
     left: 48%; 
   }
 
