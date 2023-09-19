@@ -914,17 +914,15 @@ function step() {
       actionPhrase = player + " Blackjack";
     } else {
       actionPhrase = "Blackjack";
-      $("#action").addClass("green");
-      $("#action").removeClass("red");
     }
   } else if (action == "Stand") {
-    if (player.toLowerCase() == "dealer") {
-      //// don't display action when dealer stands
-      actionPhrase = "";
-    } else {
-      actionPhrase = "Stand";
-    }
-    // TODO: anything else for stand?
+    // if (player.toLowerCase() == "dealer") {
+    //   //// don't display action when dealer stands
+    //   actionPhrase = "";
+    // } else {
+    //   actionPhrase = "Stand";
+    // }
+    actionPhrase = ""; // don't display action for Stand
   } else if (action == "ShowCards") {
     var newMarkup = cardsMarkup(JSON.stringify(actionCards));
     $currentDiv.find(".hand").html(newMarkup);
@@ -976,6 +974,9 @@ function step() {
     $("#action").addClass("red");
     $("#action").removeClass("green");
   } else if (actionPhrase.toString().startsWith("+")) {
+    $("#action").addClass("green");
+    $("#action").removeClass("red");
+  } else if (actionPhrase.toString().startsWith("Blackjack")) {
     $("#action").addClass("green");
     $("#action").removeClass("red");
   } else {
