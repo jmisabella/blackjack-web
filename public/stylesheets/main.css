@@ -532,9 +532,11 @@ input.reverse {
   #display-controls span input#speed { width: 75% !important; }
   
   #action {
-    /* top: 48%; */
-    top: 58%;
-    left: 48%; 
+    /* top: 58%;
+    left: 48%;  */
+    top: 62%;
+    left: 40%; 
+    font-size: 20px;
   }
 
 }
