@@ -62,10 +62,11 @@
   /* -webkit-animation: fadeinout 1s linear forwards;
   animation: fadeinout 1s linear forwards;
   animation-iteration-count: infinite !important;  */
+  /* animation: fadeout 3s linear forwards; */
   -webkit-animation: fadeout 3s linear forwards;
-  animation: fadeout 3s linear forwards;
-  animation-iteration-count: 1 !important; 
-  /* animation-iteration-count: infinite !important;  */
+  animation: fadeout 6s linear forwards;
+  animation-iteration-count: infinite !important; 
+  /* animation-iteration-count: 1 !important;  */
 }
 
 .fout * {
