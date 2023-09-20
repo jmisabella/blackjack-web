@@ -50,6 +50,7 @@
   visibility: hidden;
 
   position: absolute;
+  z-index: 5;
   /* top: 20%; */
   /* left: 60%;  */
   /* top: 15%; */
@@ -534,6 +535,7 @@ input.reverse {
   #action {
     /* top: 58%;
     left: 48%;  */
+    z-index: 5;
     top: 62%;
     left: 40%; 
     font-size: 20px;
