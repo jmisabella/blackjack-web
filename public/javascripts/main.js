@@ -954,6 +954,10 @@ function step() {
   // $("#action").text(actionPhrase);
   if (actionPhrase != null && actionPhrase != "") {
     $("#action").text(actionPhrase);
+    // $("#action").addClass("fade");
+    // setTimeout(function(){
+    //   $("#action").removeClass("fade");
+    // }, 3000); // remove animation class after 3 seconds, the length of the animation
     wait(interval * 2.5); // TODO: ??? remove?
   }
   $("#action").css("visibility", "visible");

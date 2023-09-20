@@ -50,6 +50,7 @@
   visibility: hidden;
 
   position: absolute;
+  z-index: 5;
   /* top: 20%; */
   /* left: 60%;  */
   /* top: 15%; */
@@ -61,9 +62,11 @@
   /* -webkit-animation: fadeinout 1s linear forwards;
   animation: fadeinout 1s linear forwards;
   animation-iteration-count: infinite !important;  */
+  /* animation: fadeout 3s linear forwards; */
   -webkit-animation: fadeout 3s linear forwards;
-  animation: fadeout 3s linear forwards;
+  animation: fadeout 6s linear forwards;
   animation-iteration-count: infinite !important; 
+  /* animation-iteration-count: 1 !important;  */
 }
 
 .fout * {
@@ -101,9 +104,7 @@
 }
 
 #action, #bank {
-  /* color: #fff; */
   font-weight: bold;
-  /* font-size: 28px; */
   text-shadow: 2px 2px #181a18;
 }
 
@@ -534,6 +535,7 @@ input.reverse {
   #action {
     /* top: 58%;
     left: 48%;  */
+    z-index: 5;
     top: 62%;
     left: 40%; 
     font-size: 20px;
