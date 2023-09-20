@@ -64,7 +64,8 @@
   animation-iteration-count: infinite !important;  */
   -webkit-animation: fadeout 3s linear forwards;
   animation: fadeout 3s linear forwards;
-  animation-iteration-count: infinite !important; 
+  animation-iteration-count: 1 !important; 
+  /* animation-iteration-count: infinite !important;  */
 }
 
 .fout * {
@@ -102,9 +103,7 @@
 }
 
 #action, #bank {
-  /* color: #fff; */
   font-weight: bold;
-  /* font-size: 28px; */
   text-shadow: 2px 2px #181a18;
 }
 
