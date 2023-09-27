@@ -1002,7 +1002,7 @@ function step() {
     $("#action").removeClass("green");
     $("#action").removeClass("red");
   }
-  console.info("ACTION: " + actionPhrase);
+  // console.info("ACTION: " + actionPhrase);
   window.clearInterval(stepIntervalEvent); 
   stepIntervalEvent = window.setInterval(step, interval); 
 }
