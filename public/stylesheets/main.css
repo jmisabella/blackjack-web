@@ -87,6 +87,21 @@
   transition: visibility 0s 2s, opacity 2s linear;
 } */
 
+#betting-strategy-container {
+  width: 300px; 
+}
+#betting-strategy, 
+#min-bet-multiplier {
+  margin: 0 26px;
+  width: 100% !important;
+  text-align: left !important; 
+  float: left !important;
+  font-size: 10px !important;
+  text-transform: uppercase !important;
+  color: #858583!important;
+}
+
+
 #bank {
   text-align: right;
   /* text-align: left; */
@@ -366,6 +381,15 @@ body.dark-mode {
   /* background-color: #222!important; */
   background-color: #353535!important;
   color: #cecece;
+}
+
+.light-mode #betting-strategy, 
+.light-mode #min-bet-multiplier {
+  color: #238323 !important;
+}
+.dark-mode #betting-strategy, 
+.dark-mode #min-bet-multiplier {
+  color: #858583!important;
 }
 
 .light-mode div#inner-container {
