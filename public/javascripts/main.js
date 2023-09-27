@@ -764,14 +764,28 @@ function step() {
   var steps = JSON.parse(nextStepRaw);
   $currentDiv = null;
   var current = head(steps);
+  // console.info(current); // ??? TODO: remove
   var bank = current.afterTokens;
   if (bank != null && bank != "") {
     $("#bank").text(bank) 
   }
-  var remaining = remainingRaw;
-  var player = current.playerId.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("d", "D").replace("p", "P");
+  var bettingStrategy = current.bettingStrategy;
+  if (bettingStrategy != null && bettingStrategy != "") {
+    $("#betting-strategy").text(bettingStrategy);
+  }
+  var minBetMultiplier = current.minBetMultiplier;
+  if (minBetMultiplier != null && minBetMultiplier != "") {
+    $("#min-bet-multiplier").text(minBetMultiplier + " min bet multiplier");
+  }
   var action = current.action;
   $("#last-action").text(action);
+  // if (action == "Bet") {
+  //   alert("BET");
+  //   alert(minBetMultiplier);
+  //   alert(bettingStrategy);
+  // } 
+  var remaining = remainingRaw;
+  var player = current.playerId.replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("d", "D").replace("p", "P");
   var actionTokens = current.actionTokens;
   var beforeCards = current.beforeCards;
   var actionPhrase = null;
@@ -780,6 +794,7 @@ function step() {
   var actionCards = current.actionCards;
   var afterCards = current.afterCards;
   var afterTokens = current.afterTokens;
+
   var previousDiv = $("#previous-div").text();
   if (player == "Dealer" || player == "dealer") {
     $currentDiv = $("#dealer-cards");
