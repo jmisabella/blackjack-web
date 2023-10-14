@@ -403,11 +403,13 @@ body.dark-mode {
 .light-mode #display-controls span a:hover { text-decoration: none; color: #fff; }
 .dark-mode #display-controls span a:hover { text-decoration: none; color: #fff; }
 
-.light-mode #settings-modal {
+.light-mode #settings-modal,
+.light-model #advanced-settings-modal {
   border: solid 1px #238323;
   background-color: #6b8364;
 }
-.dark-mode #settings-modal {
+.dark-mode #settings-modal,
+.dark-mode #advanced-settings-modal {
   border: solid 1px #606060;
   background-color: #808080;
   /* color: #000; */
@@ -415,13 +417,17 @@ body.dark-mode {
 }
 
 .light-mode #settings-modal input[type=button],
-.light-mode #settings-modal select {
+.light-mode #advanced-settings-modal input[type=button],
+.light-mode #settings-modal select, 
+.light-mode #advanced-settings-modal select {
   color: #d3d3d3;
   background-color: #014D43 !important;
 }
 
 .dark-mode #settings-modal input[type=button],
-.dark-mode #settings-modal select {
+.dark-mode #advanced-settings-modal input[type=button],
+.dark-mode #settings-modal select,
+.dark-mode #advanced-settings-modal select {
   /* TODO */ 
   color: #d3d3d3;
   background-color: #292929!important;
@@ -479,16 +485,52 @@ body.dark-mode button#play-pause-button.pause {
   background: red;
 }
 
+#settings-betting-strategy label {
+  width: 80%;
+  text-align: left;
+}
+/* #advanced-settings-modal input[type=radio] {
+#advanced-settings-modal label {
+  height: 10%;
+} */
+
+#settings-modal,
+#advanced-settings-modal {
+  /* top: 30%;
+  left: 50%;
+  margin-left: -180px;
+  margin-top: -150px; */
+  border: 3px solid #000 !important; 
+}
+#settings-modal a {
+  text-decoration: underline;
+}
+#settings-modal a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 #settings-modal {
-  width: 359px;
-  height: 545px;
   top: 30%;
   left: 50%;
   margin-left: -180px;
   margin-top: -150px;
+  width: 359px;
+  height: 545px;
+}
+#advanced-settings-modal {
+  padding: 30px 5px;
+  top: 30%;
+  left: 50%;
+  margin-left: -150px;
+  margin-top: -130px;
+  width: 309px;
+  height: 460px;
+  /* border: 3px solid #000 !important;  */
 }
 
-#settings-modal #settings-close {
+#settings-modal #settings-close,
+#advanced-settings-modal #settings-close {
   float: right;
   /* margin: 2px 6px; */
   margin: 12px 20px -12px 0;
@@ -496,7 +538,8 @@ body.dark-mode button#play-pause-button.pause {
   width: auto;
 }
 
-#settings-modal span {
+#settings-modal span,
+#advanced-settings-modal span {
   text-align: left; 
   display: inline-block;
   width: 100%;
@@ -505,11 +548,18 @@ body.dark-mode button#play-pause-button.pause {
   font-weight: bold;
 }
 
-#settings-modal span label {
-  padding-right: 3px;
+#advanced-settings-modal #settings-betting-strategy input {
+  margin-left: 16px !important;
 }
 
-#settings-modal .range-wrap input {
+#settings-modal span label,
+#advanced-settings-modal span label {
+  padding-right: 3px;
+  margin-bottom: 0;
+}
+
+#settings-modal .range-wrap input,
+#advanced-settings-modal .range-wrap input {
   margin: 0 5px !important;
   padding: 0 5px !important;
   /* float: right; */
@@ -517,7 +567,9 @@ body.dark-mode button#play-pause-button.pause {
 }
 
 #settings-modal input[type=button],
-#settings-modal select {
+#advanced-settings-modal input[type=button],
+#settings-modal select,
+#advanced-settings-modal select {
   color: #d3d3d3;
   font-weight: bold;
   background-color: #014D43 !important;
@@ -546,13 +598,33 @@ input.reverse {
 
 /* mobile device specific rules */
 @media (max-width: 900px) {
-  #settings-modal {
+  #settings-modal,
+  #advanced-settings-modal {
     /* top: 35% !important; */
     top: 25% !important;
     left: 50% !important;
     margin-left: -180px !important;
     margin-top: -150px !important;
   }
+  #settings-modal {
+    top: 25% !important;
+    left: 50% !important;
+    margin-left: -180px !important;
+    margin-top: -150px !important;
+    width: 359px;
+    height: 545px;
+  }
+  #advanced-settings-modal {
+    padding: 30px 5px;
+    top: 29% !important;
+    left: 55% !important;
+    margin-left: -150px;
+    margin-top: -130px;
+    width: 314px;
+    height: 465px;
+    /* border: 3px solid #000 !important;  */
+  }
+
 
   #display-controls span input#speed { width: 75% !important; }
   
