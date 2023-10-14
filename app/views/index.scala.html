@@ -57,6 +57,16 @@
         initial bank: <output class="bubble"></output>
         <input type="range" class="range" min="5" max="6000" value="2000" step="5" id="settings-initial-bank" />
       </span>
+      <span id="settings-advanced-settings">
+        <a id="advanced-settings" >advanced settings</a>
+      </span>
+      
+      <br />
+      <br />
+      <input type="button" id="settings-submit" value="Play" />
+    </div>
+    
+    <div id="advanced-settings-modal" class="modal" aria-hidden="true" tabindex="-1" role="dialog" style="display: none;">
       <span id="settings-player-initial-cards" >
         player initial cards:
         <select id="player-first-card">
@@ -127,9 +137,37 @@
           <option value="Ace">A</option>
         </select>
       </span>
+      <span id="settings-betting-strategy" >
+        <!-- betting strategy:
+        <select id="betting-strategy-select">
+          <option value="Steady">Steady</option>
+          <option value="Martingale">Martingale</option>
+          <option value="Oscars">Oscars</option>
+          <option value="PositiveProgression">Positive Progression</option>
+          <option value="NegativeProgression">Negative Progression</option>
+        </select> -->
+        betting strategy: <br />
+        <input type="radio" id="betting-strategy-steady" name="betting-strategy" value="Steady" />
+        <label for="betting-strategy-steady">Steady</label>
+        <br />
+        <input type="radio" id="betting-strategy-martingale" name="betting-strategy" value="Martingale" />
+        <label for="betting-strategy-martingale">Martingale</label>
+        <br />
+        <input type="radio" id="betting-strategy-oscars" name="betting-strategy" value="Oscars" />
+        <label for="betting-strategy-oscars">Oscars</label>
+        <br />
+        <input type="radio" id="betting-strategy-positive-progression" name="betting-strategy" value="PositiveProgression" />
+        <label for="betting-strategy-positive-progression">Positive Progression</label>
+        <br />
+        <input type="radio" id="betting-strategy-negative-progression" name="betting-strategy" value="NegativeProgression" checked="checked" />
+        <label for="betting-strategy-negative-progression">Negative Progression</label>
+      </span>
+      <span id="settings-alternate-betting-strategy" >
+        <input type="checkbox" id="alternate-betting-strategy" checked /> alternate betting strategy
+      </span>
       <br />
-      <br />
-      <input type="button" id="settings-submit" value="Play" />
+      <input type="button" id="advanced-settings-submit" value="OK" />
+
     </div>
 
     <div id="display-controls" >
