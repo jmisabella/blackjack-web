@@ -383,6 +383,7 @@ body.dark-mode {
   color: #cecece;
 }
 
+
 .light-mode #betting-strategy, 
 .light-mode #min-bet-multiplier {
   color: #238323 !important;
@@ -404,9 +405,11 @@ body.dark-mode {
 .dark-mode #display-controls span a:hover { text-decoration: none; color: #fff; }
 
 .light-mode #settings-modal,
-.light-model #advanced-settings-modal {
+.light-mode #advanced-settings-modal {
   border: solid 1px #238323;
   background-color: #6b8364;
+  /* color: #014D43 !important; */
+  color: #003830!important;
 }
 .dark-mode #settings-modal,
 .dark-mode #advanced-settings-modal {
