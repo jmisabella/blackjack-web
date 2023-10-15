@@ -576,15 +576,17 @@ $(document).ready(function() {
     // $body.addClass("modal"); 
     
     // submit new game to server to retrieve game steps to display
-    var dealerHitLimit = $("input[type='radio'][name='settings-dealer-hit-limit']").val();
-    var blackjackPayout = $("input[type='radio'][name='settings-blackjack-payout']").val();
+    var dealerHitLimit = $("input[type='radio'][name='settings-dealer-hit-limit']:checked").val();
+    var blackjackPayout = $("input[type='radio'][name='settings-blackjack-payout']:checked").val();
     var deckCount = $("#settings-deck-count").val();
     var splitLimit = $("#settings-split-limit").val();
-    var allowSurrender = $("input[type='radio'][name='settings-allow-surrender']").val();
-    var hitOnSplitAces = $("input[type='radio'][name='settings-hit-on-split-aces']").val();
-    var resplitOnSplitAces = $("input[type='radio'][name='settings-resplit-on-split-aces']").val();
+    var allowSurrender = $("input[type='radio'][name='settings-allow-surrender']:checked").val();
+    var hitOnSplitAces = $("input[type='radio'][name='settings-hit-on-split-aces']:checked").val();
+    var resplitOnSplitAces = $("input[type='radio'][name='settings-resplit-on-split-aces']:checked").val();
     var initialBank = $("#settings-initial-bank").val();
- 
+    var bettingStrategy = $("input[type='radio'][name='betting-strategy']:checked").val();
+    var alternateBettingStrategy = $("#alternate-betting-strategy").is(':checked');
+
     var playerFirstCard = $("#player-first-card").val();
     var playerSecondCard = $("#player-second-card").val();
     var dealerFirstCard = $("#dealer-first-card").val();
@@ -610,6 +612,8 @@ $(document).ready(function() {
           "hit-on-split-aces": hitOnSplitAces,
           "resplit-on-split-aces": resplitOnSplitAces,
           "initial-bank": initialBank,
+          "initial-betting-strategy": bettingStrategy,
+          "alternate-betting-strategy": alternateBettingStrategy,
           "initial-player-ranks": [playerFirstCard, playerSecondCard], 
           "initial-dealer-ranks": [dealerFirstCard, dealerSecondCard], 
       };
@@ -622,7 +626,9 @@ $(document).ready(function() {
         "allow-surrender": allowSurrender,
         "hit-on-split-aces": hitOnSplitAces,
         "resplit-on-split-aces": resplitOnSplitAces,
-        "initial-bank": initialBank
+        "initial-bank": initialBank,
+        "initial-betting-strategy": bettingStrategy,
+        "alternate-betting-strategy": alternateBettingStrategy,
       };
     }
     let json = {
@@ -633,6 +639,8 @@ $(document).ready(function() {
     
     $('#settings-modal').modal('hide');
     $('#settings-modal').css('display', 'none');
+    $('#advanced-settings-modal').modal('hide');
+    $('#advanced-settings-modal').css('display', 'none');
     $('.modal-backdrop').remove();
 
     $("#loading-modal").css('display', 'block');
@@ -656,11 +664,25 @@ $(document).ready(function() {
     $('#settings-modal').css('display', 'block');
     $('#settings-modal').modal('toggle');
   });
-
+  
+  $("#advanced-settings").click(function (e) {
+    $('#advanced-settings-modal').css('display', 'block');
+    $('#advanced-settings-modal').modal('toggle');
+  });
+  $("#advanced-settings-submit").click(function (e) {
+    $('#advanced-settings-modal').modal('hide');
+    $('#advanced-settings-modal').css('display', 'none');
+  });
   $("#settings-close").click(function (e) {
     $('#settings-modal').modal('hide');
     $('#settings-modal').css('display', 'none');
     $('.modal-backdrop').remove();
+  });
+  
+  $("#advanced-settings-close").click(function (e) {
+    $('#advanced-settings-modal').modal('hide');
+    $('#advanced-settings-modal').css('display', 'none');
+    // $('.modal-backdrop').remove();
   });
 
 });
@@ -1002,7 +1024,7 @@ function step() {
     $("#action").removeClass("green");
     $("#action").removeClass("red");
   }
-  console.info("ACTION: " + actionPhrase);
+  // console.info("ACTION: " + actionPhrase);
   window.clearInterval(stepIntervalEvent); 
   stepIntervalEvent = window.setInterval(step, interval); 
 }
