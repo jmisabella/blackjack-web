@@ -97,6 +97,7 @@
   text-align: left !important; 
   float: left !important;
   font-size: 10px !important;
+  font-weight: bold !important; 
   text-transform: uppercase !important;
   color: #858583!important;
 }
@@ -104,10 +105,10 @@
 
 #bank {
   text-align: right;
-  /* text-align: left; */
-  margin: 50px;
-  /* color: #f5f5ff; */
-  /* color: #dce1df; */
+  /* margin: 50px; */
+  margin: 0 18px 0 0 !important;
+  position: relative;
+  top: -33px !important;
   color: #c0c9c5;
   font-size: 28px;
 }
@@ -378,7 +379,6 @@ body.light-mode {
   color: #cecece;
 }
 body.dark-mode {
-  /* background-color: #222!important; */
   background-color: #353535!important;
   color: #cecece;
 }
@@ -386,11 +386,13 @@ body.dark-mode {
 
 .light-mode #betting-strategy, 
 .light-mode #min-bet-multiplier {
-  color: #238323 !important;
+  /* color: #238323 !important; */
+  color: #30b230!important;
 }
 .dark-mode #betting-strategy, 
 .dark-mode #min-bet-multiplier {
-  color: #858583!important;
+  /* color: #858583!important; */
+  color: #e0e0e0 !important;
 }
 
 .light-mode div#inner-container {
